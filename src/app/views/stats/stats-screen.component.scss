@@ -1,4 +1,5 @@
 @import 'src/assets/styles/variables';
+@import 'src/assets/styles/filter.scss';
 
 :host {
     height: 100%;
@@ -7,7 +8,11 @@
 
     .filter-box {
         .global-filter {
+            display: flex;
+            flex-direction: column;
+            height: calc(100% - (4 * #{$filter-item-padding}) - 24px);
             width: $filter-box-body-width;
+            overflow: auto;
 
             .form-footer {
                 width: calc(#{$filter-box-body-width} - #{$size-medium});

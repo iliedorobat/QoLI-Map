@@ -9,7 +9,7 @@ import {ANALYSIS_TYPE} from '@/app/shared/constants/app.const';
 @Component({
     selector: 'qoli-sidebar',
     templateUrl: './sidebar.component.html',
-    styleUrls: ['../../../assets/styles/filter.scss'],
+    styleUrls: ['./sidebar.component.scss'],
     providers: [FilterService]
 })
 export class SidebarComponent {

@@ -20,10 +20,7 @@ import {StatsScreenService} from '@/app/views/stats/stats-screen.service';
     selector: 'qoli-stats-screen',
     templateUrl: './stats-screen.component.html',
     standalone: true,
-    styleUrls: [
-        '../../../assets/styles/filter.scss',
-        './stats-screen.component.scss'
-    ],
+    styleUrls: ['./stats-screen.component.scss'],
     imports: [
         AggregatedFilterComponent,
         BaseFilterComponent,
