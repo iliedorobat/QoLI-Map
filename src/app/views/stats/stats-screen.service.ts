@@ -1,10 +1,13 @@
 import {Injectable} from '@angular/core';
 import Chart from 'chart.js/auto';
+import {ChartDataset} from 'chart.js/dist/types';
 
 import {BackendService} from '@/app/views/atlas/services/backend.service';
+import {DatasetService} from '@/app/views/atlas/services/dataset.service';
 import {Filter} from '@/app/shared/filter';
 import {LifeIndexMultipleResponses} from '@/app/views/atlas/constants/response.types';
-import {ANALYSIS_TYPE, COUNTRIES} from '@/app/shared/constants/app.const';
+
+import {COUNTRIES} from '@/app/shared/constants/app.const';
 
 @Injectable({
     providedIn: 'root'
@@ -12,16 +15,13 @@ import {ANALYSIS_TYPE, COUNTRIES} from '@/app/shared/constants/app.const';
 export class StatsScreenService {
     constructor(
         private backendService: BackendService,
+        private datasetService: DatasetService,
         protected filter: Filter
     ) {}
 
-    private isAggregateAnalysis = () => {
-        return this.filter.baseFilter.analysisType === ANALYSIS_TYPE.AGGREGATE;
-    }
-
-    private getChartTitle = () => {
+    private getChartTitle = (): string => {
         const {startYear, endYear} = this.filter.baseFilter;
-        const label = this.isAggregateAnalysis()
+        const label =  this.filter.baseFilter.isAggregateAnalysis()
             ? 'QoLI Stats'
             : this.filter.individuallyFilter.selectedIndicator.label;
 
@@ -30,7 +30,7 @@ export class StatsScreenService {
             : `${label} For The Period ${startYear} - ${endYear}`;
     };
 
-    private initDataset = (data: number[] = []) => {
+    private initDataset = (data: number[] = []): ChartDataset => {
         return {
             label: 'QoLI Stats',
             data,
@@ -40,7 +40,7 @@ export class StatsScreenService {
         };
     };
 
-    private updateChartDatasets = (chart: Chart, scores: LifeIndexMultipleResponses) => {
+    private updateChartDatasets = (chart: Chart, scores: LifeIndexMultipleResponses): void => {
         const {startYear, endYear} = this.filter.baseFilter;
         const datasets = [];
 
@@ -55,25 +55,13 @@ export class StatsScreenService {
         chart.update();
     };
 
-    private updateChartLabel = (chart: Chart) => {
+    private updateChartLabel = (chart: Chart): void => {
         const tooltip = chart?.options?.plugins?.tooltip;
-        const isAggregateAnalysis = this.isAggregateAnalysis();
-        const filter = this.filter;
+        const isIndividuallyAnalysis = this.filter.baseFilter.isIndividuallyAnalysis();
 
         if (tooltip?.callbacks) {
-            tooltip.callbacks.label = function(context) {
-                let units = !isAggregateAnalysis
-                    ? filter.individuallyFilter.selectedIndicator.units
-                    : '';
-
-                if (units === 'number') {
-                    // E.g.: "Police-recorded Offences - X"
-                    units = '';
-                } else if (units.toLowerCase().startsWith('scores')) {
-                    // E.g. "Population Trust in X"
-                    units = `(${units})`;
-                }
-
+            tooltip.callbacks.label = (context) => {
+                const units = this.datasetService.getUnits(isIndividuallyAnalysis);
                 return `${context.formattedValue} ${units}`;
             }
         }
@@ -81,7 +69,7 @@ export class StatsScreenService {
         chart.update();
     };
 
-    private updateChartLabels = (chart: Chart, scores: LifeIndexMultipleResponses) => {
+    private updateChartLabels = (chart: Chart, scores: LifeIndexMultipleResponses): void => {
         chart.data.labels = this.filter.baseFilter.countries;
         chart.update();
     };
@@ -96,7 +84,7 @@ export class StatsScreenService {
         chart.update();
     };
 
-    public updateChart = (chart: Chart | undefined, scores: LifeIndexMultipleResponses) => {
+    public updateChart = (chart: Chart | undefined, scores: LifeIndexMultipleResponses): void => {
         if (chart === undefined) {
             return;
         }

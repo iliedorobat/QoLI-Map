@@ -70,7 +70,7 @@ export class PopupService {
         const scoreLabelElement = this.htmlElementsService.createLabelElement('Value');
         const scoreElement = this.htmlElementsService.createValueElement(score);
 
-        const yearLabelElement = this.htmlElementsService.createLabelElement('Year');
+        const yearLabelElement = this.htmlElementsService.createLabelElement('Period');
         const yearElement = this.htmlElementsService.createValueElement(this.filter.baseFilter.startYear);
 
         bodyElement.appendChild(yearLabelElement);

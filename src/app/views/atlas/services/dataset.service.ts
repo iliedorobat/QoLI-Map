@@ -43,10 +43,12 @@ export class DatasetService {
     }
 
     public getScoreStr(geoLand: GeoFeature, response: LifeIndexResponse, precision?: number): string {
+        const isIndividuallyAnalysis = this.filter.baseFilter.isIndividuallyAnalysis();
         const score = this.getScore(geoLand, response);
+        const units: string = this.getUnits(isIndividuallyAnalysis);
 
-        if (this.filter.baseFilter.isIndividuallyAnalysis()) {
-            return `${score.toFixed(2)} (${this.filter.individuallyFilter.getUnits()})`;
+        if (isIndividuallyAnalysis) {
+            return `${score.toFixed(2)} ${units}`;
         }
 
         if (!precision) {
@@ -65,5 +67,21 @@ export class DatasetService {
 
         array.sort(sortMethod)
         return array;
+    }
+
+    public getUnits(isIndividuallyAnalysis: boolean): string {
+        const units = isIndividuallyAnalysis
+            ? this.filter.individuallyFilter.selectedIndicator.units
+            : '';
+
+        if (units === 'number') {
+            // E.g.: "Police-recorded Offences - X"
+            return '';
+        } else if (units.toLowerCase().startsWith('scores')) {
+            // E.g. "Population Trust in X"
+            return `(${units})`;
+        }
+
+        return units;
     }
 }

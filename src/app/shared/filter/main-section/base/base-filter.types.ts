@@ -21,6 +21,7 @@ export interface IBaseFilter {
     initForm(controls: {[key: string]: FormControl}): void;
     isDisabled(form: FormGroup): boolean;
     isEmpty(form: FormGroup): boolean;
+    isAggregateAnalysis(): boolean;
     isIndividuallyAnalysis(): boolean;
     reset(form: FormGroup): void;
     save(form: FormGroup): void;
@@ -46,6 +47,10 @@ export class BaseFilter implements IBaseFilter {
 
     isEmpty(form: FormGroup): boolean {
         return this.hasAnalysisType(form) && this.hasCountries(form);
+    }
+
+    isAggregateAnalysis = () => {
+        return this.analysisType === ANALYSIS_TYPE.AGGREGATE;
     }
 
     isIndividuallyAnalysis(): boolean {
