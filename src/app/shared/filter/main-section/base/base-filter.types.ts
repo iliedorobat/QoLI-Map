@@ -76,6 +76,12 @@ export class BaseFilter implements IBaseFilter {
     reset(form: FormGroup): void {
         this.resetForm(form);
         this.selectedCountries = this.initSelectedCountries();
+        this.updatePeriodControls(form);
+    }
+
+    updatePeriodControls(form: FormGroup): void {
+        form.get('startYear')?.updateValueAndValidity();
+        form.get('endYear')?.updateValueAndValidity();
     }
 
     private hasAnalysisType(form: FormGroup): boolean {

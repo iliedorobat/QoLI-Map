@@ -33,7 +33,8 @@ export class Filter implements IFilter {
     ) {}
 
     isDisabled(): boolean {
-        return this.aggregatedFilter.isDisabled(this.form)
+        return this.form.invalid
+            || this.aggregatedFilter.isDisabled(this.form)
             || this.baseFilter.isDisabled(this.form)
             || this.individuallyFilter.isDisabled(this.form);
     }

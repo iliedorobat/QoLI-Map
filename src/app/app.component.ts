@@ -61,9 +61,9 @@ export class AppComponent {
     onOpenStats(event: Event, buttonId: string) {
         this.onActiveButtonChange(buttonId);
         const modalRef = this.modalService.open(StatsScreenComponent, {fullscreen: true});
-        modalRef.componentInstance.onActiveButtonResets = this.onActiveButtonReset; // TODO: remove
+        modalRef.componentInstance.onActiveButtonResets = this.onActiveButtonResets;
         modalRef.hidden.subscribe(value => {
-            this.onActiveButtonReset();
+            this.onActiveButtonResets();
         });
     }
 
@@ -75,10 +75,10 @@ export class AppComponent {
 
         const offcanvasRef = this.offcanvasService.open(SidebarComponent, {panelClass: 'filter-box'});
         offcanvasRef.componentInstance.name = 'Filter';
-        offcanvasRef.componentInstance.onActiveButtonResets = this.onActiveButtonReset;
+        offcanvasRef.componentInstance.onActiveButtonResets = this.onActiveButtonResets;
         offcanvasRef.componentInstance.onToggleScore = this.onToggleScore;
         offcanvasRef.hidden.subscribe(value => {
-            this.onActiveButtonReset();
+            this.onActiveButtonResets();
         });
     }
 
@@ -86,7 +86,7 @@ export class AppComponent {
         this.activeMenuItemId = itemId;
     }
 
-    onActiveButtonReset(): void {
+    onActiveButtonResets(): void {
         this.activeMenuItemId = DEFAULT_ACTIVE_MENU_ITEM_ID;
     }
 

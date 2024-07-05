@@ -1,5 +1,5 @@
 import {CommonModule} from '@angular/common';
-import {Component, Input} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatInputModule} from '@angular/material/input';
@@ -28,7 +28,7 @@ import {
         ReactiveFormsModule
     ]
 })
-export class BaseFilterComponent {
+export class BaseFilterComponent implements OnInit {
     constructor(
         protected filter: Filter
     ) {}
@@ -41,20 +41,31 @@ export class BaseFilterComponent {
     protected readonly AVAILABLE_INTERVAL = AVAILABLE_INTERVAL;
     protected readonly EU28_MEMBER_CODES = EU28_MEMBER_CODES;
 
+    ngOnInit(): void {
+        setTimeout(() => {
+            if (!this.isAoristicAnalysis) {
+                const startYear: number = this.filter.form.get('startYear')?.value;
+                this.filter.form.get('endYear')?.setValue(startYear);
+                this.filter.baseFilter.updatePeriodControls(this.filter.form);
+            }
+        });
+    }
+
     onCountryChanges(event: MatSelectChange): void {
         this.filter.baseFilter.selectedCountries = event.value.filter((code: string) => code !== this.ALL_COUNTRIES_NAME);
         this.filter.form.get('countries')?.setValue(this.filter.baseFilter.selectedCountries);
     }
 
     onEndYearChanges(event: MatSelectChange): void {
-        this.filter.form.controls['startYear'].updateValueAndValidity();
+        this.filter.baseFilter.updatePeriodControls(this.filter.form);
     }
 
     onStartYearChanges(event: MatSelectChange): void {
         if (!this.isAoristicAnalysis) {
+            this.filter.form.get('startYear')?.setValue(event.value);
             this.filter.form.get('endYear')?.setValue(event.value);
         }
-        this.filter.form.controls['endYear'].updateValueAndValidity();
+        this.filter.baseFilter.updatePeriodControls(this.filter.form);
     }
 
     isCountryChecked(countryCode: string): boolean {

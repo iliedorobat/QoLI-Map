@@ -52,11 +52,13 @@ export class StatsScreenComponent implements OnInit {
             .subscribe(scores => {
                 this.statsService.updateChart(this.chart, scores);
             });
+        this.filter.baseFilter.reset(this.filter.form);
     }
 
     @Input() onActiveButtonResets: Function = noop;
 
     onViewClose = () => {
+        this.filter.reset();
         this.activeModal.close();
         this.onActiveButtonResets();
     };
