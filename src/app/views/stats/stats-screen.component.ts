@@ -11,10 +11,11 @@ import {
     IndividuallyFilterComponent,
     Filter
 } from '@/app/shared/filter';
-import {ANALYSIS_TYPE} from '@/app/shared/constants/app.const';
 import {BackendService} from '@/app/views/atlas/services/backend.service';
 import {FilterService} from '@/app/shared/filter/filter.service';
 import {StatsScreenService} from '@/app/views/stats/stats-screen.service';
+
+import {ANALYSIS_TYPE} from '@/app/shared/constants/app.const';
 
 @Component({
     selector: 'qoli-stats-screen',
