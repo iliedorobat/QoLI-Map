@@ -4,12 +4,12 @@
 </div>
 
 <div class="modal-body d-flex gap-4">
-    <div class="filter-box">
+    <div class="sidebar">
         <qoli-filter [isAoristicAnalysis]="true"></qoli-filter>
     </div>
 
     <div class="stats-content">
-        <div class="chart-container">
+        <div id="chart-container">
             <canvas id="stats" >{{ chart }}</canvas>
         </div>
     </div>

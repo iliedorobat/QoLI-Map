@@ -73,7 +73,7 @@ export class AppComponent {
 
         this.onActiveButtonChange(itemId);
 
-        const offcanvasRef = this.offcanvasService.open(SidebarComponent, {panelClass: 'filter-box'});
+        const offcanvasRef = this.offcanvasService.open(SidebarComponent, {panelClass: 'sidebar'});
         offcanvasRef.componentInstance.name = 'Filter';
         offcanvasRef.componentInstance.onActiveButtonResets = this.onActiveButtonResets;
         offcanvasRef.componentInstance.onToggleScore = this.onToggleScore;
