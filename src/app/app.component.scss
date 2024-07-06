@@ -16,11 +16,13 @@ $overlayContainerZIndex: 1070;
             box-shadow: 0 1px $size-small 0 rgba(0, 0, 255, .2);
             z-index: $mapZIndex + 1;
             height: $atlas-header-height;
+            overflow: auto;
 
             button {
                 height: 100%;
                 display: flex;
                 align-items: center;
+                padding: 0;
 
                 min-width: 150px;
                 color: #292929;
@@ -32,6 +34,29 @@ $overlayContainerZIndex: 1070;
                     font-family: cursive;
                     font-weight: 700;
                     cursor: initial;
+                    justify-content: center;
+                }
+
+                &#checkbox-button {
+                    > mat-checkbox {
+                        display: flex;
+                        height: 100%;
+
+                        > .mdc-form-field > .mdc-checkbox {
+                            padding: 0;
+    
+                            > input[type="checkbox"],
+                            > .mat-mdc-checkbox-touch-target {
+                                width: 100%;
+                                height: 100%;
+                            }
+    
+                            > .mdc-checkbox__background {
+                                top: 0;
+                                left: 0;
+                            }
+                        }
+                    }
                 }
 
                 &:not(#logo-button) {
@@ -72,7 +97,6 @@ $overlayContainerZIndex: 1070;
                     }
 
                     &:hover {
-                        padding: 0;
                         text-indent: 12px;
 
                         &:before {

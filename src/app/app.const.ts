@@ -16,7 +16,7 @@ const MENU_ITEMS = [
     },
     {
         id: MENU_ITEMS_IDS.LOGO,
-        label: 'Quality of Life Index Map',
+        label: 'Quality of Life',
         order: 0
     },
     {
