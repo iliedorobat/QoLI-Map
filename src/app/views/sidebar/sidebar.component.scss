@@ -1,12 +1,13 @@
 @import 'src/assets/styles/variables.scss';
-@import 'src/assets/styles/filter.scss';
 
 :host {
     display: flex;
     flex-direction: column;
     height: calc(100% - (4 * #{$filter-item-padding}) - 24px);
 
-    .global-filter {
-        height: 100%;
+    ::ng-deep {
+        .global-filter {
+            height: 100%;
+        }
     }
 }

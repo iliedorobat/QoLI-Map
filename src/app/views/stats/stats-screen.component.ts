@@ -1,38 +1,19 @@
-import {CommonModule} from '@angular/common';
 import {Component, Input, OnInit} from '@angular/core';
-import {NgbAccordion, NgbActiveModal, NgbPanel, NgbPanelContent, NgbPanelTitle} from '@ng-bootstrap/ng-bootstrap';
-import {ReactiveFormsModule} from '@angular/forms';
+import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 import Chart from 'chart.js/auto';
 import noop from 'lodash-es/noop';
 
-import {
-    AggregatedFilterComponent,
-    BaseFilterComponent,
-    IndividuallyFilterComponent,
-    Filter
-} from '@/app/shared/filter';
 import {BackendService} from '@/app/views/atlas/services/backend.service';
-import {FilterService} from '@/app/shared/filter/filter.service';
+import {Filter} from '@/app/shared/filter';
+import {FilterComponent} from '@/app/shared/filter/filter.component';
 import {StatsScreenService} from '@/app/views/stats/stats-screen.service';
-
-import {ANALYSIS_TYPE} from '@/app/shared/constants/app.const';
 
 @Component({
     selector: 'qoli-stats-screen',
     templateUrl: './stats-screen.component.html',
     standalone: true,
     styleUrls: ['./stats-screen.component.scss'],
-    imports: [
-        AggregatedFilterComponent,
-        BaseFilterComponent,
-        CommonModule,
-        IndividuallyFilterComponent,
-        NgbAccordion,
-        NgbPanel,
-        NgbPanelContent,
-        NgbPanelTitle,
-        ReactiveFormsModule
-    ],
+    imports: [FilterComponent],
     providers: [StatsScreenService]
 })
 export class StatsScreenComponent implements OnInit {
@@ -40,11 +21,9 @@ export class StatsScreenComponent implements OnInit {
         private activeModal: NgbActiveModal,
         private backendService: BackendService,
         protected filter: Filter,
-        protected filterService: FilterService,
         private statsService: StatsScreenService
     ) {}
 
-    protected readonly ANALYSIS_TYPE = ANALYSIS_TYPE;
     protected chart: Chart | undefined;
 
     ngOnInit(): void {
@@ -59,7 +38,6 @@ export class StatsScreenComponent implements OnInit {
     @Input() onActiveButtonResets: Function = noop;
 
     onViewClose = () => {
-        this.filter.reset();
         this.activeModal.close();
         this.onActiveButtonResets();
     };

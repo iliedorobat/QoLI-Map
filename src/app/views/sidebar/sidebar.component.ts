@@ -2,26 +2,19 @@ import {Component, Input} from '@angular/core';
 import {NgbActiveOffcanvas} from '@ng-bootstrap/ng-bootstrap';
 import noop from 'lodash-es/noop';
 
-import {Filter} from '@/app/shared/filter';
-import {FilterService} from '@/app/shared/filter/filter.service';
-import {ANALYSIS_TYPE} from '@/app/shared/constants/app.const';
+import {FilterComponent} from '@/app/shared/filter/filter.component';
 
 @Component({
     selector: 'qoli-sidebar',
+    standalone: true,
     templateUrl: './sidebar.component.html',
     styleUrls: ['./sidebar.component.scss'],
-    providers: [FilterService]
+    imports: [FilterComponent]
 })
 export class SidebarComponent {
     constructor(
-        public activeOffcanvas: NgbActiveOffcanvas,
-        protected filter: Filter,
-        protected filterService: FilterService
-    ) {
-        this.filterService.onReset();
-    }
-
-    protected readonly ANALYSIS_TYPE = ANALYSIS_TYPE;
+        public activeOffcanvas: NgbActiveOffcanvas
+    ) {}
 
     @Input() onActiveButtonResets: Function = noop;
     @Input() onToggleScore: Function = noop;

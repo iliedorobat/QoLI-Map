@@ -22,7 +22,6 @@ import {
 } from '@/app/shared/filter';
 import {AtlasService} from './views/atlas/services/atlas.service';
 import {BackendService} from './views/atlas/services/backend.service';
-import {SidebarComponent} from '@/app/views/sidebar/sidebar.component';
 
 // AoT requires an exported function for factories: https://github.com/ngx-translate/core
 export function HttpLoaderFactory(http: HttpClient) {
@@ -32,31 +31,30 @@ export function HttpLoaderFactory(http: HttpClient) {
 @NgModule({
     declarations: [
         AppComponent,
-        AtlasComponent,
-        SidebarComponent
+        AtlasComponent
     ],
-    imports: [
-        HttpClientModule,
-        TranslateModule.forRoot({
-            loader: {
-                provide: TranslateLoader,
-                useFactory: HttpLoaderFactory,
-                deps: [HttpClient]
-            }
-        }),
+  imports: [
+    HttpClientModule,
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient]
+      }
+    }),
 
-        AppRoutingModule,
-        BrowserModule,
-        BrowserAnimationsModule,
-        LeafletModule,
-        MatCheckboxModule,
-        NgbModule,
-        ReactiveFormsModule,
+    AppRoutingModule,
+    BrowserModule,
+    BrowserAnimationsModule,
+    LeafletModule,
+    MatCheckboxModule,
+    NgbModule,
+    ReactiveFormsModule,
 
-        AggregatedFilterComponent,
-        BaseFilterComponent,
-        IndividuallyFilterComponent
-    ],
+    AggregatedFilterComponent,
+    BaseFilterComponent,
+    IndividuallyFilterComponent
+  ],
     providers: [
         AggregatedFilter,
         BaseFilter,

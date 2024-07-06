@@ -1,5 +1,4 @@
 @import 'src/assets/styles/variables';
-@import 'src/assets/styles/filter.scss';
 
 :host {
     height: 100%;
@@ -7,20 +6,22 @@
     flex-direction: column;
 
     .filter-box {
-        .global-filter {
-            display: flex;
-            flex-direction: column;
-            height: calc(100% - (4 * #{$filter-item-padding}) - 24px);
-            width: $filter-box-body-width;
-            overflow: auto;
+        ::ng-deep {
+            .global-filter {
+                display: flex;
+                flex-direction: column;
+                height: calc(100% - (4 * #{$filter-item-padding}) - 24px);
+                width: $filter-box-body-width;
+                overflow: auto;
 
-            .form-footer {
-                width: calc(#{$filter-box-body-width} - #{$size-medium});
+                > form > .form-footer {
+                    width: $filter-box-body-width !important;
+                }
             }
         }
     }
 
-    .content {
+    .stats-content {
         display: flex;
         flex-direction: column;
         width: calc(100% - #{$filter-box-body-width} - 2 * #{$size-medium});
