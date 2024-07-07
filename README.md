@@ -31,3 +31,5 @@ Countries borders: [EuroStat Geo Data](https://ec.europa.eu/eurostat/web/gisco/g
 
 ## Data Visualisation
 <img width="1639" alt="QoLI Map" src="https://github.com/iliedorobat/QoLI-Map/assets/40547052/55ff61d8-4bcb-43c8-aafe-5e22a1b022fa">
+
+<img width="1792" alt="Statistics" src="https://github.com/iliedorobat/QoLI-Map/assets/40547052/118a3089-e892-4bac-aab3-49ab5018d0eb">
