@@ -10,7 +10,7 @@
             .global-filter {
                 display: flex;
                 flex-direction: column;
-                height: calc(100% - (4 * #{$filter-item-padding}) - 24px);
+                height: calc(100% - (4 * #{$filter-item-padding}));
                 width: $filter-box-body-width;
                 overflow: auto;
 
@@ -46,6 +46,7 @@
                         width: 100%;
 
                         > form > .form-footer {
+                            bottom: $size-small;
                             height: fit-content;
                             width: 100% !important;
                         }

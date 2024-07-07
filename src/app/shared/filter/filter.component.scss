@@ -57,8 +57,9 @@
 
         > .form-footer {
             position: absolute;
-            top: calc(100% - (4 * #{$filter-item-padding}));
-            width: calc(100% - (3 * #{$filter-item-padding}));
+            top: auto;
+            bottom: $size-large;
+            width: calc(100% - (2 * #{$filter-item-padding}));
             display: flex;
             gap: $size-medium;
 

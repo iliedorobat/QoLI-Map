@@ -1,13 +1,9 @@
 @import 'src/assets/styles/variables.scss';
 
-:host {
-    display: flex;
-    flex-direction: column;
-    height: calc(100% - (4 * #{$filter-item-padding}) - 24px);
-
-    ::ng-deep {
-        .global-filter {
-            height: 100%;
-        }
+.sidebar {
+    :host {
+        display: flex;
+        flex-direction: column;
+        height: calc(100% - (5 * #{$filter-item-padding}));
     }
 }
