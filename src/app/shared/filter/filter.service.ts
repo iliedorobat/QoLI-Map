@@ -13,6 +13,11 @@ export class FilterService {
         private filter: Filter
     ) {}
 
+    onDirectionReset(event: Event): void {
+        event.stopPropagation();
+        this.filter.statsFilter.reset(this.filter.form);
+    }
+
     onFilterApply(onToggleScore?: Function): void {
         this.filter.save();
         this.backendService.lifeIndexSubscription(this.filter);

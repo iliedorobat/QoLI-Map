@@ -6,3 +6,5 @@ export * from '@/app/shared/filter/main-section/aggregated/aggregated-filter.com
 export * from '@/app/shared/filter/main-section/aggregated/aggregated-filter.types';
 export * from '@/app/shared/filter/main-section/individually/individually-filter.component';
 export * from '@/app/shared/filter/main-section/individually/individually-filter.types';
+export * from '@/app/shared/filter/stats-options/stats-filter.component';
+export * from '@/app/shared/filter/stats-options/stats-filter.types';

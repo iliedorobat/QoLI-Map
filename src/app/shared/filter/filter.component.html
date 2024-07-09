@@ -4,6 +4,20 @@
     </button>
 
     <form class="needs-validation" [formGroup]="filter.form">
+        <ngb-accordion *ngIf="isAoristicAnalysis" activeIds="sidebar-stats-section">
+            <ngb-panel id="sidebar-stats-section">
+                <ng-template ngbPanelTitle>
+                    <div class="title">Chart Options</div>
+                    <button class="btn btn-link btn-reset-section" (click)="filterService.onDirectionReset($event)">
+                        Reset
+                    </button>
+                </ng-template>
+                <ng-template ngbPanelContent>
+                    <qoli-stats-filter></qoli-stats-filter>
+                </ng-template>
+            </ngb-panel>
+        </ngb-accordion>
+
         <ngb-accordion activeIds="sidebar-main-section">
             <ngb-panel id="sidebar-main-section">
                 <ng-template ngbPanelTitle>

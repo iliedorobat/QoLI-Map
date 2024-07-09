@@ -9,6 +9,7 @@ import {BaseFilterComponent} from '@/app/shared/filter/main-section/base/base-fi
 import {Filter} from '@/app/shared/filter/filter.types';
 import {FilterService} from '@/app/shared/filter/filter.service';
 import {IndividuallyFilterComponent} from '@/app/shared/filter/main-section/individually/individually-filter.component';
+import {StatsFilterComponent} from '@/app/shared/filter/stats-options/stats-filter.component';
 
 import {ANALYSIS_TYPE} from '@/app/shared/constants/app.const';
 
@@ -26,7 +27,8 @@ import {ANALYSIS_TYPE} from '@/app/shared/constants/app.const';
         NgbPanel,
         NgbPanelContent,
         NgbPanelTitle,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        StatsFilterComponent
     ],
     providers: [FilterService]
 })

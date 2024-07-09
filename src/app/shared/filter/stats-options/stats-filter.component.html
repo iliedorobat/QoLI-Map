@@ -1,0 +1,9 @@
+<mat-form-field [formGroup]="filter.form">
+    <mat-label>Chart direction</mat-label>
+
+    <mat-select formControlName="chartDirection">
+        <mat-option *ngFor="let direction of CHART_DIRECTION" [value]="direction">
+            {{ CHART_DIRECTION_LABELS[direction] }}
+        </mat-option>
+    </mat-select>
+</mat-form-field>
