@@ -1,5 +1,5 @@
 <mat-form-field [formGroup]="filter.form">
-    <mat-label>Analysis type</mat-label>
+    <mat-label>Analysis Type</mat-label>
     <mat-select formControlName="analysisType">
         <mat-option *ngFor="let analysisType of ANALYSIS_TYPES" [value]="analysisType">
             {{ ANALYSIS_TYPE_LABELS[analysisType] }}

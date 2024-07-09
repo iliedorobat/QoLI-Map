@@ -9,8 +9,14 @@
     </div>
 
     <div class="stats-content">
-        <div id="chart-container">
-            <canvas id="stats" >{{ chart }}</canvas>
+        <div [ngClass]="{'chart-container': true, 'horizontal': isHorizontal, 'vertical': !isHorizontal}">
+            <canvas
+                baseChart
+                id="stats-chart"
+                [data]="chartData"
+                [options]="chartOptions"
+                [type]="'bar'"
+            ></canvas>
         </div>
     </div>
 </div>

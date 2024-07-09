@@ -1,23 +1,25 @@
-import {AfterViewInit, Component, Input, OnInit} from '@angular/core';
+import {BaseChartDirective, NgChartsModule} from 'ng2-charts';
+import {Component, Input, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
-import Chart from 'chart.js/auto';
+import {NgClass, NgIf} from '@angular/common';
 import noop from 'lodash-es/noop';
 
 import {BackendService} from '@/app/views/atlas/services/backend.service';
 import {Filter} from '@/app/shared/filter';
 import {FilterComponent} from '@/app/shared/filter/filter.component';
-import {LifeIndexMultipleResponses} from '@/app/views/atlas/constants/response.types';
 import {StatsScreenService} from '@/app/views/stats/stats-screen.service';
+
+import {CHART_DIRECTION} from '@/app/shared/constants/app.const';
 
 @Component({
     selector: 'qoli-stats-screen',
     templateUrl: './stats-screen.component.html',
     standalone: true,
     styleUrls: ['./stats-screen.component.scss'],
-    imports: [FilterComponent],
+    imports: [FilterComponent, NgClass, NgChartsModule, NgIf],
     providers: [StatsScreenService]
 })
-export class StatsScreenComponent implements OnInit, AfterViewInit {
+export class StatsScreenComponent implements OnInit, OnDestroy {
     constructor(
         private activeModal: NgbActiveModal,
         private backendService: BackendService,
@@ -25,34 +27,30 @@ export class StatsScreenComponent implements OnInit, AfterViewInit {
         private statsService: StatsScreenService
     ) {}
 
-    protected chart: Chart | undefined;
-    private scores: LifeIndexMultipleResponses = {} as LifeIndexMultipleResponses;
-    private indexAxis: string = 'x';
+    @ViewChild(BaseChartDirective)
+    public chart: BaseChartDirective | undefined;
+    protected chartData = this.statsService.generateChartData();
+    protected chartOptions = this.statsService.generateChartOptions();
+    protected isHorizontal = false;
 
     ngOnInit(): void {
-        this.chart = this.statsService.initChart('stats');
+        this.filter.baseFilter.reset(this.filter.form);
         this.backendService.lifeIndex$
             .subscribe(scores => {
-                this.scores = scores;
-                this.statsService.updateChart(this.chart, scores);
+                this.isHorizontal = this.filter.form.get('chartDirection')?.value === CHART_DIRECTION.HORIZONTAL;
+                this.chartData = this.statsService.generateChartData(scores);
+                this.chartOptions = this.statsService.generateChartOptions(this.isHorizontal);
+
+                // Workaround to update the indexAxis
+                if (this.chart?.options) {
+                    this.chart.options.indexAxis = this.isHorizontal ? 'y' : 'x';
+                    this.chart.render();
+                }
             });
-        this.filter.baseFilter.reset(this.filter.form);
     }
 
-    ngAfterViewInit(): void {
-        const resizeObserver = new ResizeObserver(entries => {
-            const width = entries[0].contentRect.width;
-            const newIndexAxis = width > 600 ? 'x' : 'y';
-
-            // Change the bar orientation
-            if (this.indexAxis !== newIndexAxis) {
-                this.indexAxis = newIndexAxis;
-                const horizontal = width <= 600;
-                this.chart = this.statsService.regenerateChart(this.chart, this.scores, horizontal);
-            }
-        });
-        const body = document.getElementsByTagName('body')[0] as Element;
-        resizeObserver.observe(body);
+    ngOnDestroy(): void {
+        this.chart?.ngOnDestroy();
     }
 
     @Input() onActiveButtonResets: Function = noop;
