@@ -5,11 +5,9 @@ import {NgClass, NgIf} from '@angular/common';
 import noop from 'lodash-es/noop';
 
 import {BackendService} from '@/app/views/atlas/services/backend.service';
+import {ChartService} from '@/app/shared/charts/chart.service';
 import {Filter} from '@/app/shared/filter';
 import {FilterComponent} from '@/app/shared/filter/filter.component';
-import {StatsScreenService} from '@/app/views/stats/stats-screen.service';
-
-import {CHART_DIRECTION} from '@/app/shared/constants/app.const';
 
 @Component({
     selector: 'qoli-stats-screen',
@@ -17,29 +15,31 @@ import {CHART_DIRECTION} from '@/app/shared/constants/app.const';
     standalone: true,
     styleUrls: ['./stats-screen.component.scss'],
     imports: [FilterComponent, NgClass, NgChartsModule, NgIf],
-    providers: [StatsScreenService]
+    providers: [ChartService]
 })
 export class StatsScreenComponent implements OnInit, OnDestroy {
     constructor(
         private activeModal: NgbActiveModal,
         private backendService: BackendService,
-        protected filter: Filter,
-        private statsService: StatsScreenService
+        private chartService: ChartService,
+        protected filter: Filter
     ) {}
 
     @ViewChild(BaseChartDirective)
     public chart: BaseChartDirective | undefined;
-    protected chartData = this.statsService.generateChartData();
-    protected chartOptions = this.statsService.generateChartOptions();
+    protected chartType = this.filter.statsFilter.selectedType;
+    protected chartData = this.chartService.generateChartData(this.chartType);
+    protected chartOptions = this.chartService.generateChartOptions(this.chartType);
     protected isHorizontal = false;
 
     ngOnInit(): void {
         this.filter.baseFilter.reset(this.filter.form);
         this.backendService.lifeIndex$
             .subscribe(scores => {
-                this.isHorizontal = this.filter.form.get('chartDirection')?.value === CHART_DIRECTION.HORIZONTAL;
-                this.chartData = this.statsService.generateChartData(scores);
-                this.chartOptions = this.statsService.generateChartOptions(this.isHorizontal);
+                this.chartType = this.filter.form.get('chartType')?.value
+                this.chartData = this.chartService.generateChartData(this.chartType, scores);
+                this.chartOptions = this.chartService.generateChartOptions(this.chartType);
+                this.isHorizontal = this.chartService.isHorizontal(this.chartType);
 
                 // Workaround to update the indexAxis
                 if (this.chart?.options) {

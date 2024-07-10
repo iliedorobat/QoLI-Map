@@ -38,16 +38,6 @@ const ANALYSIS_TYPE_LABELS = {
     [ANALYSIS_TYPE.INDIVIDUALLY]: 'Analysis by indicators'
 };
 
-enum CHART_DIRECTION {
-    HORIZONTAL = 'horizontal',
-    VERTICAL = 'vertical'
-}
-
-const CHART_DIRECTION_LABELS = {
-    [CHART_DIRECTION.HORIZONTAL]: 'Horizontal',
-    [CHART_DIRECTION.VERTICAL]: 'Vertical'
-};
-
 const DEFAULT_ANALYSIS_TYPE = ANALYSIS_TYPE.AGGREGATE;
 
 const EU28_MEMBERS: {[index: string]: string} = {
@@ -123,8 +113,6 @@ export {
     ANALYSIS_TYPE,
     ANALYSIS_TYPE_LABELS,
     AVAILABLE_INTERVAL,
-    CHART_DIRECTION,
-    CHART_DIRECTION_LABELS,
     COPYRIGHT,
     COUNTRIES,
     DEFAULT_ANALYSIS_TYPE,
