@@ -27,6 +27,8 @@ export class AtlasService {
         private filter: Filter
     ) {}
 
+    public GRADES = [4, 8, 12, 16, 19, 22, 25, 100];
+
     public onFilterControlAdd(map: Map): void {
         const CustomControl = Control.extend({
             onAdd(map: Map) {
@@ -34,10 +36,26 @@ export class AtlasService {
             },
             onRemove(map: Map) {}
         });
-        const custom = new CustomControl({
+        const filterControl = new CustomControl({
             position: 'topleft'
         });
-        map.addControl(custom);
+        map.addControl(filterControl);
+    }
+
+    public onLegendAdd(map: Map): void {
+        const CustomLegend = Control.extend({
+            onAdd(map: Map) {
+                console.log('legend added');
+                return DomUtil.get('legend');
+            },
+            onRemove(map: Map) {
+                console.log('legend removed');
+            }
+        });
+        const legend = new CustomLegend({
+            position: 'bottomleft'
+        });
+        map.addControl(legend);
     }
 
     public onToggleTooltip(layers: Array<IAtlasLayer>, response: LifeIndexResponse, showScore: boolean): void {
@@ -56,8 +74,8 @@ export class AtlasService {
         const geoJsonObject = geoLand.geometry;
         const options = {
             style: () => ({
-                color: this.getColor(response, score, countryCode),
-                fillColor: this.getColor(response, score, countryCode),
+                color: this.getLayerColor(response, score, countryCode),
+                fillColor: this.getLayerColor(response, score, countryCode),
                 fillOpacity: 0.6,
                 opacity: 0.8,
                 weight: 3
@@ -73,7 +91,7 @@ export class AtlasService {
         } as IAtlasLayer;
     }
 
-    private getColor(response: LifeIndexResponse, score: number, countryCode: string): string {
+    private getLayerColor(response: LifeIndexResponse, score: number, countryCode: string): string {
         const isNegativeState = this.filter.baseFilter.isIndividuallyAnalysis()
             && this.filter.individuallyFilter.isNegativeState()
         const sortedResponse = isNegativeState
@@ -82,15 +100,19 @@ export class AtlasService {
         const rank = sortedResponse.findIndex(item => item[0] === countryCode) + 1;
         const isExcluded = score === this.datasetService.EXCLUDED_COUNTRY_SCORE;
 
+        return this.getColor(rank, isExcluded);
+    }
+
+    public getColor(rank: number, isExcluded?: boolean): string {
         switch (true) {
             case isExcluded: return '#838996';
-            case rank <= 3: return '#001146';
-            case rank <= 9: return '#00116e';
-            case rank <= 15: return '#0011aa';
-            case rank <= 18: return '#3753f2';
-            case rank <= 21: return '#809fff';
-            case rank <= 24: return '#fc7272';
-            case rank <= 26: return '#fc4949';
+            case rank <= 4: return '#001146';
+            case rank <= 8: return '#0011aa';
+            case rank <= 12: return '#3753f2';
+            case rank <= 16: return '#809fff';
+            case rank <= 19: return '#fca9a9';
+            case rank <= 22: return '#fc7272';
+            case rank <= 25: return '#fc4949';
             default: return '#e60000';
         }
     }

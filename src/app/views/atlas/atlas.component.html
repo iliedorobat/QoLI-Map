@@ -12,3 +12,20 @@
         <i class="bi bi-arrow-right-short"></i>
     </a>
 </div>
+
+<div class="info" id="legend">
+    <div class="legend-group">
+        <div>Best Score</div>
+        <div class="grades">
+            <i *ngFor="let grade of atlasService.GRADES" [style]="{background: atlasService.getColor(grade)}"></i>
+        </div>
+        <div>Worst Score</div>
+    </div>
+
+<!--    <div class="legend-group">-->
+<!--        <div>Ignored</div>-->
+<!--        <div class="grades">-->
+<!--            <i [style]="{background: '#838996'}"></i>-->
+<!--        </div>-->
+<!--    </div>-->
+</div>

@@ -15,7 +15,7 @@ import {BASE_LAYERS, LAYERS, MAP_OPTIONS} from './constants/atlas.const';
 })
 export class AtlasComponent implements OnInit, OnChanges {
     constructor(
-        private atlasService: AtlasService,
+        protected atlasService: AtlasService,
         private backendService: BackendService,
         private filter: Filter,
     ) {}
@@ -60,6 +60,7 @@ export class AtlasComponent implements OnInit, OnChanges {
     onMapReady(map: Map): void {
         this.map = map;
         this.atlasService.onFilterControlAdd(map);
+        this.atlasService.onLegendAdd(map);
     }
 
     onOpenSidebar(event: Event): void {
