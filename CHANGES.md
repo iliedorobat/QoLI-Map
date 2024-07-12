@@ -4,9 +4,11 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ---
 
 # 2.1.0
-- Added aoristic analysis view
+- Added comprehensive analysis view
 - Added individually statistics selector
 - Connected query APIs with [QoLI-Framework Service](https://github.com/iliedorobat/QoLI-Framework/tree/master/src/ro/webdata/qoli/server)
+- Added layer info control
+- Removed tooltip
 
 # 2.0.0
 - Added years selector
