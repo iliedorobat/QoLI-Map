@@ -3,6 +3,7 @@ import get from 'lodash-es/get';
 
 import {BackendService} from '@/app/views/atlas/services/backend.service';
 import {Filter} from '@/app/shared/filter/index';
+import {SummaryControlService} from '@/app/views/atlas/services/summary-control.service';
 
 @Injectable({
     providedIn: 'root'
@@ -10,7 +11,8 @@ import {Filter} from '@/app/shared/filter/index';
 export class FilterService {
     constructor(
         private backendService: BackendService,
-        private filter: Filter
+        private filter: Filter,
+        private summaryControlService: SummaryControlService
     ) {}
 
     onDirectionReset(event: Event): void {
@@ -21,6 +23,7 @@ export class FilterService {
     onFilterApply(onToggleScore?: Function): void {
         this.filter.save();
         this.backendService.lifeIndexSubscription(this.filter);
+        this.summaryControlService.updateContent('land-summary');
         onToggleScore && onToggleScore(true);
     }
 

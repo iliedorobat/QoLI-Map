@@ -114,9 +114,11 @@ $overlayContainerZIndex: 1070;
             z-index: $overlayContainerZIndex;
         }
 
-        .leaflet-popup {
+        .leaflet-popup,
+        .leaflet-control {
             &.land-summary {
-                .leaflet-popup-content > .content {
+                .leaflet-popup-content > .content,
+                > .content {
                     display: grid;
                     gap: $size-small;
 

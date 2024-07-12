@@ -1,8 +1,8 @@
 import {Injectable} from '@angular/core';
-import {PopupOptions} from 'leaflet';
+import {DomUtil, PopupOptions} from 'leaflet';
 
+import {ChartService} from '@/app/shared/charts/chart.service';
 import {DatasetService} from './dataset.service';
-import {Filter} from '@/app/shared/filter';
 import {GeoFeature} from '@/app/views/atlas/constants/geo.types';
 import {HTMLElementParams, HtmlElementsService} from './html-elements.service';
 import {LifeIndexResponse} from '@/app/views/atlas/constants/response.types';
@@ -12,69 +12,93 @@ import {SORT_ORDER} from '@/app/shared/constants/math.const';
 @Injectable({
     providedIn: 'root'
 })
-export class PopupService {
+export class SummaryControlService {
     constructor(
+        private chartService: ChartService,
         private datasetService: DatasetService,
-        private filter: Filter,
         private htmlElementsService: HtmlElementsService
     ) {}
 
     public createContent(geoLand: GeoFeature, response: LifeIndexResponse) {
-        const score = this.datasetService.getScore(geoLand, response);
-
         const content = document.createElement('div');
         content.className = 'content';
 
-        const header = this.createHeader(geoLand);
+        const header = this.createHeader();
         content.appendChild(header);
 
-        // Avoid adding the body if the country have been filtered out
-        if (score > this.datasetService.EXCLUDED_COUNTRY_SCORE) {
-            const body = this.createBody(geoLand, response);
-            content.appendChild(body);
-        }
+        const body = this.createBody(geoLand, response);
+        content.appendChild(body);
 
         return content;
     }
 
-    public getOptions(): PopupOptions {
+    public updateContent(parentId: string, geoLand?: GeoFeature, response?: LifeIndexResponse) {
+        const summary: HTMLElement | null = DomUtil.get(parentId);
+        const content = summary?.getElementsByClassName('content')[0];
+
+        if (content) {
+            const oldHeader = content.getElementsByClassName('header')[0];
+            const newHeader = this.createHeader();
+
+            if (oldHeader) {
+                content.replaceChild(newHeader, oldHeader);
+            }
+
+            const oldBody = content.getElementsByClassName('body')[0];
+            const newBody = this.createBody(geoLand, response);
+
+            if (oldBody) {
+                content.replaceChild(newBody, oldBody);
+            }
+        }
+    }
+
+    public getPopupOptions(): PopupOptions {
         return {
             className: 'land-summary'
         } as PopupOptions;
     }
 
-    private createHeader(geoLand: GeoFeature): HTMLElement {
-        const countryName = this.getCountryName(geoLand);
-
+    private createHeader(): HTMLElement {
         return this.htmlElementsService.createElement({
             className: 'header',
-            innerText: countryName,
+            innerText: this.chartService.generateChartTitle(),
             tagName: 'div'
         } as HTMLElementParams);
     }
 
-    private createBody(geoLand: GeoFeature, response: LifeIndexResponse): HTMLElement {
-        const countryCode = geoLand.id;
-        const score = this.datasetService.getScoreStr(geoLand, response);
-        const sortedResponse = this.datasetService.getSortedResponse(response, SORT_ORDER.DESC);
-        const rank = sortedResponse.findIndex(item => item[0] === countryCode) + 1;
-
+    private createBody(geoLand?: GeoFeature, response?: LifeIndexResponse): HTMLElement {
         const bodyElement = this.htmlElementsService.createElement({
             className: 'body',
             tagName: 'div'
         } as HTMLElementParams);
+
+        if (!geoLand || !response) {
+            bodyElement.style.display = 'none';
+            return bodyElement;
+        }
+
+        const countryCode = geoLand.id;
+        const countryName = this.getCountryName(geoLand);
+        const score = this.datasetService.getScoreStr(geoLand, response);
+        const sortedResponse = this.datasetService.getSortedResponse(response, SORT_ORDER.DESC);
+        const rank = sortedResponse.findIndex(item => item[0] === countryCode) + 1;
+
+        const countryLabelElement = this.htmlElementsService.createLabelElement('Country');
+        const countryElement = this.htmlElementsService.createValueElement(countryName);
+
+        bodyElement.appendChild(countryLabelElement);
+        bodyElement.appendChild(countryElement);
+
+        if (score === this.datasetService.EXCLUDED_COUNTRY_SCORE) {
+            return bodyElement;
+        }
 
         const rankLabelElement = this.htmlElementsService.createLabelElement('Rank');
         const rankElement = this.htmlElementsService.createValueElement(`${rank} of ${sortedResponse.length}`);
 
         const scoreLabelElement = this.htmlElementsService.createLabelElement('Value');
         const scoreElement = this.htmlElementsService.createValueElement(score);
-
-        const yearLabelElement = this.htmlElementsService.createLabelElement('Period');
-        const yearElement = this.htmlElementsService.createValueElement(this.filter.baseFilter.startYear);
-
-        bodyElement.appendChild(yearLabelElement);
-        bodyElement.appendChild(yearElement);
 
         bodyElement.appendChild(scoreLabelElement);
         bodyElement.appendChild(scoreElement);

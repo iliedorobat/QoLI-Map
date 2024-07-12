@@ -4,7 +4,8 @@ import {GeoJSON, Layer, Map} from 'leaflet';
 import {AtlasService} from './services/atlas.service';
 import {BackendService} from './services/backend.service';
 import {Filter} from '@/app/shared/filter';
-import {IAtlasLayer} from '@/app/views/atlas/atlas.types';
+import {IAtlasLayer, ISummaryControl} from '@/app/views/atlas/atlas.types';
+import {SummaryControlService} from '@/app/views/atlas/services/summary-control.service';
 
 import {BASE_LAYERS, LAYERS, MAP_OPTIONS} from './constants/atlas.const';
 
@@ -18,6 +19,7 @@ export class AtlasComponent implements OnInit, OnChanges {
         protected atlasService: AtlasService,
         private backendService: BackendService,
         private filter: Filter,
+        private summaryControlService: SummaryControlService
     ) {}
 
     private map: Map | undefined;
@@ -35,6 +37,7 @@ export class AtlasComponent implements OnInit, OnChanges {
             // GeoJSON: this.layerGeoJSON
         }
     };
+    private summaryControl: ISummaryControl | undefined;
 
     @Input() showScore = true;
     @Output() openSidebar = new EventEmitter();
@@ -48,9 +51,10 @@ export class AtlasComponent implements OnInit, OnChanges {
             .subscribe(scores => {
                 if (this.map) {
                     this.scores = this.backendService.reduceLifeIndexes(scores, this.filter.baseFilter.startYear);
-                    this.atlasLayers = this.atlasService.prepareLayers(this.map, BASE_LAYERS, this.scores);
+                    this.atlasLayers = this.atlasService.prepareLayers(this.map, BASE_LAYERS, this.scores, this.summaryControl);
                 }
             });
+        this.summaryControlService.updateContent('land-summary');
     }
 
     ngOnChanges(changes: SimpleChanges): void {
@@ -61,6 +65,7 @@ export class AtlasComponent implements OnInit, OnChanges {
         this.map = map;
         this.atlasService.onFilterControlAdd(map);
         this.atlasService.onLegendAdd(map);
+        this.summaryControl = this.atlasService.onSummaryAdd(map);
     }
 
     onOpenSidebar(event: Event): void {

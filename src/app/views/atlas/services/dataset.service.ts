@@ -13,7 +13,7 @@ export type DatasetEntry = Array<number | string>;
 })
 export class DatasetService {
     /** Placeholder used to mark the filtered out countries */
-    public EXCLUDED_COUNTRY_SCORE = -1;
+    public EXCLUDED_COUNTRY_SCORE = undefined;
 
     constructor(private filter: Filter) {}
 
@@ -35,17 +35,21 @@ export class DatasetService {
         return 0;
     }
 
-    public getScore(geoLand: GeoFeature, response: LifeIndexResponse): number {
+    public getScore(geoLand: GeoFeature, response: LifeIndexResponse): number | undefined {
         const countryCode = geoLand.id;
 
-        // Use the "-1" placeholder if the country have been filtered out
+        // Use "undefined" if the country have been filtered out
         return response[countryCode as string] ?? this.EXCLUDED_COUNTRY_SCORE;
     }
 
-    public getScoreStr(geoLand: GeoFeature, response: LifeIndexResponse, precision?: number): string {
+    public getScoreStr(geoLand: GeoFeature, response: LifeIndexResponse, precision?: number): string | undefined {
         const isIndividuallyAnalysis = this.filter.baseFilter.isIndividuallyAnalysis();
         const score = this.getScore(geoLand, response);
         const units: string = this.getUnits(isIndividuallyAnalysis);
+
+        if (score === this.EXCLUDED_COUNTRY_SCORE) {
+            return this.EXCLUDED_COUNTRY_SCORE;
+        }
 
         if (isIndividuallyAnalysis) {
             return `${score.toFixed(2)} ${units}`;

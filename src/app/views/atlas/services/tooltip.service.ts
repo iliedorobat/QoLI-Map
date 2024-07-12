@@ -52,6 +52,10 @@ export class TooltipService {
             tagName: 'div'
         } as HTMLElementParams);
 
+        if (score === this.datasetService.EXCLUDED_COUNTRY_SCORE) {
+            return headerElement;
+        }
+
         const scoreLabelElement = this.htmlElementsService.createLabelElement(countryName);
         const scoreElement = this.htmlElementsService.createValueElement(score);
 

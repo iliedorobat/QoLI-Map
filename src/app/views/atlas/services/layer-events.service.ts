@@ -3,10 +3,12 @@ import {GeoJSON, Map} from 'leaflet';
 
 import {DatasetService} from '../services/dataset.service';
 import {GeoFeature} from '../constants/geo.types';
-import {IAtlasLayer} from '@/app/views/atlas/atlas.types';
+import {IAtlasLayer, ISummaryControl} from '@/app/views/atlas/atlas.types';
 import {LifeIndexResponse} from '../constants/response.types';
-import {PopupService} from './popup.service';
+import {SummaryControlService} from '@/app/views/atlas/services/summary-control.service';
 import {TooltipService} from './tooltip.service';
+
+import {SORT_ORDER} from '@/app/shared/constants/math.const';
 
 @Injectable({
     providedIn: 'root'
@@ -14,15 +16,15 @@ import {TooltipService} from './tooltip.service';
 export class LayerEventsService {
     constructor(
         private datasetService: DatasetService,
-        private popupService: PopupService,
+        private summaryControlService: SummaryControlService,
         private tooltipService: TooltipService
     ) {}
 
-    public addEvents(map: Map, layer: GeoJSON, geoLand: GeoFeature, response: LifeIndexResponse) {
-        this.onBindPopup(layer, geoLand, response);
+    public addEvents(map: Map, layer: GeoJSON, geoLand: GeoFeature, response: LifeIndexResponse, summaryControl: ISummaryControl | undefined) {
+        // this.onBindPopup(layer, geoLand, response);
         this.onBindTooltip(layer, geoLand, response);
-        this.onLayerMouseOver(layer);
-        this.onLayerMouseOut(layer);
+        this.onLayerMouseOver(layer, geoLand, response, summaryControl);
+        this.onLayerMouseOut(layer, geoLand, response, summaryControl);
     }
 
     public onToggleTooltip(layers: Array<IAtlasLayer>, response: LifeIndexResponse, showScore: boolean): void {
@@ -37,9 +39,10 @@ export class LayerEventsService {
         }
     }
 
+    /** @deprecated */
     private onBindPopup(layer: GeoJSON, geoLand: GeoFeature, response: LifeIndexResponse) {
-        const options = this.popupService.getOptions();
-        const content = this.popupService.createContent(geoLand, response);
+        const options = this.summaryControlService.getPopupOptions();
+        const content = this.summaryControlService.createContent(geoLand, response);
         layer.bindPopup(content, options);
     }
 
@@ -60,21 +63,23 @@ export class LayerEventsService {
         });
     }
 
-    private onLayerMouseOver(layer: GeoJSON) {
+    private onLayerMouseOver(layer: GeoJSON, geoLand: GeoFeature, response: LifeIndexResponse, summaryControl: ISummaryControl | undefined) {
         layer.addEventListener(EVENT_TYPES.MOUSE_OVER, () => {
             layer.setStyle({
                 fillOpacity: 0.8,
                 opacity: 1
             });
+            summaryControl?.update(geoLand, response);
         });
     }
 
-    private onLayerMouseOut(layer: GeoJSON) {
+    private onLayerMouseOut(layer: GeoJSON, geoLand: GeoFeature, response: LifeIndexResponse, summaryControl: ISummaryControl | undefined) {
         layer.addEventListener(EVENT_TYPES.MOUSE_OUT, () => {
             layer.setStyle({
                 fillOpacity: 0.6,
                 opacity: 0.8
             });
+            summaryControl?.update();
         });
     }
 }
