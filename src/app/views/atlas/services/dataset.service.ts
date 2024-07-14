@@ -1,8 +1,8 @@
 import {Injectable} from '@angular/core';
 
 import {Filter} from '@/app/shared/filter';
-import {LifeIndexResponse} from '../constants/response.types';
-import {GeoFeature} from '../constants/geo.types';
+import {GeoFeature} from '@/app/views/atlas/constants/geo.types';
+import {LifeIndexResponse} from '@/app/views/atlas/constants/response.types';
 
 import {SORT_ORDER} from '@/app/shared/constants/math.const';
 

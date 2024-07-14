@@ -1,14 +1,12 @@
-import {Injectable} from '@angular/core';
 import {GeoJSON, Map} from 'leaflet';
+import {Injectable} from '@angular/core';
 
-import {DatasetService} from '../services/dataset.service';
-import {GeoFeature} from '../constants/geo.types';
+import {DatasetService} from '@/app/views/atlas/services/dataset.service';
+import {GeoFeature} from '@/app/views/atlas/constants/geo.types';
 import {IAtlasLayer, ISummaryControl} from '@/app/views/atlas/atlas.types';
-import {LifeIndexResponse} from '../constants/response.types';
+import {LifeIndexResponse} from '@/app/views/atlas/constants/response.types';
 import {SummaryControlService} from '@/app/views/atlas/services/summary-control.service';
 import {TooltipService} from './tooltip.service';
-
-import {SORT_ORDER} from '@/app/shared/constants/math.const';
 
 @Injectable({
     providedIn: 'root'

@@ -1,8 +1,9 @@
 import {Component, Input} from '@angular/core';
+
 import {NgbActiveOffcanvas} from '@ng-bootstrap/ng-bootstrap';
 import noop from 'lodash-es/noop';
 
-import {FilterComponent} from '@/app/shared/filter/filter.component';
+import {FilterComponent} from '@/app/shared/filter';
 
 @Component({
     selector: 'qoli-sidebar',

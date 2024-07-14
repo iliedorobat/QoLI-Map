@@ -1,5 +1,8 @@
+import {CommonModule} from '@angular/common';
 import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
+
 import {GeoJSON, Layer, Map} from 'leaflet';
+import {LeafletModule} from '@asymmetrik/ngx-leaflet';
 
 import {AtlasService} from './services/atlas.service';
 import {BackendService} from './services/backend.service';
@@ -11,8 +14,10 @@ import {BASE_LAYERS, LAYERS, MAP_OPTIONS} from './constants/atlas.const';
 
 @Component({
     selector: 'qoli-atlas',
+    standalone: true,
     templateUrl: './atlas.component.html',
-    styleUrls: ['./atlas.component.scss']
+    styleUrls: ['./atlas.component.scss'],
+    imports: [LeafletModule, CommonModule]
 })
 export class AtlasComponent implements OnInit, OnChanges {
     constructor(

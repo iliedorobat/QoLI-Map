@@ -3,7 +3,7 @@ import {BehaviorSubject, from, Observable} from 'rxjs';
 
 import {Filter} from '@/app/shared/filter';
 import {IAggrQoLI} from '@/app/views/atlas/constants/qoliOptions.types';
-import {LifeIndexMultipleResponses, LifeIndexResponse} from '../constants/response.types';
+import {LifeIndexMultipleResponses, LifeIndexResponse} from '@/app/views/atlas/constants/response.types';
 
 import {ANALYSIS_TYPE} from '@/app/shared/constants/app.const';
 import {MAIN_URI} from '@/app/shared/constants/endpoint';

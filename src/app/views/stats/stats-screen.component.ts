@@ -1,20 +1,20 @@
-import {BaseChartDirective, NgChartsModule} from 'ng2-charts';
+import {CommonModule} from '@angular/common';
 import {Component, Input, OnDestroy, OnInit, ViewChild} from '@angular/core';
+
+import {BaseChartDirective, NgChartsModule} from 'ng2-charts';
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
-import {NgClass, NgIf} from '@angular/common';
 import noop from 'lodash-es/noop';
 
 import {BackendService} from '@/app/views/atlas/services/backend.service';
 import {ChartService} from '@/app/shared/charts/chart.service';
-import {Filter} from '@/app/shared/filter';
-import {FilterComponent} from '@/app/shared/filter/filter.component';
+import {Filter, FilterComponent} from '@/app/shared/filter';
 
 @Component({
     selector: 'qoli-stats-screen',
     templateUrl: './stats-screen.component.html',
     standalone: true,
     styleUrls: ['./stats-screen.component.scss'],
-    imports: [FilterComponent, NgClass, NgChartsModule, NgIf],
+    imports: [FilterComponent, NgChartsModule, CommonModule],
     providers: [ChartService]
 })
 export class StatsScreenComponent implements OnInit, OnDestroy {

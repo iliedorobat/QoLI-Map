@@ -1,15 +1,18 @@
 import {Component, Input} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {NgbAccordion, NgbPanel, NgbPanelContent, NgbPanelTitle} from '@ng-bootstrap/ng-bootstrap';
 import {ReactiveFormsModule} from '@angular/forms';
+
+import {NgbAccordion, NgbPanel, NgbPanelContent, NgbPanelTitle} from '@ng-bootstrap/ng-bootstrap';
 import noop from 'lodash-es/noop';
 
-import {AggregatedFilterComponent} from '@/app/shared/filter/main-section/aggregated/aggregated-filter.component';
-import {BaseFilterComponent} from '@/app/shared/filter/main-section/base/base-filter.component';
-import {Filter} from '@/app/shared/filter/filter.types';
-import {FilterService} from '@/app/shared/filter/filter.service';
-import {IndividuallyFilterComponent} from '@/app/shared/filter/main-section/individually/individually-filter.component';
-import {StatsFilterComponent} from '@/app/shared/filter/stats-options/stats-filter.component';
+import {
+    AggregatedFilterComponent,
+    BaseFilterComponent,
+    IndividuallyFilterComponent
+} from '@/app/shared/filter/main-section';
+import {Filter} from './filter.types';
+import {FilterService} from './filter.service';
+import {StatsFilterComponent} from './stats-options/stats-filter.component';
 
 import {ANALYSIS_TYPE} from '@/app/shared/constants/app.const';
 
