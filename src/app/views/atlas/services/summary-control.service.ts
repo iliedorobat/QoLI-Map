@@ -1,8 +1,8 @@
 import {Injectable} from '@angular/core';
 import {DomUtil, PopupOptions} from 'leaflet';
 
-import {ChartService} from '@/app/shared/charts/chart.service';
 import {DatasetService} from './dataset.service';
+import {Filter} from '@/app/shared/filter';
 import {GeoFeature} from '@/app/views/atlas/constants/geo.types';
 import {HTMLElementParams, HtmlElementsService} from './html-elements.service';
 import {LifeIndexResponse} from '@/app/views/atlas/constants/response.types';
@@ -14,8 +14,8 @@ import {SORT_ORDER} from '@/app/shared/constants/math.const';
 })
 export class SummaryControlService {
     constructor(
-        private chartService: ChartService,
         private datasetService: DatasetService,
+        private filter: Filter,
         private htmlElementsService: HtmlElementsService
     ) {}
 
@@ -62,7 +62,7 @@ export class SummaryControlService {
     private createHeader(): HTMLElement {
         return this.htmlElementsService.createElement({
             className: 'header',
-            innerText: this.chartService.generateChartTitle(),
+            innerText: this.generateTitle(),
             tagName: 'div'
         } as HTMLElementParams);
     }
@@ -107,6 +107,14 @@ export class SummaryControlService {
         bodyElement.appendChild(rankElement);
 
         return bodyElement;
+    }
+
+    private generateTitle(): string {
+        const label = this.filter.baseFilter.isAggregateAnalysis()
+            ? 'QoLI Stats'
+            : this.filter.individuallyFilter.selectedIndicator.label;
+
+        return `${label} For The Year ${this.filter.baseFilter.startYear}`;
     }
 
     private getCountryName(geoLand: GeoFeature): string {
