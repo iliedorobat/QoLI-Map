@@ -3,14 +3,14 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 ---
 
-# 2.1.0
+# v2.1.0
 - Added comprehensive analysis view
 - Added individually statistics selector
 - Connected query APIs with [QoLI-Framework Service](https://github.com/iliedorobat/QoLI-Framework/tree/master/src/ro/webdata/qoli/server)
-- Added layer info control
+- Added info layer control
 - Removed tooltip
 
-# 2.0.0
+# v2.0.0
 - Added years selector
 - Added country selector
 - Added tooltip selector
@@ -33,4 +33,4 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - Preserve the filter between states
 
 # v1.0.0
-- initial commit
+- Initial commit
