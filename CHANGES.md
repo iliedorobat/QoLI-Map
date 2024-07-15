@@ -3,14 +3,14 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 ---
 
-# v2.1.0
+# 2.1.0
 - Added comprehensive analysis view
 - Added individually statistics selector
 - Connected query APIs with [QoLI-Framework Service](https://github.com/iliedorobat/QoLI-Framework/tree/master/src/ro/webdata/qoli/server)
 - Added info layer control
 - Removed tooltip
 
-# v2.0.0
+# 2.0.0
 - Added years selector
 - Added country selector
 - Added tooltip selector
@@ -19,7 +19,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - Used gray layers for countries which are filtered out and for those which are part of Europe but not EU
 - Connected query APIs with [QoLI-Map-Service](https://github.com/iliedorobat/QoLI-Map-Service)
 
-# v1.1.0
+# 1.1.0
 - Use lodash-es instead of lodash
 - Standardize function definitions & types
 - Remove deprecated ngModel directive
@@ -32,5 +32,5 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - Add DEFAULT_YEAR
 - Preserve the filter between states
 
-# v1.0.0
+# 1.0.0
 - Initial commit
