@@ -6,7 +6,6 @@ import {IIndividuallyQoLIDimension, IIndividuallyQoLIIndicator} from '@/app/view
 
 export interface IIndividuallyFilter {
     selectedIndicator: IIndividuallyQoLIIndicator;
-    unsavedIndicator: IIndividuallyQoLIIndicator;
 
     initForm(controls: {[key: string]: FormControl}): void;
     isDisabled(form: FormGroup): boolean;
@@ -20,7 +19,6 @@ export interface IIndividuallyFilter {
 })
 export class IndividuallyFilter implements IIndividuallyFilter {
     public selectedIndicator: IIndividuallyQoLIIndicator = this.initSelectedIndicator();
-    public unsavedIndicator: IIndividuallyQoLIIndicator = this.initSelectedIndicator();
 
     private indicators = this.baseFilter.qoliIndividuallyOptions.aggregators.reduce((acc: IIndividuallyQoLIIndicator[], dimension: IIndividuallyQoLIDimension) => {
         return [...acc, ...dimension.aggregators];
@@ -52,12 +50,10 @@ export class IndividuallyFilter implements IIndividuallyFilter {
 
     save(form: FormGroup): void {
         this.selectedIndicator = form.value['selectedIndicator'];
-        this.unsavedIndicator = form.value['selectedIndicator'];
     }
 
     reset(form: FormGroup): void {
         this.resetForm(form);
-        this.unsavedIndicator = {...this.selectedIndicator} as IIndividuallyQoLIIndicator;
     }
 
     private hasIndicator(form: FormGroup): boolean {

@@ -3,7 +3,7 @@
 
     <mat-select formControlName="selectedIndicator" placeholder="No indicator is selected">
         <mat-select-trigger>
-            {{ filter.individuallyFilter.unsavedIndicator.label }}
+            {{ displaySelectedIndicator() }}
         </mat-select-trigger>
 
         <mat-optgroup
@@ -13,7 +13,6 @@
         >
             <mat-option
                 *ngFor="let indicator of dimension.aggregators"
-                (click)="onSelectIndicator(indicator)"
                 [value]="indicator"
             >{{indicator.label}}</mat-option>
         </mat-optgroup>

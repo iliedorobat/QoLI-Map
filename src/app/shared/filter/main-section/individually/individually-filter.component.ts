@@ -24,7 +24,8 @@ export class IndividuallyFilterComponent {
         protected filter: Filter
     ) {}
 
-    onSelectIndicator(indicator: IIndividuallyQoLIIndicator) {
-        this.filter.individuallyFilter.unsavedIndicator = indicator;
+    displaySelectedIndicator() {
+        const crrIndicator: IIndividuallyQoLIIndicator = this.filter.form.get('selectedIndicator')?.value;
+        return crrIndicator.label;
     }
 }
