@@ -4,38 +4,50 @@
     </button>
 
     <form class="needs-validation" [formGroup]="filter.form">
-        <ngb-accordion *ngIf="isAoristicAnalysis" activeIds="sidebar-stats-section">
-            <ngb-panel id="sidebar-stats-section">
-                <ng-template ngbPanelTitle>
-                    <div class="title">Chart Options</div>
-                    <button class="btn btn-link btn-reset-section" (click)="filterService.onDirectionReset($event)">
-                        Reset
+        <div ngbAccordion *ngIf="isAoristicAnalysis">
+            <div ngbAccordionItem="sidebar-stats-section" [collapsed]="false">
+                <h2 ngbAccordionHeader>
+                    <button ngbAccordionButton>
+                        <div class="title">Chart Options</div>
+                        <button class="btn btn-link btn-reset-section" (click)="filterService.onChartOptionsReset($event)">
+                            Reset
+                        </button>
                     </button>
-                </ng-template>
-                <ng-template ngbPanelContent>
-                    <qoli-stats-filter></qoli-stats-filter>
-                </ng-template>
-            </ngb-panel>
-        </ngb-accordion>
-
-        <ngb-accordion activeIds="sidebar-main-section">
-            <ngb-panel id="sidebar-main-section">
-                <ng-template ngbPanelTitle>
-                    <div class="title">
-                        {{ filter.form.value['analysisType'] === ANALYSIS_TYPE.AGGREGATE ? 'Aggregated Filter' : '' }}
-                        {{ filter.form.value['analysisType'] === ANALYSIS_TYPE.INDIVIDUALLY ? 'Individually Filter' : '' }}
+                </h2>
+                <div ngbAccordionCollapse>
+                    <div ngbAccordionBody>
+                        <ng-template>
+                            <qoli-stats-filter></qoli-stats-filter>
+                        </ng-template>
                     </div>
-                    <button class="btn btn-link btn-reset-section" (click)="filterService.onSectionReset($event)">
-                        Reset
+                </div>
+            </div>
+        </div>
+
+        <div ngbAccordion>
+            <div ngbAccordionItem="sidebar-main-section" [collapsed]="false">
+                <h2 ngbAccordionHeader>
+                    <button ngbAccordionButton>
+                        <div class="title">
+                            {{ filter.form.value['analysisType'] === ANALYSIS_TYPE.AGGREGATE ? 'Aggregated Filter' : '' }}
+                            {{ filter.form.value['analysisType'] === ANALYSIS_TYPE.INDIVIDUALLY ? 'Individually Filter' : '' }}
+                        </div>
+                        <button class="btn btn-link btn-reset-section" (click)="filterService.onSectionReset($event)">
+                            Reset
+                        </button>
                     </button>
-                </ng-template>
-                <ng-template ngbPanelContent>
-                    <qoli-atlas-base-filter [isAoristicAnalysis]="isAoristicAnalysis"></qoli-atlas-base-filter>
-                    <qoli-aggregated-filter *ngIf="filter.form.value['analysisType'] === ANALYSIS_TYPE.AGGREGATE"></qoli-aggregated-filter>
-                    <qoli-atlas-individually-filter *ngIf="filter.form.value['analysisType'] === ANALYSIS_TYPE.INDIVIDUALLY"></qoli-atlas-individually-filter>
-                </ng-template>
-            </ngb-panel>
-        </ngb-accordion>
+                </h2>
+                <div ngbAccordionCollapse>
+                    <div ngbAccordionBody>
+                        <ng-template>
+                            <qoli-atlas-base-filter [isAoristicAnalysis]="isAoristicAnalysis"></qoli-atlas-base-filter>
+                            <qoli-aggregated-filter *ngIf="filter.form.value['analysisType'] === ANALYSIS_TYPE.AGGREGATE"></qoli-aggregated-filter>
+                            <qoli-atlas-individually-filter *ngIf="filter.form.value['analysisType'] === ANALYSIS_TYPE.INDIVIDUALLY"></qoli-atlas-individually-filter>
+                        </ng-template>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <div class="form-footer">
             <button class="btn btn-md btn-success" type="submit" (click)="filterService.onFilterApply(onToggleScore)" [disabled]="filter.isDisabled()">

@@ -3,11 +3,11 @@
 
     <mat-select formControlName="chartType">
         <mat-option
-            *ngFor="let chartType of CHART_TYPE"
-            (click)="onSelectType(chartType)"
+            *ngFor="let chartType of statsFilterService.chartTypes"
+            (click)="statsFilterService.onSelectType(chartType)"
             [value]="chartType"
         >
-            {{ CHART_TYPE_LABELS[chartType] }}
+            {{ statsFilterService.chartTypesLabels[chartType] }}
         </mat-option>
     </mat-select>
 </mat-form-field>
@@ -17,11 +17,11 @@
 
     <mat-select formControlName="chartDirection">
         <mat-option
-            *ngFor="let direction of CHART_DIRECTION"
-            (click)="onSelectDirection(direction)"
+            *ngFor="let direction of statsFilterService.chartDirections"
+            (click)="statsFilterService.onSelectDirection(direction)"
             [value]="direction"
         >
-            {{ CHART_DIRECTION_LABELS[direction] }}
+            {{ statsFilterService.chartDirectionsLabels[direction] }}
         </mat-option>
     </mat-select>
 </mat-form-field>

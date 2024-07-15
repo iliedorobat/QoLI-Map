@@ -6,8 +6,6 @@ import {CHART_DIRECTION, CHART_TYPE} from '@/app/shared/charts/chart.const';
 export interface IStatsFilter {
     selectedDirection: string;
     selectedType: CHART_TYPE;
-    unsavedDirection: string;
-    unsavedType: CHART_TYPE;
 
     initForm(controls: {[key: string]: FormControl}): void;
     isDisabled(form: FormGroup): boolean;
@@ -19,14 +17,9 @@ export interface IStatsFilter {
 @Injectable({
     providedIn: 'root',
 })
-export class StatsFilter implements IStatsFilter{
+export class StatsFilter implements IStatsFilter {
     selectedType: CHART_TYPE = CHART_TYPE.BAR;
     selectedDirection: string = this.selectedType === CHART_TYPE.BAR
-        ? CHART_DIRECTION[this.selectedType].VERTICAL
-        : CHART_DIRECTION[this.selectedType].HORIZONTAL;
-
-    unsavedType: CHART_TYPE = CHART_TYPE.BAR;
-    unsavedDirection: string = this.selectedType === CHART_TYPE.BAR
         ? CHART_DIRECTION[this.selectedType].VERTICAL
         : CHART_DIRECTION[this.selectedType].HORIZONTAL;
 
@@ -45,18 +38,15 @@ export class StatsFilter implements IStatsFilter{
 
     reset(form: FormGroup): void {
         this.resetForm(form);
-        this.unsavedDirection = this.selectedDirection;
     }
 
     save(form: FormGroup): void {
         this.selectedDirection = form.value['chartDirection'];
         this.selectedType = form.value['chartType'];
-        this.unsavedDirection = form.value['chartDirection'];
-        this.unsavedType = form.value['chartType'];
     }
 
     private resetForm(form: FormGroup): void {
-        form.controls['chartDirection'].setValue(this.selectedDirection);
-        form.controls['chartType'].setValue(this.selectedType);
+        form.get('chartDirection')?.setValue(this.selectedDirection);
+        form.get('chartType')?.setValue(this.selectedType);
     }
 }

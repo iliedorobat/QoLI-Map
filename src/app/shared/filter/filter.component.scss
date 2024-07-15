@@ -1,6 +1,13 @@
 @import 'src/assets/styles/variables.scss';
 //@import 'node_modules/bootstrap/scss/bootstrap.scss';
 
+.global-filter,
+.global-filter > form, {
+    display: flex;
+    flex-direction: column;
+    gap: $size-medium;
+}
+
 .global-filter {
     .btn-counter {
         width: 100%;
@@ -18,10 +25,6 @@
     > form {
         ::ng-deep {
             .accordion-item {
-                &:first-of-type {
-                    margin-top: $filter-item-padding;
-                }
-
                 .accordion-header {
                     > button.accordion-button {
                         //&[aria-expanded=false] {
@@ -36,6 +39,7 @@
                         }
 
                         .title {
+                            color: var(--bs-link-color);
                             width: 100%;
                         }
 

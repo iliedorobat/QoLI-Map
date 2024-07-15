@@ -1,7 +1,7 @@
 import {CommonModule} from '@angular/common';
-import {Component, Input, OnDestroy, OnInit, ViewChild} from '@angular/core';
+import {Component, Input, OnInit, ViewChild} from '@angular/core';
 
-import {BaseChartDirective, NgChartsModule} from 'ng2-charts';
+import {BaseChartDirective} from 'ng2-charts';
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 import noop from 'lodash-es/noop';
 
@@ -14,10 +14,10 @@ import {Filter, FilterComponent} from '@/app/shared/filter';
     templateUrl: './stats-screen.component.html',
     standalone: true,
     styleUrls: ['./stats-screen.component.scss'],
-    imports: [FilterComponent, NgChartsModule, CommonModule],
+    imports: [BaseChartDirective, CommonModule, FilterComponent],
     providers: [ChartService]
 })
-export class StatsScreenComponent implements OnInit, OnDestroy {
+export class StatsScreenComponent implements OnInit {
     constructor(
         private activeModal: NgbActiveModal,
         private backendService: BackendService,
@@ -47,10 +47,6 @@ export class StatsScreenComponent implements OnInit, OnDestroy {
                     this.chart.render();
                 }
             });
-    }
-
-    ngOnDestroy(): void {
-        this.chart?.ngOnDestroy();
     }
 
     @Input() onActiveButtonResets: Function = noop;

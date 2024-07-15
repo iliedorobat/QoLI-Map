@@ -1,9 +1,11 @@
-import {NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {HttpClient, HttpClientModule} from '@angular/common/http';
 import {MatCheckboxModule} from '@angular/material/checkbox';
+import {NgModule} from '@angular/core';
+
 import {NgbActiveOffcanvas, NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import {provideCharts, withDefaultRegisterables} from 'ng2-charts';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
 
@@ -40,7 +42,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     ],
     providers: [
         BaseFilter,
-        NgbActiveOffcanvas
+        NgbActiveOffcanvas,
+        provideCharts(withDefaultRegisterables())
     ],
     bootstrap: [AppComponent]
 })
