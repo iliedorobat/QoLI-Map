@@ -67,19 +67,19 @@ export class AggregatedFilter implements IAggregatedFilter {
     }
 
     private hasIndicators(form: FormGroup): boolean {
-        if (form.controls[qoliOptions.filename].value) {
+        if (form.get(qoliOptions.filename)?.value) {
             return true;
         }
 
         for (const dimension of qoliOptions.aggregators) {
             const dimKey = dimension.filename;
-            if (form.controls[dimKey].value) {
+            if (form.get(dimKey)?.value) {
                 return true;
             }
 
             for (const indicator of dimension.aggregators) {
                 const indKey = indicator.filename;
-                if (form.controls[indKey].value) {
+                if (form.get(indKey)?.value) {
                     return true;
                 }
             }
@@ -103,16 +103,16 @@ export class AggregatedFilter implements IAggregatedFilter {
 
     private resetForm(form: FormGroup): void {
         const qoliKey = qoliOptions.filename;
-        form.controls[qoliKey].setValue(qoliOptions.checked);
+        form.get(qoliKey)?.setValue(qoliOptions.checked);
 
         for (const dimension of qoliOptions.aggregators) {
             const dimkey = dimension.filename;
-            form.controls[dimkey].setValue(dimension.checked);
+            form.get(dimkey)?.setValue(dimension.checked);
 
             const indicators = dimension.aggregators;
             for (const indicator of indicators) {
                 const indKey = indicator.filename;
-                form.controls[indKey].setValue(indicator.checked);
+                form.get(indKey)?.setValue(indicator.checked);
             }
         }
     }

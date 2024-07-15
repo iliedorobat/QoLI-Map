@@ -57,7 +57,7 @@ export class IndividuallyFilter implements IIndividuallyFilter {
     }
 
     private hasIndicator(form: FormGroup): boolean {
-        return !!form.controls['selectedIndicator'].value;
+        return !!form.get('selectedIndicator')?.value;
     }
 
     private initSelectedIndicator(): IIndividuallyQoLIIndicator {
@@ -65,6 +65,6 @@ export class IndividuallyFilter implements IIndividuallyFilter {
     }
 
     private resetForm(form: FormGroup): void {
-        form.controls['selectedIndicator'].setValue(this.selectedIndicator);
+        form.get('selectedIndicator')?.setValue(this.selectedIndicator);
     }
 }

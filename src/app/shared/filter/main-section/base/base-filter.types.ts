@@ -90,11 +90,11 @@ export class BaseFilter implements IBaseFilter {
     }
 
     private hasAnalysisType(form: FormGroup): boolean {
-        return !!form.controls['analysisType'].value;
+        return !!form.get('analysisType')?.value;
     }
 
     private hasCountries(form: FormGroup): boolean {
-        return form.controls['countries'].value.length > 0;
+        return form.get('countries')?.value.length > 0;
     }
 
     private initSelectedCountries(): string[] {
@@ -102,9 +102,9 @@ export class BaseFilter implements IBaseFilter {
     }
 
     private resetForm(form: FormGroup): void {
-        form.controls['analysisType'].setValue(this.analysisType);
-        form.controls['countries'].setValue([...this.countries]);
-        form.controls['startYear'].setValue(this.startYear);
-        form.controls['endYear'].setValue(this.endYear);
+        form.get('analysisType')?.setValue(this.analysisType);
+        form.get('countries')?.setValue([...this.countries]);
+        form.get('startYear')?.setValue(this.startYear);
+        form.get('endYear')?.setValue(this.endYear);
     }
 }
