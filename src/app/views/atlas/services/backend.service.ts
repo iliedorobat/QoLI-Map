@@ -79,6 +79,11 @@ export class BackendService {
             })
     }
 
+    public unsubscribe(): void {
+        this._datasetConfig$.unsubscribe();
+        this._lifeIndex$.unsubscribe();
+    }
+
     get datasetConfig$(): Observable<IAggrQoLI> {
         return this._datasetConfig$.asObservable();
     }

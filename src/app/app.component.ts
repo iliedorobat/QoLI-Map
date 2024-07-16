@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, OnDestroy} from '@angular/core';
 import {Subject} from 'rxjs';
 import {TranslateService} from '@ngx-translate/core';
 import {NgbModal, NgbOffcanvas} from '@ng-bootstrap/ng-bootstrap';
@@ -16,7 +16,7 @@ import {DEFAULT_ACTIVE_MENU_ITEM_ID, MENU_ITEMS, MENU_ITEMS_IDS} from './app.con
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
+export class AppComponent implements OnDestroy {
     private _showScore$ = new Subject();
     private showScore$$ = this._showScore$.asObservable();
 
@@ -41,6 +41,11 @@ export class AppComponent {
         this.showScore$$.subscribe(showScore => {
             this.showScore = showScore as boolean;
         });
+    }
+
+    ngOnDestroy(): void {
+        this._showScore$.unsubscribe();
+        this.backendService.unsubscribe();
     }
 
     onMenuItemClick(event: Event, menuItem: MenuItem): void {

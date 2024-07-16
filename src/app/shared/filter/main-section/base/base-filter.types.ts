@@ -1,4 +1,5 @@
 import {FormControl, FormGroup} from '@angular/forms';
+import {Injectable} from '@angular/core';
 
 import {endYearValidator, startYearValidator} from '@/app/shared/filter';
 import {IIndividuallyQoLI} from '@/app/views/atlas/constants/qoliBaseOptions.types';
@@ -27,6 +28,9 @@ export interface IBaseFilter {
     save(form: FormGroup): void;
 }
 
+@Injectable({
+    providedIn: 'root',
+})
 export class BaseFilter implements IBaseFilter {
     public analysisType: ANALYSIS_TYPE = DEFAULT_ANALYSIS_TYPE;
     public countries: string[] = [...EU28_MEMBER_CODES];

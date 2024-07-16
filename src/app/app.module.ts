@@ -1,13 +1,13 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {HttpClient, HttpClientModule} from '@angular/common/http';
+import {HttpClient, HttpClientModule, provideHttpClient, withInterceptorsFromDi} from '@angular/common/http';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {NgModule} from '@angular/core';
 
 import {NgbActiveOffcanvas, NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {provideCharts, withDefaultRegisterables} from 'ng2-charts';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
-import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
+import {TranslateLoader, TranslateModule, TranslatePipe} from '@ngx-translate/core';
 
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
@@ -24,8 +24,8 @@ export function HttpLoaderFactory(http: HttpClient) {
         AppComponent
     ],
     imports: [
-        HttpClientModule,
         TranslateModule.forRoot({
+            defaultLanguage: 'en-US',
             loader: {
                 provide: TranslateLoader,
                 useFactory: HttpLoaderFactory,
@@ -40,10 +40,13 @@ export function HttpLoaderFactory(http: HttpClient) {
         MatCheckboxModule,
         NgbModule,
     ],
+    exports: [TranslateModule],
     providers: [
         BaseFilter,
         NgbActiveOffcanvas,
-        provideCharts(withDefaultRegisterables())
+        provideCharts(withDefaultRegisterables()),
+        provideHttpClient(withInterceptorsFromDi()),
+        TranslatePipe
     ],
     bootstrap: [AppComponent]
 })
