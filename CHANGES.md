@@ -13,6 +13,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - Connected query APIs with [QoLI-Framework Service](https://github.com/iliedorobat/QoLI-Framework/tree/master/src/ro/webdata/qoli/server)
 - Added info layer control
 - Removed tooltip
+- Implement responsive design
 
 # 2.0.0
 - Added years selector
