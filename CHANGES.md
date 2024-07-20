@@ -6,6 +6,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 # 2.1.0
 - Added comprehensive analysis view
 - Added individually statistics selector
+- Added "About" screen
 - Connected query APIs with [QoLI-Framework Service](https://github.com/iliedorobat/QoLI-Framework/tree/master/src/ro/webdata/qoli/server)
 - Added info layer control
 - Removed tooltip
