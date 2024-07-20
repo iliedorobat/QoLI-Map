@@ -3,6 +3,7 @@ import {Subject} from 'rxjs';
 import {TranslateService} from '@ngx-translate/core';
 import {NgbModal, NgbOffcanvas} from '@ng-bootstrap/ng-bootstrap';
 
+import {AboutScreenComponent} from '@/app/views/about/about-screen.component';
 import {BackendService} from '@/app/views/atlas/services/backend.service';
 import {Filter} from '@/app/shared/filter';
 import {MenuItem} from '@/app/app.types';
@@ -54,13 +55,29 @@ export class AppComponent implements OnDestroy {
             return;
         }
 
-        if (id === this.MENU_ITEMS_IDS.FILTER) {
-            this.onOpenSidebar(event, id);
-        } else if (id === this.MENU_ITEMS_IDS.STATS) {
-            this.onOpenStats(event, id);
-        } else {
-            this.onActiveButtonChange(id);
+        switch (id) {
+            case this.MENU_ITEMS_IDS.ABOUT:
+                this.onOpenAbout(event, id);
+                return;
+            case this.MENU_ITEMS_IDS.FILTER:
+                this.onOpenSidebar(event, id);
+                return;
+            case this.MENU_ITEMS_IDS.STATS:
+                this.onOpenStats(event, id);
+                return;
+            default:
+                this.onActiveButtonChange(id);
+                return;
         }
+    }
+
+    onOpenAbout(event: Event, buttonId: string) {
+        this.onActiveButtonChange(buttonId);
+        const modalRef = this.modalService.open(AboutScreenComponent, {fullscreen: true});
+        modalRef.componentInstance.onActiveButtonResets = this.onActiveButtonResets;
+        modalRef.hidden.subscribe(value => {
+            this.onActiveButtonResets();
+        });
     }
 
     onOpenStats(event: Event, buttonId: string) {

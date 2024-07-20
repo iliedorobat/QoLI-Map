@@ -1,6 +1,7 @@
 import {MenuItem} from '@/app/app.types';
 
 const MENU_ITEMS_IDS = {
+    ABOUT: 'about-button',
     FILTER: 'filter-button',
     LOGO: 'logo-button',
     MAP: 'map-button',
@@ -9,6 +10,12 @@ const MENU_ITEMS_IDS = {
 
 const MENU_ITEMS = [
     {
+        id: MENU_ITEMS_IDS.ABOUT,
+        iconClasses: 'fa-solid fa-circle-info',
+        label: 'About',
+        order: 4
+    },
+    {
         id: MENU_ITEMS_IDS.FILTER,
         iconClasses: 'fa-solid fa-filter',
         label: 'Filter',
@@ -16,7 +23,7 @@ const MENU_ITEMS = [
     },
     {
         id: MENU_ITEMS_IDS.LOGO,
-        label: 'Quality of Life',
+        label: 'European Life Index Leaf',
         order: 0
     },
     {

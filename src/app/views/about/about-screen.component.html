@@ -1,0 +1,135 @@
+<div class="modal-header">
+    <h5 class="modal-title">About</h5>
+    <button class="btn-close" type="button" aria-label="Close" (click)="onViewClose()"></button>
+</div>
+
+<div class="modal-body d-flex flex-column gap-4"><h3>Motivation</h3>
+    <div>
+        <b>Determining the quality of life</b> is a subject that has gained increasing attention over
+        time precisely because of its socio-economic implications. More precisely, based on this data,
+        the political decision makers can develop methodologies and public policies aimed at the inclusion
+        of disadvantaged people and the development of underdeveloped regions; the business environment
+        can identify new opportunities; and civil society can monitor government activity in terms of
+        public policies implemented to improve living standards.
+    </div>
+    <div>
+        <b>eLIL (European Life Index Leaf)</b> is a visual interface that allows users to easily observe
+        and analyze the factors influencing the quality of life of the population in EU member states and
+        the UK, which left the Eurozone in early 2020. The data used by eLIL is projected through <b>eLIF
+        (European Life Index Framework)</b>, a framework that automates the collection, processing, and
+        aggregation of data analyzed both in the form of 8+1 dimensions and into a single global indicator,
+        <b>QoLI (Quality of Life Index)</b>.
+    </div>
+
+    <div>
+        <b>QoLI</b> is a methodology developed <a href="https://www.thinkmind.org/index.php?view=article&articleid=
+        icds_2019_2_30_10030">[1]</a><a href="https://www.thinkmind.org/library/SysMea/SysMea_v12_n34_2019/
+        sysmea_v12_n34_2019_5.html">[2]</a>out of the necessity to cover a much broader range of factors that
+        significantly influence the quality of life compared to those included in other well-known indices
+        such as <a href="https://www.imf.org/en/Publications/fandd/issues/Series/Back-to-Basics/gross-domestic
+        -product-GDP">GDP</a>, <a href="https://hdr.undp.org/data-center/human-development-index">HDI</a>, or
+        <a href="https://www.who.int/tools/whoqol">WHOQOL</a>. The calculation technique of QoLI is presented
+        below, with the mention that the detailed breakdown of the factors included in the 8+1 dimensions will
+        be presented in a further paper.
+    </div>
+
+    <hr/>
+
+    <h3>Calculation Technique</h3>
+    <div class="d-flex flex-column align-items-start">
+        <ng-container *ngTemplateOutlet="qoliFormula"></ng-container>
+        <ng-container *ngTemplateOutlet="dimensionFormula"></ng-container>
+        <ng-container *ngTemplateOutlet="dimensionSet"></ng-container>
+    </div>
+
+    <hr/>
+
+    <h3>Contact</h3>
+    <div>
+        {{ 'email: qoli@webdata.ro' }}
+    </div>
+    <br/>
+</div>
+
+<ng-template #qoliFormula>
+    <math class="formula" display="block">
+        <mrow>
+            <mi>
+                <msub>
+                    <mi>QoLI</mi>
+                    <mn>v2</mn>
+                </msub>
+            </mi>
+
+            <mo>=</mo>
+
+            <mi>ln</mi>
+            <mo>(</mo>
+            <munderover>
+                <mo>&prod;</mo>
+                <mrow>
+                    <mi>i</mi>
+                    <mo>=</mo>
+                    <mn>1</mn>
+                </mrow>
+                <mrow>
+                    <mn>n</mn>
+                </mrow>
+            </munderover>
+            <msub>
+                <mi>d</mi>
+                <mn>i</mn>
+            </msub>
+            <mo>)</mo>
+
+            <mo>&forall; d &isin; D, n = |D|</mo>
+        </mrow>
+    </math>
+</ng-template>
+
+<ng-template #dimensionFormula>
+    <math class="formula" display="block">
+        <mrow>
+            <mi>
+                <msub>
+                    <mi>Dimension</mi>
+                    <mn>v2</mn>
+                </msub>
+            </mi>
+
+            <mo>=</mo>
+
+            <mi>ln</mi>
+            <mo>(</mo>
+            <munderover>
+                <mo>&prod;</mo>
+                <mrow>
+                    <mi>i</mi>
+                    <mo>=</mo>
+                    <mn>1</mn>
+                </mrow>
+                <mrow>
+                    <mn>n</mn>
+                </mrow>
+            </munderover>
+            <mi>t</mi>
+            <mi>(</mi>
+            <msub>
+                <mi>e</mi>
+                <mn>i</mn>
+            </msub>
+            <mi>)</mi>
+            <mo>)</mo>
+
+            <mo>&forall; e &isin; d, d &isin; D, n = |d|</mo>
+        </mrow>
+    </math>
+</ng-template>
+
+<ng-template #dimensionSet>
+    <div class="formula">
+        {{ "D = { Economic and Physical Safety, Education, Governance and Basic Rights, " +
+        "Health, Leisure and Social Interactions, Material Living Conditions, " +
+        "Natural and Living Environment, Overall Experience of Life, Productive or Main Activity } " }}
+    </div>
+</ng-template>

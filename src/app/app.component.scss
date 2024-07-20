@@ -4,6 +4,12 @@
 $offCanvasZIndex: 1045;
 $overlayContainerZIndex: 1070;
 
+:host {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
 ::ng-deep {
     html, body {
         height: 100%;
@@ -11,18 +17,18 @@ $overlayContainerZIndex: 1070;
 
         #header {
             display: flex;
+            flex-wrap: wrap;
             position: relative;
             background-color: #b3cde1;
             box-shadow: 0 1px $size-small 0 rgba(0, 0, 255, .2);
             z-index: $mapZIndex + 1;
-            height: $atlas-header-height;
-            overflow: auto;
+            height: fit-content;
 
             button {
-                height: 100%;
                 display: flex;
                 align-items: center;
                 padding: 0;
+                height: $atlas-header-height;
 
                 min-width: 150px;
                 color: #292929;
@@ -35,6 +41,7 @@ $overlayContainerZIndex: 1070;
                     font-weight: 700;
                     cursor: initial;
                     justify-content: center;
+                    padding: 0 $size-medium;
                 }
 
                 &#checkbox-button {
