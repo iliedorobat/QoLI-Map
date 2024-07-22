@@ -1,6 +1,14 @@
 @import 'src/assets/styles/variables.scss';
 
-.sidebar-header {
-    display: flex;
-    justify-content: space-between;
+$filter-box-width: 400px;
+
+.sidebar {
+    width: $filter-box-width;
+    height: calc(100% - 4 * $size-medium);
+    overflow: hidden;
+
+    .sidebar-header {
+        display: flex;
+        justify-content: space-between;
+    }
 }

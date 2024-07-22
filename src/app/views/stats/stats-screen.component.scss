@@ -6,37 +6,26 @@ mat-dialog-content {
     display: flex;
     flex-direction: row;
     gap: $gap;
+    position: relative;
 
     @media only screen and (max-width: 800px) {
         flex-direction: column;
     }
 
-    .sidebar {
-        width: $filter-box-body-width;
+    > qoli-sidebar {
         position: relative;
 
         ::ng-deep {
-            .global-filter {
-                width: $filter-box-body-width;
-                overflow: auto;
-
-                > form > .form-footer {
-                    width: calc($filter-box-body-width - 2 * $global-filter-padding) !important;
-                    bottom: $size-small;
-                }
-            }
-        }
-
-        @media only screen and (max-width: 800px) {
-            width: 100%;
-
-            ::ng-deep {
+            .sidebar {
                 .global-filter {
-                    width: 100%;
-
                     > form > .form-footer {
-                        width: calc(100% - $size-small) !important;
+                        width: calc(100% - (2 * #{$global-filter-padding})) !important;
+                        bottom: $size-small !important;
                     }
+                }
+
+                @media only screen and (max-width: 800px) {
+                    width: 100%;
                 }
             }
         }

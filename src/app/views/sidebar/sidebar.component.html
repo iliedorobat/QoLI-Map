@@ -1,15 +1,17 @@
-<div class="sidebar-header">
-    <h6>Quality of Life Index Filter</h6>
-    <button
-        type="button"
-        class="btn-close"
-        aria-label="Close"
-        (click)="onCloseSidebar($event)"
-        [hidden]="isAoristicAnalysis"
-    ></button>
-</div>
+<div class="sidebar">
+    <div class="sidebar-header">
+        <h6>Quality of Life Index Filter</h6>
+        <button
+            type="button"
+            class="btn-close"
+            aria-label="Close"
+            (click)="onCloseSidebar($event)"
+            [hidden]="isAoristicAnalysis"
+        ></button>
+    </div>
 
-<qoli-filter
-    [isAoristicAnalysis]="isAoristicAnalysis"
-    [onToggleScore]="onToggleScore"
-></qoli-filter>
+    <qoli-filter
+        [isAoristicAnalysis]="isAoristicAnalysis"
+        [onToggleScore]="onToggleScore"
+    ></qoli-filter>
+</div>

@@ -9,9 +9,9 @@ $overlayContainerZIndex: 1070;
     }
 }
 
-.sidebar {
+.filter-drawer {
     padding: $size-medium;
-    width: $filter-box-body-width;
+    width: fit-content;
 }
 
 .map-container {
