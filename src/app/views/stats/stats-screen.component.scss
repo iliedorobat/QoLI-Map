@@ -1,19 +1,42 @@
 @import 'src/assets/styles/variables';
 
-:host {
-    height: 100%;
+$gap: $size-medium;
+
+mat-dialog-content {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    gap: $gap;
+
+    @media only screen and (max-width: 800px) {
+        flex-direction: column;
+    }
 
     .sidebar {
+        width: $filter-box-body-width;
+        position: relative;
+
         ::ng-deep {
             .global-filter {
-                height: calc(100% - (4 * #{$filter-item-padding}));
                 width: $filter-box-body-width;
                 overflow: auto;
 
                 > form > .form-footer {
-                    width: $filter-box-body-width !important;
+                    width: calc($filter-box-body-width - 2 * $global-filter-padding) !important;
+                    bottom: $size-small;
+                }
+            }
+        }
+
+        @media only screen and (max-width: 800px) {
+            width: 100%;
+
+            ::ng-deep {
+                .global-filter {
+                    width: 100%;
+
+                    > form > .form-footer {
+                        width: calc(100% - $size-small) !important;
+                    }
                 }
             }
         }
@@ -22,7 +45,7 @@
     .stats-content {
         display: flex;
         flex-direction: column;
-        width: calc(100% - #{$filter-box-body-width} - 2 * #{$size-medium});
+        width: calc(100% - $gap);
 
         > .chart-container {
             position: relative;
@@ -37,32 +60,4 @@
             }
         }
     }
-
-    @media only screen and (max-width: 800px) {
-        .modal-body {
-            flex-wrap: wrap;
-
-            .sidebar {
-                position: relative;
-                width: 100%;
-
-                ::ng-deep {
-                    .global-filter {
-                        width: 100%;
-
-                        > form > .form-footer {
-                            bottom: $size-small;
-                            height: fit-content;
-                            width: 100% !important;
-                        }
-                    }
-                }
-            }
-
-            .stats-content {
-                width: 100%;
-            }
-        }
-    }
 }
-

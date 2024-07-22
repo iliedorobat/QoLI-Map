@@ -1,27 +1,28 @@
 import {CommonModule} from '@angular/common';
-import {Component, Input, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {MatDialogModule, MatDialogRef} from '@angular/material/dialog';
+import {MatIcon} from '@angular/material/icon';
 
 import {BaseChartDirective} from 'ng2-charts';
-import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
-import noop from 'lodash-es/noop';
 
 import {BackendService} from '@/app/views/atlas/services/backend.service';
 import {ChartService} from '@/app/shared/charts/chart.service';
 import {Filter, FilterComponent} from '@/app/shared/filter';
+import {SidebarComponent} from '@/app/views/sidebar/sidebar.component';
 
 @Component({
     selector: 'qoli-stats-screen',
     templateUrl: './stats-screen.component.html',
     standalone: true,
     styleUrls: ['./stats-screen.component.scss'],
-    imports: [BaseChartDirective, CommonModule, FilterComponent],
+    imports: [BaseChartDirective, CommonModule, FilterComponent, MatDialogModule, MatIcon, SidebarComponent],
     providers: [ChartService]
 })
 export class StatsScreenComponent implements OnInit {
     constructor(
-        private activeModal: NgbActiveModal,
         private backendService: BackendService,
         private chartService: ChartService,
+        protected dialogRef: MatDialogRef<StatsScreenComponent>,
         protected filter: Filter
     ) {}
 
@@ -48,11 +49,4 @@ export class StatsScreenComponent implements OnInit {
                 }
             });
     }
-
-    @Input() onActiveButtonResets: Function = noop;
-
-    onViewClose = () => {
-        this.activeModal.close();
-        this.onActiveButtonResets();
-    };
 }

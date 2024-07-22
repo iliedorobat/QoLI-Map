@@ -2,13 +2,14 @@
     <h6>Quality of Life Index Filter</h6>
     <button
         type="button"
-        class="btn-close text-reset"
+        class="btn-close"
         aria-label="Close"
         (click)="onCloseSidebar($event)"
+        [hidden]="isAoristicAnalysis"
     ></button>
 </div>
 
 <qoli-filter
-    [isAoristicAnalysis]="false"
+    [isAoristicAnalysis]="isAoristicAnalysis"
     [onToggleScore]="onToggleScore"
 ></qoli-filter>

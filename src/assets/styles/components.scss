@@ -1,52 +1,10 @@
+@import 'src/assets/styles/variables.scss';
+
 .clickable {
     color: $blue;
     cursor: pointer;
 
     &:hover {
         color: $indigo;
-    }
-}
-
-.cdk-overlay-pane {
-    .custom-optgroup {
-        > .mat-mdc-optgroup-label > .mdc-list-item__primary-text {
-            font-weight: 600;
-        }
-    }
-}
-
-// Configuring the list of MUI checkboxes
-.cdk-overlay-pane {
-    .custom-optgroup {
-        .custom-option {
-            padding: 0;
-
-            > mat-pseudo-checkbox {
-                display: none;
-            }
-
-            > span.mdc-list-item__primary-text {
-                width: 100%;
-
-                > mat-checkbox {
-                    width: 100%;
-
-                    > div.mdc-form-field {
-                        width: 100%;
-
-                        > label {
-                            width: 100%;
-                            padding: 14px 0;
-                            display: flex;
-                            align-items: center;
-                        }
-                    }
-                }
-            }
-
-            &.qoli-indicators {
-                margin-left: 24px;
-            }
-        }
     }
 }

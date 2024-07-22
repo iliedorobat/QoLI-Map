@@ -1,25 +1,17 @@
-import {Component, Input} from '@angular/core';
+import {Component} from '@angular/core';
 import {CommonModule} from '@angular/common';
-
-import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
-import noop from 'lodash-es/noop';
+import {MatButton} from '@angular/material/button';
+import {MatDialogModule, MatDialogRef} from '@angular/material/dialog';
+import {MatIcon} from '@angular/material/icon';
 
 @Component({
     selector: 'qoli-about-screen',
     templateUrl: './about-screen.component.html',
     standalone: true,
-    styleUrls: ['./about-screen.component.scss'],
-    imports: [CommonModule]
+    imports: [CommonModule, MatDialogModule, MatButton, MatIcon]
 })
 export class AboutScreenComponent {
     constructor(
-        private activeModal: NgbActiveModal
+        protected dialogRef: MatDialogRef<AboutScreenComponent>
     ) {}
-
-    @Input() onActiveButtonResets: Function = noop;
-
-    onViewClose = () => {
-        this.activeModal.close();
-        this.onActiveButtonResets();
-    };
 }

@@ -1,8 +1,10 @@
-import {Component, OnDestroy, ViewChild} from '@angular/core';
-import {Subject} from 'rxjs';
-import {TranslateService} from '@ngx-translate/core';
+import {Component, inject, OnDestroy, ViewChild} from '@angular/core';
+import {MatDialog} from '@angular/material/dialog';
 import {MatDrawer} from '@angular/material/sidenav';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {TranslateService} from '@ngx-translate/core';
+
+import {Subject} from 'rxjs';
 
 import {AboutScreenComponent} from '@/app/views/about/about-screen.component';
 import {BackendService} from '@/app/views/atlas/services/backend.service';
@@ -43,6 +45,8 @@ export class AppComponent implements OnDestroy {
         });
     }
 
+    readonly dialog = inject(MatDialog);
+
     @ViewChild('drawer') drawerInstance: MatDrawer | undefined;
 
     ngOnDestroy(): void {
@@ -73,19 +77,23 @@ export class AppComponent implements OnDestroy {
     }
 
     onOpenAbout(event: Event, buttonId: string) {
+        const dialogRef = this.dialog.open(AboutScreenComponent, {
+            panelClass: ['custom-modal', 'full-screen']
+        });
         this.onActiveButtonChange(buttonId);
-        const modalRef = this.modalService.open(AboutScreenComponent, {fullscreen: true});
-        modalRef.componentInstance.onActiveButtonResets = this.onActiveButtonResets;
-        modalRef.hidden.subscribe(value => {
+
+        dialogRef.afterClosed().subscribe(result => {
             this.onActiveButtonResets();
         });
     }
 
     onOpenStats(event: Event, buttonId: string) {
+        const dialogRef = this.dialog.open(StatsScreenComponent, {
+            panelClass: ['custom-modal', 'full-screen']
+        });
         this.onActiveButtonChange(buttonId);
-        const modalRef = this.modalService.open(StatsScreenComponent, {fullscreen: true});
-        modalRef.componentInstance.onActiveButtonResets = this.onActiveButtonResets;
-        modalRef.hidden.subscribe(value => {
+
+        dialogRef.afterClosed().subscribe(result => {
             this.onActiveButtonResets();
         });
     }

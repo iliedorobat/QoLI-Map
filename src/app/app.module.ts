@@ -2,11 +2,11 @@ import {BrowserModule} from '@angular/platform-browser';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {HttpClient, provideHttpClient, withInterceptorsFromDi} from '@angular/common/http';
 import {MatCheckboxModule} from '@angular/material/checkbox';
+import {MatDialogModule} from '@angular/material/dialog';
 import {MatDrawer, MatDrawerContainer, MatDrawerContent} from '@angular/material/sidenav';
 import {NgModule} from '@angular/core';
 import {provideAnimationsAsync} from '@angular/platform-browser/animations/async';
 
-import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {provideCharts, withDefaultRegisterables} from 'ng2-charts';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import {TranslateLoader, TranslateModule, TranslatePipe} from '@ngx-translate/core';
@@ -41,10 +41,10 @@ export function HttpLoaderFactory(http: HttpClient) {
         BrowserModule,
         BrowserAnimationsModule,
         MatCheckboxModule,
+        MatDialogModule,
         MatDrawer,
         MatDrawerContent,
         MatDrawerContainer,
-        NgbModule,
         SidebarComponent,
     ],
     exports: [TranslateModule],
