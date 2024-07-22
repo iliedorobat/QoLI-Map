@@ -1,13 +1,13 @@
-import {Component, OnDestroy} from '@angular/core';
+import {Component, OnDestroy, ViewChild} from '@angular/core';
 import {Subject} from 'rxjs';
 import {TranslateService} from '@ngx-translate/core';
-import {NgbModal, NgbOffcanvas} from '@ng-bootstrap/ng-bootstrap';
+import {MatDrawer} from '@angular/material/sidenav';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
 import {AboutScreenComponent} from '@/app/views/about/about-screen.component';
 import {BackendService} from '@/app/views/atlas/services/backend.service';
 import {Filter} from '@/app/shared/filter';
 import {MenuItem} from '@/app/app.types';
-import {SidebarComponent} from '@/app/views/sidebar/sidebar.component';
 import {StatsScreenComponent} from '@/app/views/stats/stats-screen.component';
 
 import {DEFAULT_ACTIVE_MENU_ITEM_ID, MENU_ITEMS, MENU_ITEMS_IDS} from './app.const';
@@ -30,7 +30,6 @@ export class AppComponent implements OnDestroy {
         private backendService: BackendService,
         private filter: Filter,
         private modalService: NgbModal,
-        private offcanvasService: NgbOffcanvas,
         private translate: TranslateService
     ) {
         translate.addLangs(['en-US']);
@@ -43,6 +42,8 @@ export class AppComponent implements OnDestroy {
             this.showScore = showScore as boolean;
         });
     }
+
+    @ViewChild('drawer') drawerInstance: MatDrawer | undefined;
 
     ngOnDestroy(): void {
         this._showScore$.unsubscribe();
@@ -60,7 +61,7 @@ export class AppComponent implements OnDestroy {
                 this.onOpenAbout(event, id);
                 return;
             case this.MENU_ITEMS_IDS.FILTER:
-                this.onOpenSidebar(event, id);
+                this.onToggleSidebar(event);
                 return;
             case this.MENU_ITEMS_IDS.STATS:
                 this.onOpenStats(event, id);
@@ -89,27 +90,20 @@ export class AppComponent implements OnDestroy {
         });
     }
 
-    onOpenSidebar(event: Event, itemId: string): void {
-        event.preventDefault();
-        event.stopPropagation();
-
-        this.onActiveButtonChange(itemId);
-
-        const offcanvasRef = this.offcanvasService.open(SidebarComponent, {panelClass: 'sidebar'});
-        offcanvasRef.componentInstance.name = 'Filter';
-        offcanvasRef.componentInstance.onActiveButtonResets = this.onActiveButtonResets;
-        offcanvasRef.componentInstance.onToggleScore = this.onToggleScore;
-        offcanvasRef.hidden.subscribe(value => {
-            this.onActiveButtonResets();
-        });
-    }
-
     onActiveButtonChange(itemId: string): void {
         this.activeMenuItemId = itemId;
     }
 
     onActiveButtonResets(): void {
         this.activeMenuItemId = DEFAULT_ACTIVE_MENU_ITEM_ID;
+    }
+
+    onToggleSidebar(event: Event) {
+        if (!this.drawerInstance?.opened) {
+            this.onActiveButtonChange(this.MENU_ITEMS_IDS.FILTER);
+        }
+
+        this.drawerInstance?.toggle();
     }
 
     onToggleScore = (showScore?: boolean) => {

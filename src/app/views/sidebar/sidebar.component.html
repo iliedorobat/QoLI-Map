@@ -1,16 +1,14 @@
-<div class="offcanvas-header">
-    <h5 class="offcanvas-title">Quality of Life Index Filter</h5>
+<div class="sidebar-header">
+    <h6>Quality of Life Index Filter</h6>
     <button
         type="button"
         class="btn-close text-reset"
         aria-label="Close"
-        (click)="onSidebarClose()"
+        (click)="onCloseSidebar($event)"
     ></button>
 </div>
 
-<div class="offcanvas-body">
-    <qoli-filter
-        [isAoristicAnalysis]="false"
-        [onToggleScore]="onToggleScore"
-    ></qoli-filter>
-</div>
+<qoli-filter
+    [isAoristicAnalysis]="false"
+    [onToggleScore]="onToggleScore"
+></qoli-filter>

@@ -1,10 +1,12 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {HttpClient, HttpClientModule, provideHttpClient, withInterceptorsFromDi} from '@angular/common/http';
+import {HttpClient, provideHttpClient, withInterceptorsFromDi} from '@angular/common/http';
 import {MatCheckboxModule} from '@angular/material/checkbox';
+import {MatDrawer, MatDrawerContainer, MatDrawerContent} from '@angular/material/sidenav';
 import {NgModule} from '@angular/core';
+import {provideAnimationsAsync} from '@angular/platform-browser/animations/async';
 
-import {NgbActiveOffcanvas, NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {provideCharts, withDefaultRegisterables} from 'ng2-charts';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import {TranslateLoader, TranslateModule, TranslatePipe} from '@ngx-translate/core';
@@ -13,6 +15,7 @@ import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {AtlasComponent} from './views/atlas/atlas.component';
 import {BaseFilter} from '@/app/shared/filter';
+import {SidebarComponent} from '@/app/views/sidebar/sidebar.component';
 
 // AoT requires an exported function for factories: https://github.com/ngx-translate/core
 export function HttpLoaderFactory(http: HttpClient) {
@@ -38,12 +41,16 @@ export function HttpLoaderFactory(http: HttpClient) {
         BrowserModule,
         BrowserAnimationsModule,
         MatCheckboxModule,
+        MatDrawer,
+        MatDrawerContent,
+        MatDrawerContainer,
         NgbModule,
+        SidebarComponent,
     ],
     exports: [TranslateModule],
     providers: [
         BaseFilter,
-        NgbActiveOffcanvas,
+        provideAnimationsAsync(),
         provideCharts(withDefaultRegisterables()),
         provideHttpClient(withInterceptorsFromDi()),
         TranslatePipe

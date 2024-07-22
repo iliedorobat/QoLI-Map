@@ -30,14 +30,14 @@
                             "src/assets"
                         ],
                         "styles": [
-                            "node_modules/bootstrap/scss/bootstrap.scss",
-                            "node_modules/bootstrap-icons/font/bootstrap-icons.scss",
-                            "node_modules/bootstrap/dist/css/bootstrap.min.css",
-                            "node_modules/leaflet/dist/leaflet.css",
-                            "node_modules/@fortawesome/fontawesome-free/css/all.min.css",
-                            "node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css",
-                            "src/styles.scss",
-                            "src/assets/styles/app.scss"
+                          "@angular/material/prebuilt-themes/azure-blue.css",
+                          "node_modules/bootstrap/scss/bootstrap.scss",
+                          "node_modules/bootstrap-icons/font/bootstrap-icons.scss",
+                          "node_modules/bootstrap/dist/css/bootstrap.min.css",
+                          "node_modules/leaflet/dist/leaflet.css",
+                          "node_modules/@fortawesome/fontawesome-free/css/all.min.css",
+                          "src/styles.scss",
+                          "src/assets/styles/app.scss"
                         ],
                         "scripts": []
                     },
@@ -100,7 +100,8 @@
                             "src/assets"
                         ],
                         "styles": [
-                            "src/styles.scss"
+                          "@angular/material/prebuilt-themes/azure-blue.css",
+                          "src/styles.scss"
                         ],
                         "scripts": []
                     }

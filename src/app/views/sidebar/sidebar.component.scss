@@ -1,9 +1,6 @@
 @import 'src/assets/styles/variables.scss';
 
-.sidebar {
-    :host {
-        display: flex;
-        flex-direction: column;
-        height: calc(100% - (5 * #{$filter-item-padding}));
-    }
+.sidebar-header {
+    display: flex;
+    justify-content: space-between;
 }

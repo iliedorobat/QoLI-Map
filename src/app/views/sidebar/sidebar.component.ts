@@ -1,6 +1,5 @@
-import {Component, Input} from '@angular/core';
+import {Component, ElementRef, EventEmitter, Input, Output} from '@angular/core';
 
-import {NgbActiveOffcanvas} from '@ng-bootstrap/ng-bootstrap';
 import noop from 'lodash-es/noop';
 
 import {FilterComponent} from '@/app/shared/filter';
@@ -14,14 +13,13 @@ import {FilterComponent} from '@/app/shared/filter';
 })
 export class SidebarComponent {
     constructor(
-        public activeOffcanvas: NgbActiveOffcanvas
+        private elementRef: ElementRef
     ) {}
 
-    @Input() onActiveButtonResets: Function = noop;
     @Input() onToggleScore: Function = noop;
+    @Output() closeSidebar = new EventEmitter();
 
-    onSidebarClose(): void {
-        this.activeOffcanvas.dismiss('Cross click');
-        this.onActiveButtonResets();
+    onCloseSidebar(event: Event): void {
+        this.closeSidebar.emit(event);
     }
 }

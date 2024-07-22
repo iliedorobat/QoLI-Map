@@ -1,126 +1,104 @@
 @import 'src/assets/styles/variables.scss';
 
-/** @deprecated */
-$offCanvasZIndex: 1045;
 $overlayContainerZIndex: 1070;
 
-:host {
+::ng-deep {
+    // Display the dropdown on stats screen
+    .cdk-overlay-container {
+        z-index: $overlayContainerZIndex;
+    }
+}
+
+.sidebar {
+    padding: $size-medium;
+    width: $filter-box-body-width;
+}
+
+.map-container {
     display: flex;
     flex-direction: column;
     height: 100%;
-}
 
-::ng-deep {
-    html, body {
-        height: 100%;
-        overflow: hidden;
+    #header {
+        display: flex;
+        flex-wrap: wrap;
+        background-color: #b3cde1;
+        box-shadow: 0 1px $size-small 0 rgba(0, 0, 255, .2);
+        z-index: $mapZIndex + 1;
 
-        #header {
+        button {
             display: flex;
-            flex-wrap: wrap;
-            position: relative;
-            background-color: #b3cde1;
-            box-shadow: 0 1px $size-small 0 rgba(0, 0, 255, .2);
-            z-index: $mapZIndex + 1;
-            height: fit-content;
+            align-items: center;
+            padding: 0;
+            height: $atlas-header-height;
 
-            button {
+            min-width: 150px;
+            color: #292929;
+            background-color: inherit;
+            border: inherit;
+            border-radius: $size-xsmall;
+
+            &#logo-button {
+                font-family: cursive;
+                font-weight: 700;
+                cursor: initial;
+                justify-content: center;
+                padding: 0 $size-medium;
+            }
+
+            &:not(#logo-button) {
+                &.active {
+                    background-color: #8eb5d3;
+                }
+
+                &:hover {
+                    background-color: #a1c1d9;
+                    color: #f3f0e8;
+                }
+            }
+
+            > .button-content {
                 display: flex;
                 align-items: center;
-                padding: 0;
-                height: $atlas-header-height;
+                gap: $size-small;
 
-                min-width: 150px;
-                color: #292929;
-                background-color: inherit;
-                border: inherit;
-                border-radius: $size-xsmall;
-
-                &#logo-button {
-                    font-family: cursive;
-                    font-weight: 700;
-                    cursor: initial;
-                    justify-content: center;
-                    padding: 0 $size-medium;
-                }
-
-                &#checkbox-button {
-                    justify-content: center;
-
-                    > mat-checkbox {
-                        display: flex;
-                        height: 100%;
-
-                        > .mdc-form-field > .mdc-checkbox {
-                            padding: 0;
-
-                            > input[type="checkbox"],
-                            > .mat-mdc-checkbox-touch-target {
-                                width: 100%;
-                                height: 100%;
-                            }
-
-                            > .mdc-checkbox__background {
-                                top: 0;
-                                left: 0;
-                            }
-                        }
-                    }
-                }
-
-                &:not(#logo-button) {
-                    &.active {
-                        background-color: #8eb5d3;
-                    }
-
-                    &:hover {
-                        background-color: #a1c1d9;
-                        color: #f3f0e8;
-                    }
-                }
-
-                > .button-container {
-                    display: flex;
-                    align-items: center;
-                    gap: $size-small;
-
-                    > i {
-                        margin-right: 2px;
-                        font-size: 14px;
-                    }
+                > i {
+                    margin-right: 2px;
+                    font-size: 14px;
                 }
             }
+        }
 
-            // button effects: https://codepen.io/foxeisen/pen/bqZxLa
-            button {
-                transition: all 0.2s linear 0s;
+        // button effects: https://codepen.io/foxeisen/pen/bqZxLa
+        button {
+            transition: all 0.2s linear 0s;
 
-                &:not(#checkbox-button):not(#logo-button) {
+            &:not(#checkbox-button):not(#logo-button) {
+                &:before {
+                    content: "\f054";
+                    font-family: FontAwesome;
+                    width: 30px;
+                    transform: scale(0,1);
+                    transform-origin: left center;
+                    transition: all 0.2s linear 0s;
+                }
+
+                &:hover {
+                    text-indent: 12px;
+
                     &:before {
-                        content: "\f054";
-                        font-family: FontAwesome;
-                        width: 30px;
-                        transform: scale(0,1);
-                        transform-origin: left center;
-                        transition: all 0.2s linear 0s;
-                    }
-
-                    &:hover {
-                        text-indent: 12px;
-
-                        &:before {
-                            transform: scale(1, 1);
-                            text-indent: 0;
-                        }
+                        transform: scale(1, 1);
+                        text-indent: 0;
                     }
                 }
             }
         }
+    }
+}
 
-        .cdk-overlay-container {
-            z-index: $overlayContainerZIndex;
-        }
-
+// tooltip & popup style
+::ng-deep {
+    .map-container {
         .leaflet-popup,
         .leaflet-control {
             &.land-summary {

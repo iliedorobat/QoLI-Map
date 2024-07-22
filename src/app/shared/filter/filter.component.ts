@@ -1,15 +1,8 @@
 import {Component, Input} from '@angular/core';
 import {CommonModule} from '@angular/common';
+import {MatExpansionModule} from '@angular/material/expansion';
 import {ReactiveFormsModule} from '@angular/forms';
 
-import {
-    NgbAccordionBody,
-    NgbAccordionButton,
-    NgbAccordionCollapse,
-    NgbAccordionDirective,
-    NgbAccordionHeader,
-    NgbAccordionItem
-} from '@ng-bootstrap/ng-bootstrap';
 import noop from 'lodash-es/noop';
 
 import {
@@ -33,12 +26,7 @@ import {ANALYSIS_TYPE} from '@/app/shared/constants/app.const';
         BaseFilterComponent,
         CommonModule,
         IndividuallyFilterComponent,
-        NgbAccordionBody,
-        NgbAccordionButton,
-        NgbAccordionDirective,
-        NgbAccordionHeader,
-        NgbAccordionItem,
-        NgbAccordionCollapse,
+        MatExpansionModule,
         ReactiveFormsModule,
         StatsFilterComponent
     ],

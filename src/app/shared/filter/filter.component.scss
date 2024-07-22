@@ -1,59 +1,60 @@
 @import 'src/assets/styles/variables.scss';
-//@import 'node_modules/bootstrap/scss/bootstrap.scss';
 
-.global-filter,
-.global-filter > form, {
+.global-filter {
     display: flex;
     flex-direction: column;
     gap: $size-medium;
-}
+    padding: $size-xxsmall;
+    height: calc(100% - 7 * #{$filter-item-padding});
+    overflow: auto;
 
-.global-filter {
-    .btn-counter {
-        width: 100%;
-        text-align: justify;
-        border: 1px solid rgba(0, 0, 0, 0.175);
-        padding: $size-small 20px;
-        background: rgba(188, 143, 143, 0.4);
-
-        &:hover {
-            background: rgba(180, 160, 150, 0.4);
-            box-shadow: 0 0 0 2px rgba(180, 160, 150, 0.4);
-        }
+    > .btn-counter {
+        background-color: rgba(26, 27, 31, 0.08);   // The same background-color as the collapsed mat-expansion-panel-header
+        border: 0;
+        border-radius: $size-small;
+        color: $black;                              // The same color as mat-panel-title
+        font-weight: 500;                           // The same font-weight as mat-panel-title
+        text-align: left;
+        padding: $size-small $size-large;
+        box-shadow:                                 // The same shadow as mat-expansion-panel
+            0 3px 1px -2px rgba(0, 0, 0, 0.2),
+            0px 2px 2px 0px rgba(0, 0, 0, 0.14),
+            0px 1px 5px 0px rgba(0, 0, 0, 0.12);
     }
 
     > form {
-        ::ng-deep {
-            .accordion-item {
-                .accordion-header {
-                    > button.accordion-button {
-                        //&[aria-expanded=false] {
-                        //    .btn-reset-section {
-                        //        color: var(--bs-accordion-btn-color);
-                        //    }
-                        //}
+        display: flex;
+        flex-direction: column;
+        gap: $size-medium;
 
-                        &[disabled] {
-                            background-color: rgba(245, 245, 245, 1);
-                            color: rgba(165, 165, 165, 1);
-                        }
+        .mat-accordion {
+            > .mat-expansion-panel {
+                & .mat-expanded {
+                    background-color: $light-blue;
+                }
 
-                        .title {
-                            color: var(--bs-link-color);
-                            width: 100%;
-                        }
+                > .mat-expansion-panel-header {
+                    border-radius: initial;
 
-                        .btn-reset-section {
-                            padding: 0;
-                            margin-right: $size-medium;
+                    .mat-expansion-panel-header-title {
+                        width: 100%;
+                        justify-content: space-between;
+
+                        button.btn-reset {
                             text-decoration: none;
                         }
                     }
                 }
 
-                .accordion-body {
-                    mat-form-field {
-                        width: 100%;
+                ::ng-deep {
+                    > .mat-expansion-panel-content {
+                        > .mat-expansion-panel-body {
+                            padding: $size-medium $size-large;
+
+                            mat-form-field {
+                                width: 100%;
+                            }
+                        }
                     }
                 }
             }

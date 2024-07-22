@@ -8,8 +8,6 @@
     .sidebar {
         ::ng-deep {
             .global-filter {
-                display: flex;
-                flex-direction: column;
                 height: calc(100% - (4 * #{$filter-item-padding}));
                 width: $filter-box-body-width;
                 overflow: auto;
