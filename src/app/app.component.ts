@@ -1,7 +1,6 @@
 import {Component, inject, OnDestroy, ViewChild} from '@angular/core';
 import {MatDialog} from '@angular/material/dialog';
 import {MatDrawer} from '@angular/material/sidenav';
-import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {TranslateService} from '@ngx-translate/core';
 
 import {Subject} from 'rxjs';
@@ -31,7 +30,6 @@ export class AppComponent implements OnDestroy {
     constructor(
         private backendService: BackendService,
         private filter: Filter,
-        private modalService: NgbModal,
         private translate: TranslateService
     ) {
         translate.addLangs(['en-US']);
