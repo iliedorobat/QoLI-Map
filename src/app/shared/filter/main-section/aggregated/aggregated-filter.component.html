@@ -11,8 +11,8 @@
             {{ filter.aggregatedFilter.selectedIndicators.length }} selected indicators
         </mat-select-trigger>
 
-        <div class="custom-optgroup">
-            <mat-option class="custom-option" [value]="filter.baseFilter.qoliOptions.filename">
+        <div class="checkbox-optgroup">
+            <mat-option class="checkbox-option" [value]="filter.baseFilter.qoliOptions.filename">
                 <mat-checkbox
                     (change)="onAllDimensionsChanges($event.source.name, $event.source.checked)"
                     [checked]="filter.aggregatedFilter.areAllDimensionsChecked()"
@@ -25,8 +25,8 @@
             </mat-option>
         </div>
 
-        <div class="custom-optgroup" *ngFor="let dimension of filter.baseFilter.qoliOptions.aggregators">
-            <mat-option class="custom-option" [value]="dimension.filename">
+        <div class="checkbox-optgroup" *ngFor="let dimension of filter.baseFilter.qoliOptions.aggregators">
+            <mat-option class="checkbox-option" [value]="dimension.filename">
                 <mat-checkbox
                     (change)="onDimensionChanges($event.source.name, $event.source.checked)"
                     [checked]="dimension.checked"
@@ -37,7 +37,7 @@
             </mat-option>
 
             <mat-option
-                class="custom-option qoli-indicators"
+                class="checkbox-option qoli-indicators"
                 *ngFor="let indicator of dimension.aggregators"
                 [value]="indicator.filename"
             >

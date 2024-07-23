@@ -52,8 +52,8 @@
             {{ filter.baseFilter.selectedCountries.length }} selected countries
         </mat-select-trigger>
 
-        <div class="custom-optgroup">
-            <mat-option class="custom-option" [value]="ALL_COUNTRIES_NAME">
+        <div class="checkbox-optgroup">
+            <mat-option class="checkbox-option" [value]="ALL_COUNTRIES_NAME">
                 <mat-checkbox
                     (change)="onAllCountriesChanges($event.source.checked)"
                     [checked]="filter.baseFilter.areAllCountriesChecked()"
@@ -65,8 +65,8 @@
             </mat-option>
         </div>
 
-        <div class="custom-optgroup">
-            <mat-option class="custom-option" *ngFor="let countryCode of EU28_MEMBER_CODES" [value]="countryCode">
+        <div class="checkbox-optgroup">
+            <mat-option class="checkbox-option" *ngFor="let countryCode of EU28_MEMBER_CODES" [value]="countryCode">
                 <mat-checkbox [checked]="isCountryChecked(countryCode)" [name]="countryCode">
                     {{ getCountryName(countryCode) }}
                 </mat-checkbox>
