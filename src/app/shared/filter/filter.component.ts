@@ -42,6 +42,7 @@ export class FilterComponent {
 
     protected readonly ANALYSIS_TYPE = ANALYSIS_TYPE;
 
-    @Input() isAoristicAnalysis: boolean = false;
+    @Input() isChartAnalysis: boolean = false;
+    @Input() isTableAnalysis: boolean = false;
     @Input() onToggleScore: Function = noop;
 }

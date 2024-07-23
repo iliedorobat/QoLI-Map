@@ -11,18 +11,18 @@ import {Filter, FilterComponent} from '@/app/shared/filter';
 import {SidebarComponent} from '@/app/views/sidebar/sidebar.component';
 
 @Component({
-    selector: 'qoli-stats-screen',
-    templateUrl: './stats-screen.component.html',
+    selector: 'qoli-stats-chart-screen',
+    templateUrl: './stats-chart-screen.component.html',
     standalone: true,
-    styleUrls: ['./stats-screen.component.scss'],
+    styleUrls: ['../stats-screen.scss'],
     imports: [BaseChartDirective, CommonModule, FilterComponent, MatDialogModule, MatIcon, SidebarComponent],
     providers: [ChartService]
 })
-export class StatsScreenComponent implements OnInit {
+export class StatsChartScreenComponent implements OnInit {
     constructor(
         private backendService: BackendService,
         private chartService: ChartService,
-        protected dialogRef: MatDialogRef<StatsScreenComponent>,
+        protected dialogRef: MatDialogRef<StatsChartScreenComponent>,
         protected filter: Filter
     ) {}
 

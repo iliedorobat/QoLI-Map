@@ -13,7 +13,8 @@ import {FilterComponent} from '@/app/shared/filter';
     imports: [FilterComponent, MatIcon]
 })
 export class SidebarComponent {
-    @Input() isAoristicAnalysis: boolean = false;
+    @Input() isChartAnalysis: boolean = false;
+    @Input() isTableAnalysis: boolean = false;
     @Input() onToggleScore: Function = noop;
     @Output() closeSidebar = new EventEmitter();
 

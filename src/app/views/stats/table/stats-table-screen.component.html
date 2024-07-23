@@ -1,0 +1,19 @@
+<div mat-dialog-title class="modal-header">
+    <div class="header-content">
+        <h4>Statistics</h4>
+        <mat-icon
+            aria-hidden="false"
+            aria-label="Close button"
+            fontIcon="close"
+            (click)="dialogRef.close()"
+        ></mat-icon>
+    </div>
+</div>
+
+<mat-dialog-content class="stats-body">
+    <qoli-sidebar [isTableAnalysis]="true"></qoli-sidebar>
+
+    <div class="table-stats-content">
+
+    </div>
+</mat-dialog-content>

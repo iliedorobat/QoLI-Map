@@ -10,8 +10,8 @@
     </div>
 </div>
 
-<mat-dialog-content>
-    <qoli-sidebar [isAoristicAnalysis]="true"></qoli-sidebar>
+<mat-dialog-content class="stats-body">
+    <qoli-sidebar [isChartAnalysis]="true"></qoli-sidebar>
 
     <div class="stats-content">
         <div [ngClass]="{'chart-container': true, 'horizontal': isHorizontal, 'vertical': !isHorizontal}">

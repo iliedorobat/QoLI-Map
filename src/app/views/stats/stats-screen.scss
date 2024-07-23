@@ -1,8 +1,8 @@
-@import 'src/assets/styles/variables';
+@import 'src/assets/styles/variables.scss';
 
 $gap: $size-medium;
 
-mat-dialog-content {
+mat-dialog-content.stats-body {
     display: flex;
     flex-direction: row;
     gap: $gap;

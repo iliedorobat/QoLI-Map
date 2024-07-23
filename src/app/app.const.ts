@@ -5,7 +5,8 @@ const MENU_ITEMS_IDS = {
     FILTER: 'filter-button',
     LOGO: 'logo-button',
     MAP: 'map-button',
-    STATS: 'stats-button',
+    STATS_CHART: 'stats-chart-button',
+    STATS_TABLE: 'stats-table-button',
 };
 
 const MENU_ITEMS = [
@@ -13,7 +14,7 @@ const MENU_ITEMS = [
         id: MENU_ITEMS_IDS.ABOUT,
         iconClasses: 'fa-solid fa-circle-info',
         label: 'About',
-        order: 4
+        order: 5
     },
     {
         id: MENU_ITEMS_IDS.FILTER,
@@ -33,11 +34,17 @@ const MENU_ITEMS = [
         order: 1
     },
     {
-        id: MENU_ITEMS_IDS.STATS,
+        id: MENU_ITEMS_IDS.STATS_CHART,
         iconClasses: 'fa-solid fa-pie-chart',
-        label: 'Stats',
-        order: 3
+        label: 'Chart',
+        order: 4
     },
+    // {
+    //     id: MENU_ITEMS_IDS.STATS_TABLE,
+    //     iconClasses: 'bi bi-border-width',
+    //     label: 'Table',
+    //     order: 3
+    // },
 ].sort((a: MenuItem, b: MenuItem) => {
     if (a.order > b.order) {
         return 1;

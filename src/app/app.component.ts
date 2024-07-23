@@ -1,4 +1,5 @@
 import {Component, inject, OnDestroy, ViewChild} from '@angular/core';
+import {ComponentType} from '@angular/cdk/overlay';
 import {MatDialog} from '@angular/material/dialog';
 import {MatDrawer} from '@angular/material/sidenav';
 import {TranslateService} from '@ngx-translate/core';
@@ -9,7 +10,8 @@ import {AboutScreenComponent} from '@/app/views/about/about-screen.component';
 import {BackendService} from '@/app/views/atlas/services/backend.service';
 import {Filter, FilterService} from '@/app/shared/filter';
 import {MenuItem} from '@/app/app.types';
-import {StatsScreenComponent} from '@/app/views/stats/stats-screen.component';
+import {StatsChartScreenComponent} from '@/app/views/stats/chart/stats-chart-screen.component';
+import {StatsTableScreenComponent} from '@/app/views/stats/table/stats-table-screen.component';
 
 import {DEFAULT_ACTIVE_MENU_ITEM_ID, MENU_ITEMS, MENU_ITEMS_IDS} from './app.const';
 
@@ -61,13 +63,16 @@ export class AppComponent implements OnDestroy {
 
         switch (id) {
             case this.MENU_ITEMS_IDS.ABOUT:
-                this.onOpenAbout(event, id);
+                this.onOpenScreen(id, AboutScreenComponent);
                 return;
             case this.MENU_ITEMS_IDS.FILTER:
                 this.onToggleSidebar(event);
                 return;
-            case this.MENU_ITEMS_IDS.STATS:
-                this.onOpenStats(event, id);
+            case this.MENU_ITEMS_IDS.STATS_CHART:
+                this.onOpenScreen(id, StatsChartScreenComponent);
+                return;
+            case this.MENU_ITEMS_IDS.STATS_TABLE:
+                this.onOpenScreen(id, StatsTableScreenComponent);
                 return;
             default:
                 this.onActiveButtonChange(id);
@@ -75,10 +80,11 @@ export class AppComponent implements OnDestroy {
         }
     }
 
-    onOpenAbout(event: Event, buttonId: string) {
-        const dialogRef = this.dialog.open(AboutScreenComponent, {
+    onOpenScreen(buttonId: string, Component: ComponentType<AboutScreenComponent | StatsChartScreenComponent | StatsTableScreenComponent>) {
+        const dialogRef = this.dialog.open(Component, {
             panelClass: ['custom-modal', 'full-screen']
         });
+
         this.onActiveButtonChange(buttonId);
 
         dialogRef.afterClosed().subscribe(result => {
@@ -86,16 +92,6 @@ export class AppComponent implements OnDestroy {
         });
     }
 
-    onOpenStats(event: Event, buttonId: string) {
-        const dialogRef = this.dialog.open(StatsScreenComponent, {
-            panelClass: ['custom-modal', 'full-screen']
-        });
-        this.onActiveButtonChange(buttonId);
-
-        dialogRef.afterClosed().subscribe(result => {
-            this.onActiveButtonResets();
-        });
-    }
 
     onActiveButtonChange(itemId: string): void {
         this.activeMenuItemId = itemId;

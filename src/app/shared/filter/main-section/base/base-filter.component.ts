@@ -33,7 +33,8 @@ export class BaseFilterComponent implements OnInit {
         protected filter: Filter
     ) {}
 
-    @Input() isAoristicAnalysis: boolean = false;
+    @Input() isChartAnalysis: boolean = false;
+    @Input() isTableAnalysis: boolean = false; // TODO:
 
     protected readonly ALL_COUNTRIES_NAME = 'ALL';
     protected readonly ANALYSIS_TYPE_LABELS = ANALYSIS_TYPE_LABELS;
@@ -43,7 +44,7 @@ export class BaseFilterComponent implements OnInit {
 
     ngOnInit(): void {
         setTimeout(() => {
-            if (!this.isAoristicAnalysis) {
+            if (!this.isChartAnalysis) {
                 const startYear: number = this.filter.form.get('startYear')?.value;
                 this.filter.form.get('endYear')?.setValue(startYear);
                 this.filter.baseFilter.updatePeriodControls(this.filter.form);
@@ -61,7 +62,7 @@ export class BaseFilterComponent implements OnInit {
     }
 
     onStartYearChanges(event: MatSelectChange): void {
-        if (!this.isAoristicAnalysis) {
+        if (!this.isChartAnalysis) {
             this.filter.form.get('startYear')?.setValue(event.value);
             this.filter.form.get('endYear')?.setValue(event.value);
         }
