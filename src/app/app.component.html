@@ -1,5 +1,5 @@
 <mat-drawer-container style="height: 100%;">
-    <mat-drawer #drawer mode="over" class="filter-drawer" (closed)="onActiveButtonResets()">
+    <mat-drawer #drawer mode="over" class="filter-drawer" (closedStart)="onSidebarClose()">
         <qoli-sidebar
             (closeSidebar)="onToggleSidebar($event)"
             [onToggleScore]="onToggleScore"

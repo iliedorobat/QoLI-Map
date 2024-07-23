@@ -7,7 +7,7 @@ import {Subject} from 'rxjs';
 
 import {AboutScreenComponent} from '@/app/views/about/about-screen.component';
 import {BackendService} from '@/app/views/atlas/services/backend.service';
-import {Filter} from '@/app/shared/filter';
+import {Filter, FilterService} from '@/app/shared/filter';
 import {MenuItem} from '@/app/app.types';
 import {StatsScreenComponent} from '@/app/views/stats/stats-screen.component';
 
@@ -30,6 +30,7 @@ export class AppComponent implements OnDestroy {
     constructor(
         private backendService: BackendService,
         private filter: Filter,
+        private filterService: FilterService,
         private translate: TranslateService
     ) {
         translate.addLangs(['en-US']);
@@ -102,6 +103,11 @@ export class AppComponent implements OnDestroy {
 
     onActiveButtonResets(): void {
         this.activeMenuItemId = DEFAULT_ACTIVE_MENU_ITEM_ID;
+    }
+
+    onSidebarClose(): void {
+        this.onActiveButtonResets();
+        this.filterService.onReset();
     }
 
     onToggleSidebar(event: Event) {

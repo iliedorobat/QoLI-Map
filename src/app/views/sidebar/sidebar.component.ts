@@ -1,4 +1,4 @@
-import {Component, ElementRef, EventEmitter, Input, Output} from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {MatIcon} from '@angular/material/icon';
 
 import noop from 'lodash-es/noop';
@@ -13,10 +13,6 @@ import {FilterComponent} from '@/app/shared/filter';
     imports: [FilterComponent, MatIcon]
 })
 export class SidebarComponent {
-    constructor(
-        private elementRef: ElementRef
-    ) {}
-
     @Input() isAoristicAnalysis: boolean = false;
     @Input() onToggleScore: Function = noop;
     @Output() closeSidebar = new EventEmitter();
