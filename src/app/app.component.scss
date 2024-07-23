@@ -1,14 +1,5 @@
 @import 'src/assets/styles/variables.scss';
 
-$overlayContainerZIndex: 1070;
-
-::ng-deep {
-    // Display the dropdown on stats screen
-    .cdk-overlay-container {
-        z-index: $overlayContainerZIndex;
-    }
-}
-
 .filter-drawer {
     padding: $size-medium;
     width: fit-content;
@@ -96,7 +87,7 @@ $overlayContainerZIndex: 1070;
     }
 }
 
-// tooltip & popup style
+// Tooltip & popup style
 ::ng-deep {
     .map-container {
         .leaflet-popup,
