@@ -32,9 +32,10 @@ Countries borders: [EuroStat Geo Data](https://ec.europa.eu/eurostat/web/gisco/g
 ## Data Visualisation
 <img width="1404" alt="QoLI Map" src="https://github.com/user-attachments/assets/28c5e4f2-41fc-49fb-a30b-4f94ae872055">
 
-<img width="1786" alt="Stats 1" src="https://github.com/user-attachments/assets/072b684f-9cbf-4d32-b768-6942fe1dc1ef">
+<img width="1786" alt="Chart Stats 1" src="https://github.com/user-attachments/assets/072b684f-9cbf-4d32-b768-6942fe1dc1ef">
 
-<img width="1783" alt="Stats 2" src="https://github.com/user-attachments/assets/e6eceaa7-832d-484c-9b31-957c1dabcb8a">
+<img width="1783" alt="Chart Stats 2" src="https://github.com/user-attachments/assets/e6eceaa7-832d-484c-9b31-957c1dabcb8a">
 
-<img width="1782" alt="Stats 3" src="https://github.com/user-attachments/assets/590120e4-b1db-4cb9-ae1e-26543de3d450">
+<img width="1782" alt="Chart Stats 3" src="https://github.com/user-attachments/assets/590120e4-b1db-4cb9-ae1e-26543de3d450">
 
+<img width="1321" alt="Table Stats" src="https://github.com/user-attachments/assets/41bffd93-185f-431f-9474-eeb3f98c2724">
