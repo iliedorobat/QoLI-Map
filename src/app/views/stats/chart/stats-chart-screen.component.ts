@@ -5,9 +5,9 @@ import {MatIcon} from '@angular/material/icon';
 
 import {BaseChartDirective} from 'ng2-charts';
 
-import {BackendService} from '@/app/views/atlas/services/backend.service';
 import {ChartService} from '@/app/shared/charts/chart.service';
 import {Filter, FilterComponent} from '@/app/shared/filter';
+import {LifeIndexFetcher} from '@/app/shared/services/fetch/life-index.fetcher';
 import {LifeIndexMultipleResponses} from '@/app/views/atlas/constants/response.types';
 import {SidebarComponent} from '@/app/views/sidebar/sidebar.component';
 
@@ -21,10 +21,10 @@ import {SidebarComponent} from '@/app/views/sidebar/sidebar.component';
 })
 export class StatsChartScreenComponent implements OnInit {
     constructor(
-        private backendService: BackendService,
         private chartService: ChartService,
         protected dialogRef: MatDialogRef<StatsChartScreenComponent>,
-        protected filter: Filter
+        protected filter: Filter,
+        private lifeIndexFetcher: LifeIndexFetcher
     ) {}
 
     @ViewChild(BaseChartDirective)
@@ -35,7 +35,7 @@ export class StatsChartScreenComponent implements OnInit {
     protected isHorizontal = false;
 
     ngOnInit(): void {
-        this.backendService.lifeIndex$
+        this.lifeIndexFetcher.lifeIndex$
             .subscribe((scores: LifeIndexMultipleResponses) => {
                 this.chartType = this.filter.form.get('chartType')?.value
                 this.chartData = this.chartService.generateChartData(this.chartType, scores);

@@ -1,8 +1,8 @@
 import {Injectable} from '@angular/core';
 import get from 'lodash-es/get';
 
-import {BackendService} from '@/app/views/atlas/services/backend.service';
 import {Filter} from '@/app/shared/filter';
+import {LifeIndexFetcher} from '@/app/shared/services/fetch/life-index.fetcher';
 import {StatsFilterService} from './stats-options/stats-filter.service';
 import {SummaryControlService} from '@/app/views/atlas/services/summary-control.service';
 
@@ -14,8 +14,8 @@ const SECTION_SUFFIX = '-collapse';
 })
 export class FilterService {
     constructor(
-        private backendService: BackendService,
         private filter: Filter,
+        private lifeIndexFetcher: LifeIndexFetcher,
         private statsFilterService: StatsFilterService,
         private summaryControlService: SummaryControlService
     ) {}
@@ -28,7 +28,7 @@ export class FilterService {
 
     onFilterApply(onToggleScore?: Function): void {
         this.filter.save();
-        this.backendService.lifeIndexSubscription(this.filter);
+        this.lifeIndexFetcher.subscribe(this.filter);
         this.summaryControlService.updateContent('land-summary');
         onToggleScore && onToggleScore(true);
     }

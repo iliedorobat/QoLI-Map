@@ -7,8 +7,8 @@ import {TranslateService} from '@ngx-translate/core';
 import {Subject} from 'rxjs';
 
 import {AboutScreenComponent} from '@/app/views/about/about-screen.component';
-import {BackendService} from '@/app/views/atlas/services/backend.service';
 import {Filter, FilterService} from '@/app/shared/filter';
+import {LifeIndexFetcher} from '@/app/shared/services/fetch/life-index.fetcher';
 import {MenuItem} from '@/app/app.types';
 import {StatsChartScreenComponent} from '@/app/views/stats/chart/stats-chart-screen.component';
 import {StatsTableScreenComponent} from '@/app/views/stats/table/stats-table-screen.component';
@@ -30,16 +30,16 @@ export class AppComponent implements OnDestroy {
     protected showScore: boolean = true;
 
     constructor(
-        private backendService: BackendService,
         private filter: Filter,
         private filterService: FilterService,
+        private lifeIndexFetcher: LifeIndexFetcher,
         private translate: TranslateService
     ) {
         translate.addLangs(['en-US']);
         translate.setDefaultLang('en-US');
         translate.use('en-US');
 
-        backendService.lifeIndexSubscription(this.filter);
+        lifeIndexFetcher.subscribe(this.filter);
 
         this.showScore$$.subscribe(showScore => {
             this.showScore = showScore as boolean;
@@ -52,7 +52,7 @@ export class AppComponent implements OnDestroy {
 
     ngOnDestroy(): void {
         this._showScore$.unsubscribe();
-        this.backendService.unsubscribe();
+        this.lifeIndexFetcher.unsubscribe();
     }
 
     onMenuItemClick(event: Event, menuItem: MenuItem): void {

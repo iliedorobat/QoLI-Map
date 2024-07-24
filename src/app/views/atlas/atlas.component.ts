@@ -1,13 +1,14 @@
 import {CommonModule} from '@angular/common';
 import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
+import {MatProgressSpinner} from '@angular/material/progress-spinner';
 
 import {GeoJSON, Layer, Map} from 'leaflet';
 import {LeafletModule} from '@asymmetrik/ngx-leaflet';
 
 import {AtlasService} from './services/atlas.service';
-import {BackendService} from './services/backend.service';
 import {Filter} from '@/app/shared/filter';
 import {IAtlasLayer, ISummaryControl} from '@/app/views/atlas/atlas.types';
+import {LifeIndexFetcher} from '@/app/shared/services/fetch/life-index.fetcher';
 import {LifeIndexMultipleResponses} from '@/app/views/atlas/constants/response.types';
 import {SummaryControlService} from '@/app/views/atlas/services/summary-control.service';
 
@@ -18,13 +19,13 @@ import {BASE_LAYERS, LAYERS, MAP_OPTIONS} from './constants/atlas.const';
     standalone: true,
     templateUrl: './atlas.component.html',
     styleUrls: ['./atlas.component.scss'],
-    imports: [LeafletModule, CommonModule]
+    imports: [CommonModule, LeafletModule, MatProgressSpinner]
 })
 export class AtlasComponent implements OnInit, OnChanges {
     constructor(
         protected atlasService: AtlasService,
-        private backendService: BackendService,
         private filter: Filter,
+        protected lifeIndexFetcher: LifeIndexFetcher,
         private summaryControlService: SummaryControlService
     ) {}
 
@@ -53,10 +54,10 @@ export class AtlasComponent implements OnInit, OnChanges {
     }
 
     ngOnInit(): void {
-        this.backendService.lifeIndex$
+        this.lifeIndexFetcher.lifeIndex$
             .subscribe((scores: LifeIndexMultipleResponses) => {
                 if (this.map) {
-                    this.scores = this.backendService.reduceLifeIndexes(scores, this.filter.baseFilter.startYear);
+                    this.scores = this.lifeIndexFetcher.reduce(scores, this.filter.baseFilter.startYear);
                     this.atlasLayers = this.atlasService.prepareLayers(this.map, BASE_LAYERS, this.scores, this.summaryControl);
                 }
             });
