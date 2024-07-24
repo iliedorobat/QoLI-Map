@@ -48,5 +48,11 @@ mat-dialog-content.stats-body {
                 height: 500px;
             }
         }
+
+        > .table-container {
+            .mat-mdc-row:hover {
+                background-color: $light-grey;
+            }
+        }
     }
 }

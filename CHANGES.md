@@ -6,6 +6,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 # 2.2.0
 - Bump package versions
 - Code cleanup
+- Added "Stats Table" screen
 
 # 2.1.0
 - Added comprehensive analysis view

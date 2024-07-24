@@ -39,12 +39,12 @@ const MENU_ITEMS = [
         label: 'Chart',
         order: 4
     },
-    // {
-    //     id: MENU_ITEMS_IDS.STATS_TABLE,
-    //     iconClasses: 'bi bi-border-width',
-    //     label: 'Table',
-    //     order: 3
-    // },
+    {
+        id: MENU_ITEMS_IDS.STATS_TABLE,
+        iconClasses: 'bi bi-border-width',
+        label: 'Table',
+        order: 3
+    },
 ].sort((a: MenuItem, b: MenuItem) => {
     if (a.order > b.order) {
         return 1;

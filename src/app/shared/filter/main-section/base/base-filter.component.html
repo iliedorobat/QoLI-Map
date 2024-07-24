@@ -9,7 +9,7 @@
 
 <mat-form-field [formGroup]="filter.form">
     <mat-label>
-        {{ isChartAnalysis ? 'Start Year' : 'Year of analysis' }}
+        {{ isStatsAnalysis ? 'Start Year' : 'Year of analysis' }}
     </mat-label>
 
     <mat-select formControlName="startYear" (selectionChange)="onStartYearChanges($event)">
@@ -23,9 +23,9 @@
     </mat-error>
 </mat-form-field>
 
-<mat-form-field [formGroup]="filter.form" [hidden]="!isChartAnalysis">
+<mat-form-field [formGroup]="filter.form" [hidden]="!isStatsAnalysis">
     <mat-label>
-        {{ isChartAnalysis ? 'End Year' : 'Year of analysis' }}
+        {{ isStatsAnalysis ? 'End Year' : 'Year of analysis' }}
     </mat-label>
 
     <mat-select formControlName="endYear" (selectionChange)="onEndYearChanges($event)">

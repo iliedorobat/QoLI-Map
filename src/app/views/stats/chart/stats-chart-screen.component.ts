@@ -8,6 +8,7 @@ import {BaseChartDirective} from 'ng2-charts';
 import {BackendService} from '@/app/views/atlas/services/backend.service';
 import {ChartService} from '@/app/shared/charts/chart.service';
 import {Filter, FilterComponent} from '@/app/shared/filter';
+import {LifeIndexMultipleResponses} from '@/app/views/atlas/constants/response.types';
 import {SidebarComponent} from '@/app/views/sidebar/sidebar.component';
 
 @Component({
@@ -34,9 +35,8 @@ export class StatsChartScreenComponent implements OnInit {
     protected isHorizontal = false;
 
     ngOnInit(): void {
-        this.filter.baseFilter.reset(this.filter.form);
         this.backendService.lifeIndex$
-            .subscribe(scores => {
+            .subscribe((scores: LifeIndexMultipleResponses) => {
                 this.chartType = this.filter.form.get('chartType')?.value
                 this.chartData = this.chartService.generateChartData(this.chartType, scores);
                 this.chartOptions = this.chartService.generateChartOptions(this.chartType);

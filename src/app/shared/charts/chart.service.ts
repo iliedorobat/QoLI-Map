@@ -7,6 +7,7 @@ import {DatasetService} from '@/app/views/atlas/services/dataset.service';
 import {Filter} from '@/app/shared/filter';
 import {LifeIndexMultipleResponses} from '@/app/views/atlas/constants/response.types';
 import {LineChartService} from '@/app/shared/charts/line-chart.service';
+import {StatsService} from '@/app/views/stats/stats.service';
 
 import {COUNTRIES} from '@/app/shared/constants/app.const';
 import {CHART_DIRECTION} from '@/app/shared/charts/chart.const';
@@ -20,7 +21,8 @@ export class ChartService {
         private chartUtils: ChartUtils,
         private datasetService: DatasetService,
         private filter: Filter,
-        private lineChartService: LineChartService
+        private lineChartService: LineChartService,
+        private statsService: StatsService
     ) {}
 
     private generateChartDatasets = (chartType: keyof ChartTypeRegistry, scores?: LifeIndexMultipleResponses): ChartDataset[] => {
@@ -72,17 +74,6 @@ export class ChartService {
         };
     };
 
-    public generateChartTitle = (): string => {
-        const {startYear, endYear} = this.filter.baseFilter;
-        const label =  this.filter.baseFilter.isAggregateAnalysis()
-            ? 'QoLI Stats'
-            : this.filter.individuallyFilter.selectedIndicator.label;
-
-        return startYear === endYear
-            ? `${label} For The Year ${this.filter.baseFilter.startYear}`
-            : `${label} For The Period ${startYear} - ${endYear}`;
-    };
-
     public isHorizontal = (chartType: keyof ChartTypeRegistry): boolean => {
         const chartDirection = this.filter.form.get('chartDirection')?.value;
 
@@ -105,7 +96,7 @@ export class ChartService {
             plugins: {
                 title: {
                     display: true,
-                    text: this.generateChartTitle()
+                    text: this.statsService.generateChartTitle()
                 },
                 tooltip: {
                     callbacks: {
