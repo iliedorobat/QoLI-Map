@@ -34,7 +34,11 @@ mat-dialog-content.stats-body {
     .stats-content {
         display: flex;
         flex-direction: column;
-        width: calc(100% - $gap);
+        width: calc(100% - #{$filter-box-width} - #{$gap});
+
+        @media only screen and (max-width: 800px) {
+            width: 100%;
+        }
 
         > .chart-container {
             position: relative;
@@ -50,8 +54,18 @@ mat-dialog-content.stats-body {
         }
 
         > .table-container {
-            .mat-mdc-row:hover {
-                background-color: $light-grey;
+            display: flex;
+            flex-direction: column;
+            border-radius: $size-small;
+            overflow: hidden;
+
+            > .table-content {
+                max-height: 800px;
+                overflow: auto;
+
+                .mat-mdc-row:hover {
+                    background-color: $light-grey;
+                }
             }
         }
     }

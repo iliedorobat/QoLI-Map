@@ -1,7 +1,5 @@
 @import 'src/assets/styles/variables.scss';
 
-$filter-box-width: 400px;
-
 .sidebar {
     width: $filter-box-width;
     height: calc(100% - 4 * $size-medium);
