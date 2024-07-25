@@ -9,6 +9,7 @@ import {ChartService} from '@/app/shared/charts/chart.service';
 import {Filter, FilterComponent} from '@/app/shared/filter';
 import {LifeIndexFetcher} from '@/app/shared/services/fetch/life-index.fetcher';
 import {LifeIndexMultipleResponses} from '@/app/views/atlas/constants/response.types';
+import {LoaderComponent} from '@/app/shared/loader/loader.component';
 import {SidebarComponent} from '@/app/views/sidebar/sidebar.component';
 
 @Component({
@@ -16,7 +17,15 @@ import {SidebarComponent} from '@/app/views/sidebar/sidebar.component';
     templateUrl: './stats-chart-screen.component.html',
     standalone: true,
     styleUrls: ['../stats-screen.scss'],
-    imports: [BaseChartDirective, CommonModule, FilterComponent, MatDialogModule, MatIcon, SidebarComponent],
+    imports: [
+        BaseChartDirective,
+        CommonModule,
+        FilterComponent,
+        LoaderComponent,
+        MatDialogModule,
+        MatIcon,
+        SidebarComponent
+    ],
     providers: [ChartService]
 })
 export class StatsChartScreenComponent implements OnInit {
@@ -32,6 +41,7 @@ export class StatsChartScreenComponent implements OnInit {
     protected chartType = this.filter.statsFilter.selectedType;
     protected chartData = this.chartService.generateChartData(this.chartType);
     protected chartOptions = this.chartService.generateChartOptions(this.chartType);
+    protected className: string = this.prepareClassName();
     protected isHorizontal = false;
 
     ngOnInit(): void {
@@ -41,6 +51,7 @@ export class StatsChartScreenComponent implements OnInit {
                 this.chartData = this.chartService.generateChartData(this.chartType, scores);
                 this.chartOptions = this.chartService.generateChartOptions(this.chartType);
                 this.isHorizontal = this.chartService.isHorizontal(this.chartType);
+                this.className = this.prepareClassName();
 
                 // Workaround to update the indexAxis
                 if (this.chart?.options) {
@@ -49,4 +60,12 @@ export class StatsChartScreenComponent implements OnInit {
                 }
             });
     }
+
+    prepareClassName(): string {
+        const classes = ['chart-container'];
+        this.isHorizontal && classes.push('horizontal');
+        !this.isHorizontal && classes.push('vertical');
+
+        return classes.join(' ');
+    };
 }

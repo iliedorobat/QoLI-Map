@@ -14,7 +14,7 @@
     <qoli-sidebar [isChartAnalysis]="true"></qoli-sidebar>
 
     <div class="stats-content">
-        <div [ngClass]="{'chart-container': true, 'horizontal': isHorizontal, 'vertical': !isHorizontal}">
+        <qoli-loader [className]="className">
             <canvas
                 baseChart
                 id="stats-chart"
@@ -22,6 +22,6 @@
                 [options]="chartOptions"
                 [type]="chartType"
             ></canvas>
-        </div>
+        </qoli-loader>
     </div>
 </mat-dialog-content>

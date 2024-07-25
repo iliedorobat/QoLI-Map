@@ -1,0 +1,7 @@
+<div [ngClass]="className ? 'content-container ' + className : 'content-container'">
+    <div class="loader-container" *ngIf="lifeIndexFetcher.isLoading">
+        <mat-spinner></mat-spinner>
+    </div>
+
+    <ng-content></ng-content>
+</div>

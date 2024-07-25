@@ -1,6 +1,5 @@
 import {CommonModule} from '@angular/common';
 import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges} from '@angular/core';
-import {MatProgressSpinner} from '@angular/material/progress-spinner';
 
 import {GeoJSON, Layer, Map} from 'leaflet';
 import {LeafletModule} from '@asymmetrik/ngx-leaflet';
@@ -10,6 +9,7 @@ import {Filter} from '@/app/shared/filter';
 import {IAtlasLayer, ISummaryControl} from '@/app/views/atlas/atlas.types';
 import {LifeIndexFetcher} from '@/app/shared/services/fetch/life-index.fetcher';
 import {LifeIndexMultipleResponses} from '@/app/views/atlas/constants/response.types';
+import {LoaderComponent} from '@/app/shared/loader/loader.component';
 import {SummaryControlService} from '@/app/views/atlas/services/summary-control.service';
 
 import {BASE_LAYERS, LAYERS, MAP_OPTIONS} from './constants/atlas.const';
@@ -19,7 +19,7 @@ import {BASE_LAYERS, LAYERS, MAP_OPTIONS} from './constants/atlas.const';
     standalone: true,
     templateUrl: './atlas.component.html',
     styleUrls: ['./atlas.component.scss'],
-    imports: [CommonModule, LeafletModule, MatProgressSpinner]
+    imports: [CommonModule, LeafletModule, LoaderComponent]
 })
 export class AtlasComponent implements OnInit, OnChanges {
     constructor(

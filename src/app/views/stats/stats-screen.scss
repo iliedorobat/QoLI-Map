@@ -40,31 +40,34 @@ mat-dialog-content.stats-body {
             width: 100%;
         }
 
-        > .chart-container {
-            position: relative;
-            width: 100%;
+        ::ng-deep {
+            .chart-container {
+                position: relative;
+                width: 100%;
 
-            &.horizontal {
-                height: 800px;
+                &.horizontal {
+                    height: 800px;
+                }
+
+                &.vertical {
+                    height: 500px;
+                }
             }
 
-            &.vertical {
-                height: 500px;
-            }
-        }
+            .table-container {
+                display: flex;
+                flex-direction: column;
+                border-radius: $size-small;
+                overflow: hidden;
+                position: relative;
 
-        > .table-container {
-            display: flex;
-            flex-direction: column;
-            border-radius: $size-small;
-            overflow: hidden;
+                > .table-content {
+                    max-height: 800px;
+                    overflow: auto;
 
-            > .table-content {
-                max-height: 800px;
-                overflow: auto;
-
-                .mat-mdc-row:hover {
-                    background-color: $light-grey;
+                    .mat-mdc-row:hover {
+                        background-color: $light-grey;
+                    }
                 }
             }
         }

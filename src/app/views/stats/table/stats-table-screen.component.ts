@@ -22,6 +22,7 @@ import {FilterComponent} from '@/app/shared/filter';
 import {ITableRow} from '@/app/views/stats/table/stats-table-screen.types';
 import {LifeIndexFetcher} from '@/app/shared/services/fetch/life-index.fetcher';
 import {LifeIndexMultipleResponses} from '@/app/views/atlas/constants/response.types';
+import {LoaderComponent} from '@/app/shared/loader/loader.component';
 import {SidebarComponent} from '@/app/views/sidebar/sidebar.component';
 import {StatsService} from '@/app/views/stats/stats.service';
 
@@ -35,6 +36,7 @@ import {EU28_MEMBERS} from '@/app/shared/constants/app.const';
     imports: [
         CommonModule,
         FilterComponent,
+        LoaderComponent,
         MatCell,
         MatCellDef,
         MatColumnDef,

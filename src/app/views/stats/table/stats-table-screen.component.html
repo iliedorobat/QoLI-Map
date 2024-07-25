@@ -16,7 +16,7 @@
     <div class="stats-content">
         <h6 class="text-center">{{ statsService.generateChartTitle() }}</h6>
 
-        <div class="table-container mat-elevation-z8">
+        <qoli-loader className="table-container mat-elevation-z8">
             <div class="table-content">
                 <table mat-table matSort [dataSource]="dataSource">
                     <ng-container matColumnDef="code">
@@ -45,6 +45,6 @@
                 showFirstLastButtons
                 aria-label="Select page">
             </mat-paginator>
-        </div>
+        </qoli-loader>
     </div>
 </mat-dialog-content>
