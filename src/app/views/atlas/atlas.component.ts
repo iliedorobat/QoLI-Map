@@ -10,6 +10,7 @@ import {IAtlasLayer, ISummaryControl} from '@/app/views/atlas/atlas.types';
 import {LifeIndexFetcher} from '@/app/shared/services/fetch/life-index.fetcher';
 import {LifeIndexMultipleResponses} from '@/app/views/atlas/constants/response.types';
 import {LoaderComponent} from '@/app/shared/loader/loader.component';
+import {State} from '@/app/shared/state/state';
 import {SummaryControlService} from '@/app/views/atlas/services/summary-control.service';
 
 import {BASE_LAYERS, LAYERS, MAP_OPTIONS} from './constants/atlas.const';
@@ -27,6 +28,7 @@ export class AtlasComponent implements OnInit, OnChanges {
         protected atlasService: AtlasService,
         private filter: Filter,
         protected lifeIndexFetcher: LifeIndexFetcher,
+        protected state: State,
         private summaryControlService: SummaryControlService
     ) {}
 
@@ -56,7 +58,7 @@ export class AtlasComponent implements OnInit, OnChanges {
     }
 
     ngOnInit(): void {
-        this.lifeIndexFetcher.lifeIndex$
+        this.state.lifeIndex$
             .subscribe((scores: LifeIndexMultipleResponses) => {
                 if (this.map) {
                     this.scores = this.lifeIndexFetcher.reduce(scores, this.filter.baseFilter.startYear);

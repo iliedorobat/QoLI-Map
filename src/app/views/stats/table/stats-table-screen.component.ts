@@ -20,10 +20,10 @@ import {MatSort, MatSortHeader} from '@angular/material/sort';
 
 import {FilterComponent} from '@/app/shared/filter';
 import {ITableRow} from '@/app/views/stats/table/stats-table-screen.types';
-import {LifeIndexFetcher} from '@/app/shared/services/fetch/life-index.fetcher';
 import {LifeIndexMultipleResponses} from '@/app/views/atlas/constants/response.types';
 import {LoaderComponent} from '@/app/shared/loader/loader.component';
 import {SidebarComponent} from '@/app/views/sidebar/sidebar.component';
+import {State} from '@/app/shared/state/state';
 import {StatsService} from '@/app/views/stats/stats.service';
 
 import {EU28_MEMBERS} from '@/app/shared/constants/app.const';
@@ -58,7 +58,7 @@ import {EU28_MEMBERS} from '@/app/shared/constants/app.const';
 export class StatsTableScreenComponent implements AfterViewInit, OnInit {
     constructor(
         protected dialogRef: MatDialogRef<StatsTableScreenComponent>,
-        private lifeIndexFetcher: LifeIndexFetcher,
+        private state: State,
         protected statsService: StatsService
     ) {}
 
@@ -78,7 +78,7 @@ export class StatsTableScreenComponent implements AfterViewInit, OnInit {
     }
 
     ngOnInit(): void {
-        this.lifeIndexFetcher.lifeIndex$
+        this.state.lifeIndex$
             .subscribe((scores: LifeIndexMultipleResponses) => {
                 const countryCodes = Object.keys(scores);
                 this.updateColumns(scores);

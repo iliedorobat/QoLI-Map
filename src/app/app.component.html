@@ -18,6 +18,7 @@
                     'active': activeMenuItemId === item.id
                 }"
                 (click)="onMenuItemClick($event, item)"
+                [disabled]="item.id !== MENU_ITEMS_IDS.LOGO && state.isLoading"
             >
                 <div class="button-content">
                     <i *ngIf="item.iconClasses" [ngClass]="item.iconClasses"></i>

@@ -8,8 +8,22 @@
         padding: 0;
         z-index: $mapZIndex;
 
-        #filter-controller > a {
-            font-size: 30px;
+        #filter-controller {
+            padding: 0;
+
+            &:disabled {
+                > a {
+                    background: $light-grey;
+
+                    > i {
+                        opacity: 0.65;
+                    }
+                }
+            }
+
+            > a {
+                font-size: 30px;
+            }
         }
 
         #legend {

@@ -9,8 +9,8 @@ import {MAIN_URI} from '@/app/shared/constants/endpoint';
     providedIn: 'root'
 })
 export class LifeIndexFetcher {
+    private _data$: BehaviorSubject<LifeIndexMultipleResponses> = new BehaviorSubject<LifeIndexMultipleResponses>({} as LifeIndexMultipleResponses);
     private _error$: BehaviorSubject<string | null> = new BehaviorSubject<string | null>(null);
-    private _lifeIndex$: BehaviorSubject<LifeIndexMultipleResponses> = new BehaviorSubject<LifeIndexMultipleResponses>({} as LifeIndexMultipleResponses);
     private _isLoading$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(true);
 
     public reduce(data: LifeIndexMultipleResponses, year: number): LifeIndexResponse {
@@ -65,7 +65,7 @@ export class LifeIndexFetcher {
         const subscription = () => {
             this.fetch(filter)
                 .subscribe((data: LifeIndexMultipleResponses) => {
-                    this._lifeIndex$.next(data);
+                    this._data$.next(data);
                 });
         };
 
@@ -76,19 +76,19 @@ export class LifeIndexFetcher {
 
     public unsubscribe(): void {
         this._error$.unsubscribe();
-        this._lifeIndex$.unsubscribe();
+        this._data$.unsubscribe();
         this._isLoading$.unsubscribe();
     }
 
-    get lifeIndex$(): Observable<LifeIndexMultipleResponses> {
-        return this._lifeIndex$.asObservable();
+    get data$(): Observable<LifeIndexMultipleResponses> {
+        return this._data$.asObservable();
     }
 
-    get isLoading(): boolean {
-        return this._isLoading$.getValue();
+    get error$(): Observable<string | null> {
+        return this._error$.asObservable();
     }
 
-    get error(): string | null {
-        return this._error$.getValue();
+    get isLoading$(): Observable<boolean> {
+        return this._isLoading$.asObservable();
     }
 }

@@ -7,10 +7,10 @@ import {BaseChartDirective} from 'ng2-charts';
 
 import {ChartService} from '@/app/shared/charts/chart.service';
 import {Filter, FilterComponent} from '@/app/shared/filter';
-import {LifeIndexFetcher} from '@/app/shared/services/fetch/life-index.fetcher';
 import {LifeIndexMultipleResponses} from '@/app/views/atlas/constants/response.types';
 import {LoaderComponent} from '@/app/shared/loader/loader.component';
 import {SidebarComponent} from '@/app/views/sidebar/sidebar.component';
+import {State} from '@/app/shared/state/state';
 
 @Component({
     selector: 'qoli-stats-chart-screen',
@@ -33,7 +33,7 @@ export class StatsChartScreenComponent implements OnInit {
         private chartService: ChartService,
         protected dialogRef: MatDialogRef<StatsChartScreenComponent>,
         protected filter: Filter,
-        private lifeIndexFetcher: LifeIndexFetcher
+        private state: State
     ) {}
 
     @ViewChild(BaseChartDirective)
@@ -45,7 +45,7 @@ export class StatsChartScreenComponent implements OnInit {
     protected isHorizontal = false;
 
     ngOnInit(): void {
-        this.lifeIndexFetcher.lifeIndex$
+        this.state.lifeIndex$
             .subscribe((scores: LifeIndexMultipleResponses) => {
                 this.chartType = this.filter.form.get('chartType')?.value
                 this.chartData = this.chartService.generateChartData(this.chartType, scores);
