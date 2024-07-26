@@ -20,7 +20,7 @@
     <div class="legend-group">
         <div>Best Score</div>
         <div class="grades">
-            <i *ngFor="let grade of atlasService.GRADES" [style]="{background: atlasService.getColor(grade)}"></i>
+            <i *ngFor="let color of COLOR_PALETTE" [style]="{background: color}"></i>
         </div>
         <div>Worst Score</div>
     </div>

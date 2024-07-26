@@ -13,6 +13,7 @@ import {LoaderComponent} from '@/app/shared/loader/loader.component';
 import {SummaryControlService} from '@/app/views/atlas/services/summary-control.service';
 
 import {BASE_LAYERS, LAYERS, MAP_OPTIONS} from './constants/atlas.const';
+import {COLOR_PALETTE} from '@/app/views/atlas/constants/colors.const';
 
 @Component({
     selector: 'qoli-atlas',
@@ -31,6 +32,7 @@ export class AtlasComponent implements OnInit, OnChanges {
 
     private map: Map | undefined;
     private scores = {};
+    protected readonly COLOR_PALETTE = COLOR_PALETTE;
     protected readonly MAP_OPTIONS = MAP_OPTIONS;
     protected atlasLayers: Array<IAtlasLayer> = BASE_LAYERS;
     protected readonly layersControl = {

@@ -11,6 +11,7 @@ import {SummaryControlService} from '@/app/views/atlas/services/summary-control.
 
 import * as COUNTRIES_NON_EU from '@/../files/geo-location/europe-non-eu.json';
 import * as COUNTRIES_EU from '@/../files/geo-location/europe-eu.json';
+import {COLOR_PALETTE, EXCLUDED_COLOR} from '@/app/views/atlas/constants/colors.const';
 import {NON_EU28_MEMBER_CODES} from '@/app/shared/constants/app.const';
 import {SORT_ORDER} from '@/app/shared/constants/math.const';
 
@@ -121,21 +122,42 @@ export class AtlasService {
         const rank = sortedResponse.findIndex(item => item[0] === countryCode) + 1;
         const isExcluded = score === this.datasetService.EXCLUDED_COUNTRY_SCORE;
 
-        return this.getColor(rank, isExcluded);
+        return this.getColor(rank, sortedResponse.length, isExcluded);
     }
 
-    public getColor(rank: number, isExcluded?: boolean): string {
-        switch (true) {
-            case isExcluded: return '#838996';
-            case rank <= 4: return '#001146';
-            case rank <= 8: return '#0011aa';
-            case rank <= 12: return '#3753f2';
-            case rank <= 16: return '#809fff';
-            case rank <= 19: return '#fca9a9';
-            case rank <= 22: return '#fc7272';
-            case rank <= 25: return '#fc4949';
-            default: return '#e60000';
+    public getColor(rank: number, maxRank: number, isExcluded?: boolean): string {
+        if (isExcluded) {
+            return EXCLUDED_COLOR;
         }
+
+        const colorIndex = this.test(rank, maxRank);
+        return COLOR_PALETTE[colorIndex];
+    }
+
+    private test(rank: number, maxRank: number): number {
+        // "COLOR_PALETTE.length - 1" because arrays start indexing from 0
+        const diff = COLOR_PALETTE.length - 1 - maxRank;
+        const aux = Math.abs(diff / maxRank);
+
+        if (rank === maxRank) {
+            console.log('maxRank:');
+        }
+
+        if (diff > 0) {
+            // E.g.:
+            //      * colors.length = 30
+            //      * maxRank = 28
+            //      * diff = 30 - 1 - 28
+            return Math.floor(rank + aux * rank);
+        } else if (diff < 0) {
+            // E.g.:
+            //      * colors.length = 26
+            //      * maxRank = 28
+            //      * diff = 26 - 1 - 28
+            return Math.floor(rank - aux * rank);
+        }
+
+        return rank;
     }
 
     private async getNonEuFeatures() {

@@ -8,6 +8,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 - Code cleanup
 - Added "Stats Table" screen
 - Added loader spinner
+- Update the color palette used on the map
 
 # 2.1.0
 - Added comprehensive analysis view
