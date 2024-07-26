@@ -83,7 +83,7 @@ export class StatsTableScreenComponent implements AfterViewInit, OnInit {
                 const countryCodes = Object.keys(scores);
                 this.updateColumns(scores);
 
-                this.dataSource.data = countryCodes.reduce((acc: ITableRow[], code) => {
+                this.dataSource.data = countryCodes.reduce((acc: ITableRow[], code: string) => {
                     acc.push({
                         code,
                         name: EU28_MEMBERS[code],

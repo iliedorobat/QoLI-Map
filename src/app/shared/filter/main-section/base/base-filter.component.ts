@@ -84,7 +84,7 @@ export class BaseFilterComponent implements OnInit {
         return this.filter.baseFilter.selectedCountries.length > 0 && this.filter.baseFilter.selectedCountries.length < EU28_MEMBER_CODES.length;
     }
 
-    getCountryName(countryCode: any): string {
+    getCountryName(countryCode: string): string {
         return EU28_MEMBERS[countryCode as keyof typeof EU28_MEMBERS];
     }
 }

@@ -11,7 +11,7 @@ export class EuMembersFetcher {
     private _isLoading$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(true);
 
     private fetch(): Observable<string[]> {
-        const search = ['entityType=EU', 'servedType=abbr'].join('&');
+        const search = ['entityType=EU'].join('&');
         const promise = fetch(`${MAIN_URI}/geo?${search}`)
             .then(response => response.json())
             .catch(error => this._error$.next(error))
