@@ -159,12 +159,6 @@ export class AtlasService {
 
         return rank;
     }
-
-    private async getNonEuFeatures() {
-        const worldFeatures = await import('@/../files/geo-location/world.json');
-
-        return worldFeatures?.features?.filter(feature => NON_EU28_MEMBER_CODES.includes(feature.id)) || [];
-    }
 }
 
 export const MARKERS_STATUS = {
