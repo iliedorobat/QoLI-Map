@@ -139,10 +139,6 @@ export class AtlasService {
         const diff = COLOR_PALETTE.length - 1 - maxRank;
         const aux = Math.abs(diff / maxRank);
 
-        if (rank === maxRank) {
-            console.log('maxRank:');
-        }
-
         if (diff > 0) {
             // E.g.:
             //      * colors.length = 30
