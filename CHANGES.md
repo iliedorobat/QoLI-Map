@@ -3,6 +3,10 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 ---
 
+# 2.3.1
+- Update the main URI path
+- Update the port number
+
 # 2.3.0
 - Added web server
 - Update npm min version

@@ -1,6 +1,6 @@
 const DOMAIN = "localhost";
 const PORT = "3070";
-const MAIN_URI = `http://${DOMAIN}:${PORT}/api/v2`;
+const MAIN_URI = `http://${DOMAIN}:${PORT}/qoli/api/v2`;
 
 export {
     DOMAIN,
