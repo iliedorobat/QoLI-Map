@@ -1,4 +1,4 @@
-const IS_PRODUCTION = false;
+const IS_PRODUCTION = true;
 const DOMAIN = "localhost";
 const PORT = IS_PRODUCTION ? "8080" : "3070";
 const PREFIX = IS_PRODUCTION ? "/qoli" : "";
