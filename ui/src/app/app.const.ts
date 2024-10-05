@@ -24,7 +24,7 @@ const MENU_ITEMS = [
     },
     {
         id: MENU_ITEMS_IDS.LOGO,
-        label: 'European Life Index Leaf',
+        label: 'European Life Leaf',
         order: 0
     },
     {
