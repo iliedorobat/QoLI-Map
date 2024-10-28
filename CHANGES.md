@@ -3,6 +3,9 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 ---
 
+# 2.5.0
+- Reduce the time range list for individually analysis so that only the data for the existing years are displayed
+
 # 2.4.0
 - Update the main URI path
 - Update the port number
