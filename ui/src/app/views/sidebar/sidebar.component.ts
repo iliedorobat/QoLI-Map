@@ -4,6 +4,7 @@ import {MatIcon} from '@angular/material/icon';
 import noop from 'lodash-es/noop';
 
 import {FilterComponent} from '@/app/shared/filter';
+import {State} from "@/app/shared/state/state";
 
 @Component({
     selector: 'qoli-sidebar',
@@ -13,8 +14,10 @@ import {FilterComponent} from '@/app/shared/filter';
     imports: [FilterComponent, MatIcon]
 })
 export class SidebarComponent {
-    @Input() isChartAnalysis: boolean = false;
-    @Input() isTableAnalysis: boolean = false;
+    constructor(
+        protected state: State
+    ) {}
+
     @Input() onToggleScore: Function = noop;
     @Output() closeSidebar = new EventEmitter();
 

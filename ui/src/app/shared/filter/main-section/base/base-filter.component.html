@@ -1,6 +1,6 @@
 <mat-form-field [formGroup]="filter.form">
     <mat-label>Analysis Type</mat-label>
-    <mat-select formControlName="analysisType">
+    <mat-select formControlName="analysisType" (selectionChange)="onAnalysisTypeChanges($event)">
         <mat-option *ngFor="let analysisType of ANALYSIS_TYPES" [value]="analysisType">
             {{ ANALYSIS_TYPE_LABELS[analysisType] }}
         </mat-option>
@@ -9,11 +9,11 @@
 
 <mat-form-field [formGroup]="filter.form">
     <mat-label>
-        {{ isStatsAnalysis ? 'Start Year' : 'Year of analysis' }}
+        {{ state.isStatsAnalysis() ? 'Start Year' : 'Year of analysis' }}
     </mat-label>
 
     <mat-select formControlName="startYear" (selectionChange)="onStartYearChanges($event)">
-        <mat-option *ngFor="let year of AVAILABLE_INTERVAL" [value]="year">
+        <mat-option *ngFor="let year of timeRange" [value]="year">
             {{ year }}
         </mat-option>
     </mat-select>
@@ -23,13 +23,13 @@
     </mat-error>
 </mat-form-field>
 
-<mat-form-field [formGroup]="filter.form" [hidden]="!isStatsAnalysis">
+<mat-form-field [formGroup]="filter.form" [hidden]="!state.isStatsAnalysis()">
     <mat-label>
-        {{ isStatsAnalysis ? 'End Year' : 'Year of analysis' }}
+        {{ state.isStatsAnalysis() ? 'End Year' : 'Year of analysis' }}
     </mat-label>
 
     <mat-select formControlName="endYear" (selectionChange)="onEndYearChanges($event)">
-        <mat-option *ngFor="let year of AVAILABLE_INTERVAL" [value]="year">
+        <mat-option *ngFor="let year of timeRange" [value]="year">
             {{ year }}
         </mat-option>
     </mat-select>

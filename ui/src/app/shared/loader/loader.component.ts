@@ -2,7 +2,7 @@ import {Component, Input} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {MatProgressSpinner} from '@angular/material/progress-spinner';
 
-import {State} from '@/app/shared/state/state';
+import {FetcherState} from '@/app/shared/state/fetcherState';
 
 @Component({
     selector: 'qoli-loader',
@@ -13,7 +13,7 @@ import {State} from '@/app/shared/state/state';
 })
 export class LoaderComponent {
     constructor(
-        protected state: State
+        protected fetcherState: FetcherState
     ) {}
 
     @Input() className: string | undefined;

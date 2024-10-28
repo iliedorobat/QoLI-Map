@@ -7,12 +7,12 @@ import {Filter} from '@/app/shared/filter';
 import {IAtlasLayer, ISummaryControl} from '@/app/views/atlas/atlas.types';
 import {LayerEventsService} from '@/app/views/atlas/services/layer-events.service';
 import {LifeIndexResponse} from '@/app/views/atlas/constants/response.types';
+import {State} from "@/app/shared/state/state";
 import {SummaryControlService} from '@/app/views/atlas/services/summary-control.service';
 
 import * as COUNTRIES_NON_EU from '@/../files/geo-location/europe-non-eu.json';
 import * as COUNTRIES_EU from '@/../files/geo-location/europe-eu.json';
 import {COLOR_PALETTE, EXCLUDED_COLOR} from '@/app/views/atlas/constants/colors.const';
-import {NON_EU28_MEMBER_CODES} from '@/app/shared/constants/app.const';
 import {SORT_ORDER} from '@/app/shared/constants/math.const';
 
 const FEATURES_NON_EU = (COUNTRIES_NON_EU?.features || []) as Array<GeoFeature>;
@@ -27,10 +27,9 @@ export class AtlasService {
         private datasetService: DatasetService,
         private eventsService: LayerEventsService,
         private filter: Filter,
+        private state: State,
         private summaryControlService: SummaryControlService
     ) {}
-
-    public GRADES = [4, 8, 12, 16, 19, 22, 25, 100];
 
     public onFilterControlAdd(map: Map): Control {
         const CustomControl = Control.extend({
@@ -114,7 +113,7 @@ export class AtlasService {
     }
 
     private getLayerColor(response: LifeIndexResponse, countryCode: string, score?: number): string {
-        const isNegativeState = this.filter.baseFilter.isIndividuallyAnalysis()
+        const isNegativeState = this.state.isIndividuallyAnalysis()
             && this.filter.individuallyFilter.isNegativeState()
         const sortedResponse = isNegativeState
             ? this.datasetService.getSortedResponse(response, SORT_ORDER.ASC)

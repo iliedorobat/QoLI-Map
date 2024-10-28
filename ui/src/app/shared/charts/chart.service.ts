@@ -7,6 +7,7 @@ import {DatasetService} from '@/app/views/atlas/services/dataset.service';
 import {Filter} from '@/app/shared/filter';
 import {LifeIndexMultipleResponses} from '@/app/views/atlas/constants/response.types';
 import {LineChartService} from '@/app/shared/charts/line-chart.service';
+import {State} from "@/app/shared/state/state";
 import {StatsService} from '@/app/views/stats/stats.service';
 
 import {COUNTRIES} from '@/app/shared/constants/app.const';
@@ -22,6 +23,7 @@ export class ChartService {
         private datasetService: DatasetService,
         private filter: Filter,
         private lineChartService: LineChartService,
+        private state: State,
         private statsService: StatsService
     ) {}
 
@@ -101,7 +103,7 @@ export class ChartService {
                 tooltip: {
                     callbacks: {
                         label: (context): string => {
-                            const isIndividuallyAnalysis = this.filter.baseFilter.isIndividuallyAnalysis();
+                            const isIndividuallyAnalysis = this.state.isIndividuallyAnalysis();
                             const units = this.datasetService.getUnits(isIndividuallyAnalysis);
                             return `${context.formattedValue} ${units}`;
                         },

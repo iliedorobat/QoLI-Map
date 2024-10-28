@@ -4,7 +4,7 @@
     </button>
 
     <form class="needs-validation" [formGroup]="filter.form">
-        <mat-accordion *ngIf="isChartAnalysis">
+        <mat-accordion class="sidebar-main-section" *ngIf="state.isChartAnalysis()">
             <mat-expansion-panel expanded="true">
                 <mat-expansion-panel-header>
                     <mat-panel-title>
@@ -19,7 +19,7 @@
             </mat-expansion-panel>
         </mat-accordion>
 
-        <mat-accordion>
+        <mat-accordion class="sidebar-main-section">
             <mat-expansion-panel expanded="true">
                 <mat-expansion-panel-header>
                     <mat-panel-title>
@@ -33,10 +33,7 @@
                     </mat-panel-title>
                 </mat-expansion-panel-header>
 
-                <qoli-atlas-base-filter
-                    [isChartAnalysis]="isChartAnalysis"
-                    [isTableAnalysis]="isTableAnalysis"
-                ></qoli-atlas-base-filter>
+                <qoli-atlas-base-filter></qoli-atlas-base-filter>
                 <qoli-aggregated-filter *ngIf="filter.form.value['analysisType'] === ANALYSIS_TYPE.AGGREGATE"></qoli-aggregated-filter>
                 <qoli-atlas-individually-filter *ngIf="filter.form.value['analysisType'] === ANALYSIS_TYPE.INDIVIDUALLY"></qoli-atlas-individually-filter>
             </mat-expansion-panel>

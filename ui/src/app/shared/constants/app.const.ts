@@ -16,7 +16,7 @@ const MIN_YEAR = 2004;
 const MAX_YEAR = (new Date()).getFullYear() - 1;
 const DEFAULT_YEAR = MAX_YEAR;
 
-const AVAILABLE_INTERVAL = (
+const AVAILABLE_INTERVAL: number[] = (
     () => {
         const values = [];
 
@@ -24,7 +24,7 @@ const AVAILABLE_INTERVAL = (
             values.push(year);
         }
 
-        return values;
+        return values as number[];
     }
 )();
 
@@ -33,12 +33,20 @@ enum ANALYSIS_TYPE {
     INDIVIDUALLY = 'individually'
 }
 
+enum STATS_ANALYSIS_TYPE {
+    CHART = 'chart',
+    MAP = 'map',
+    TABLE = 'table'
+}
+
 const ANALYSIS_TYPE_LABELS = {
     [ANALYSIS_TYPE.AGGREGATE]: 'Analysis by aggregators',
     [ANALYSIS_TYPE.INDIVIDUALLY]: 'Analysis by indicators'
 };
 
 const DEFAULT_ANALYSIS_TYPE = ANALYSIS_TYPE.AGGREGATE;
+
+const DEFAULT_STATS_ANALYSIS_TYPE = STATS_ANALYSIS_TYPE.MAP;
 
 const EU28_MEMBERS: {[index: string]: string} = {
     // EU: 'European Union', // (EU6-1958, EU9-1973, EU10-1981, EU12-1986, EU15-1995, EU25-2004, EU27-2007, EU28-2013, EU27-2020)
@@ -116,6 +124,7 @@ export {
     COPYRIGHT,
     COUNTRIES,
     DEFAULT_ANALYSIS_TYPE,
+    DEFAULT_STATS_ANALYSIS_TYPE,
     DEFAULT_YEAR,
     EU28_MEMBERS,
     EU28_MEMBER_CODES,
@@ -123,5 +132,6 @@ export {
     MAX_YEAR,
     MIN_YEAR,
     NON_EU28_MEMBERS,
-    NON_EU28_MEMBER_CODES
+    NON_EU28_MEMBER_CODES,
+    STATS_ANALYSIS_TYPE
 };

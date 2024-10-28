@@ -14,5 +14,6 @@ export interface IIndividuallyQoLIIndicator {
     filename: string;
     label: string;
     negativeState: boolean;
+    timeRange: number[];
     units: string;
 }

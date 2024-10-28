@@ -6,6 +6,7 @@ import {Filter} from '@/app/shared/filter';
 import {GeoFeature} from '@/app/views/atlas/constants/geo.types';
 import {HTMLElementParams, HtmlElementsService} from './html-elements.service';
 import {LifeIndexResponse} from '@/app/views/atlas/constants/response.types';
+import {State} from "@/app/shared/state/state";
 
 import {SORT_ORDER} from '@/app/shared/constants/math.const';
 
@@ -16,7 +17,8 @@ export class SummaryControlService {
     constructor(
         private datasetService: DatasetService,
         private filter: Filter,
-        private htmlElementsService: HtmlElementsService
+        private htmlElementsService: HtmlElementsService,
+        private state: State
     ) {}
 
     public createContent(geoLand: GeoFeature, response: LifeIndexResponse) {
@@ -110,7 +112,7 @@ export class SummaryControlService {
     }
 
     private generateTitle(): string {
-        const label = this.filter.baseFilter.isAggregateAnalysis()
+        const label = this.state.isAggregatedAnalysis()
             ? 'QoLI Stats'
             : this.filter.individuallyFilter.selectedIndicator.label;
 

@@ -3,12 +3,18 @@ import {BehaviorSubject, from, Observable} from 'rxjs';
 
 import {Filter} from '@/app/shared/filter';
 import {LifeIndexMultipleResponses, LifeIndexResponse} from '@/app/views/atlas/constants/response.types';
+import {State} from "@/app/shared/state/state";
+
 import {MAIN_URI} from '@/app/shared/constants/endpoint';
 
 @Injectable({
     providedIn: 'root'
 })
 export class LifeIndexFetcher {
+    constructor(
+        private state: State
+    ) {}
+
     private _data$: BehaviorSubject<LifeIndexMultipleResponses> = new BehaviorSubject<LifeIndexMultipleResponses>({} as LifeIndexMultipleResponses);
     private _error$: BehaviorSubject<string | null> = new BehaviorSubject<string | null>(null);
     private _isLoading$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(true);
@@ -24,7 +30,7 @@ export class LifeIndexFetcher {
 
     private fetch(filter: Filter): Observable<LifeIndexMultipleResponses> {
         const aggrs = this.extractAggregators(filter).map(aggr => `aggr=${aggr}`);
-        const analysisType = `analysisType=${filter.baseFilter.analysisType}`;
+        const analysisType = `analysisType=${this.state.analysisType}`;
         const countryCodes = filter.baseFilter.countries.map(code => `countryCode=${code}`);
         const startYear = `startYear=${filter.baseFilter.startYear}`;
         const endYear = `endYear=${filter.baseFilter.endYear}`;
@@ -39,7 +45,7 @@ export class LifeIndexFetcher {
     }
 
     private extractAggregators(filter: Filter): string[] {
-        if (filter.baseFilter.isIndividuallyAnalysis()) {
+        if (this.state.isIndividuallyAnalysis()) {
             return [filter.individuallyFilter.selectedIndicator.filename];
         }
 
@@ -50,7 +56,7 @@ export class LifeIndexFetcher {
                 arr.push(dimension.filename);
             } else {
                 dimension.aggregators.forEach(indicator => {
-                    indicator.checked && arr.push(`${dimension.filename}:${indicator.filename}`);
+                    indicator.checked && arr.push(indicator.filename);
                 });
             }
 

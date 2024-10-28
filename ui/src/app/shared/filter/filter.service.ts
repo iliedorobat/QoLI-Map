@@ -3,21 +3,22 @@ import get from 'lodash-es/get';
 
 import {Filter} from '@/app/shared/filter';
 import {LifeIndexFetcher} from '@/app/shared/services/fetch/life-index.fetcher';
+import {State} from "@/app/shared/state/state";
 import {StatsFilterService} from './stats-options/stats-filter.service';
 import {SummaryControlService} from '@/app/views/atlas/services/summary-control.service';
-
-// Suffix added by ngbAccordionItem
-const SECTION_SUFFIX = '-collapse';
+import {TimeRangeFetcher} from "@/app/shared/services/fetch/time-range.fetcher";
 
 @Injectable({
     providedIn: 'root'
 })
 export class FilterService {
     constructor(
-        private filter: Filter,
+        public filter: Filter,
         private lifeIndexFetcher: LifeIndexFetcher,
+        private state: State,
         private statsFilterService: StatsFilterService,
-        private summaryControlService: SummaryControlService
+        private summaryControlService: SummaryControlService,
+        private timeRangeFetcher: TimeRangeFetcher
     ) {}
 
     onChartOptionsReset(event: Event): void {
@@ -36,21 +37,31 @@ export class FilterService {
     onSectionReset(event: Event): void {
         event.stopPropagation();
         const target = event.target as HTMLElement;
-        const value = get(target, ['offsetParent', 'attributes', 'aria-controls', 'value']);
+        const className: string = get(target, ['offsetParent', 'offsetParent', 'parentElement', 'className'], '');
 
-        switch (value) {
-            case 'sidebar-main-section' + SECTION_SUFFIX:
+        switch (true) {
+            case className.includes('sidebar-main-section'):
                 this.filter.aggregatedFilter.reset(this.filter.form);
                 this.filter.baseFilter.reset(this.filter.form);
                 this.filter.individuallyFilter.reset(this.filter.form);
+                this.timeRangeFetcher.fetch(this.filter);
                 break;
             default:
                 break;
         }
     }
 
-    public onReset(): void {
+    onReset(): void {
         this.filter.reset();
         this.statsFilterService.onSelectType(this.filter.statsFilter.selectedType);
+        this.timeRangeFetcher.fetch(this.filter);
+    }
+
+    onUpdatePeriods(year: number): void {
+        if (!this.state.isStatsAnalysis()) {
+            this.filter.form.get('startYear')?.setValue(year);
+            this.filter.form.get('endYear')?.setValue(year);
+        }
+        this.filter.baseFilter.updatePeriodControls(this.filter.form);
     }
 }

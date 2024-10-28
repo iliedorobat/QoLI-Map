@@ -4,13 +4,14 @@ import {Injectable} from '@angular/core';
 import {endYearValidator, startYearValidator} from '@/app/shared/filter';
 import {IIndividuallyQoLI} from '@/app/views/atlas/constants/qoliBaseOptions.types';
 import {IAggrQoLI} from '@/app/views/atlas/constants/qoliOptions.types';
+import {State} from "@/app/shared/state/state";
+
 import qoliOptions from '@/app/views/atlas/constants/qoliOptions';
 import qoliBaseOptions from '@/app/views/atlas/constants/qoliBaseOptions';
 
-import {ANALYSIS_TYPE, DEFAULT_ANALYSIS_TYPE, DEFAULT_YEAR, EU28_MEMBER_CODES} from '@/app/shared/constants/app.const';
+import {DEFAULT_YEAR, EU28_MEMBER_CODES} from '@/app/shared/constants/app.const';
 
 export interface IBaseFilter {
-    analysisType: ANALYSIS_TYPE;
     countries: string[];
     qoliOptions: IAggrQoLI;
     qoliIndividuallyOptions: IIndividuallyQoLI;
@@ -22,8 +23,6 @@ export interface IBaseFilter {
     initForm(controls: {[key: string]: FormControl}): void;
     isDisabled(form: FormGroup): boolean;
     isEmpty(form: FormGroup): boolean;
-    isAggregateAnalysis(): boolean;
-    isIndividuallyAnalysis(): boolean;
     reset(form: FormGroup): void;
     save(form: FormGroup): void;
 }
@@ -32,7 +31,10 @@ export interface IBaseFilter {
     providedIn: 'root',
 })
 export class BaseFilter implements IBaseFilter {
-    public analysisType: ANALYSIS_TYPE = DEFAULT_ANALYSIS_TYPE;
+    constructor(
+        private state: State
+    ) {}
+
     public countries: string[] = [...EU28_MEMBER_CODES];
     public qoliOptions: IAggrQoLI = qoliOptions;
     public qoliIndividuallyOptions: IIndividuallyQoLI = qoliBaseOptions;
@@ -53,16 +55,8 @@ export class BaseFilter implements IBaseFilter {
         return this.hasAnalysisType(form) && this.hasCountries(form);
     }
 
-    isAggregateAnalysis = () => {
-        return this.analysisType === ANALYSIS_TYPE.AGGREGATE;
-    }
-
-    isIndividuallyAnalysis(): boolean {
-        return this.analysisType === ANALYSIS_TYPE.INDIVIDUALLY;
-    }
-
     initForm(controls: {[key: string]: FormControl}): void {
-        controls['analysisType'] = new FormControl(this.analysisType);
+        controls['analysisType'] = new FormControl(this.state.analysisType);
         controls['countries'] = new FormControl(this.countries);
         controls['startYear'] = new FormControl(this.startYear);
         controls['endYear'] = new FormControl(this.endYear);
@@ -76,7 +70,7 @@ export class BaseFilter implements IBaseFilter {
     }
 
     save(form: FormGroup): void {
-        this.analysisType = form.value['analysisType'];
+        this.state.analysisType = form.value['analysisType'];
         this.countries = form.value['countries'];
         this.startYear = form.value['startYear'];
         this.endYear = form.value['endYear'];
@@ -106,7 +100,7 @@ export class BaseFilter implements IBaseFilter {
     }
 
     private resetForm(form: FormGroup): void {
-        form.get('analysisType')?.setValue(this.analysisType);
+        form.get('analysisType')?.setValue(this.state.analysisType);
         form.get('countries')?.setValue([...this.countries]);
         form.get('startYear')?.setValue(this.startYear);
         form.get('endYear')?.setValue(this.endYear);

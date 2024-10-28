@@ -6,13 +6,9 @@
             class="btn-close"
             aria-label="Close"
             (click)="onCloseSidebar($event)"
-            [hidden]="isChartAnalysis || isTableAnalysis"
+            [hidden]="state.isStatsAnalysis()"
         ></button>
     </div>
 
-    <qoli-filter
-        [isChartAnalysis]="isChartAnalysis"
-        [isTableAnalysis]="isTableAnalysis"
-        [onToggleScore]="onToggleScore"
-    ></qoli-filter>
+    <qoli-filter [onToggleScore]="onToggleScore"></qoli-filter>
 </div>

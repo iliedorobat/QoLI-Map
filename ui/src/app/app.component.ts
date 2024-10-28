@@ -7,10 +7,11 @@ import {TranslateService} from '@ngx-translate/core';
 import {Subject} from 'rxjs';
 
 import {AboutScreenComponent} from '@/app/views/about/about-screen.component';
+import {FetcherState} from '@/app/shared/state/fetcherState';
 import {FilterService} from '@/app/shared/filter';
 import {MenuItem} from '@/app/app.types';
 import {StatsChartScreenComponent} from '@/app/views/stats/chart/stats-chart-screen.component';
-import {State} from '@/app/shared/state/state';
+import {State} from "@/app/shared/state/state";
 import {StatsTableScreenComponent} from '@/app/views/stats/table/stats-table-screen.component';
 
 import {DEFAULT_ACTIVE_MENU_ITEM_ID, MENU_ITEMS, MENU_ITEMS_IDS} from './app.const';
@@ -30,8 +31,9 @@ export class AppComponent implements OnDestroy {
     protected showScore: boolean = true;
 
     constructor(
+        protected fetcherState: FetcherState,
         private filterService: FilterService,
-        protected state: State,
+        private state: State,
         private translate: TranslateService
     ) {
         translate.addLangs(['en-US']);
@@ -49,7 +51,7 @@ export class AppComponent implements OnDestroy {
 
     ngOnDestroy(): void {
         this._showScore$.unsubscribe();
-        this.state.unsubscribe();
+        this.fetcherState.unsubscribe();
     }
 
     onMenuItemClick(event: Event, menuItem: MenuItem): void {
@@ -82,9 +84,15 @@ export class AppComponent implements OnDestroy {
             panelClass: ['custom-modal', 'full-screen']
         });
 
+        this.state.setStatsAnalysisType(buttonId);
         this.onActiveButtonChange(buttonId);
 
         dialogRef.afterClosed().subscribe(result => {
+            // Workaround to sync "Year of Analysis" with "Start Year" to
+            const startYear = this.filterService.filter.form.get('startYear')?.value;
+            this.filterService.filter.form.get('startYear')?.setValue(startYear);
+
+            this.state.resetStatsAnalysisType();
             this.onActiveButtonResets();
         });
     }

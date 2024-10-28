@@ -12,6 +12,7 @@ import {
 } from '@/app/shared/filter/main-section';
 import {Filter} from './filter.types';
 import {FilterService} from './filter.service';
+import {State} from "@/app/shared/state/state";
 import {StatsFilterComponent} from './stats-options/stats-filter.component';
 
 import {ANALYSIS_TYPE} from '@/app/shared/constants/app.const';
@@ -35,14 +36,13 @@ import {ANALYSIS_TYPE} from '@/app/shared/constants/app.const';
 export class FilterComponent {
     constructor(
         protected filter: Filter,
-        protected filterService: FilterService
+        protected filterService: FilterService,
+        protected state: State
     ) {
         this.filterService.onReset();
     }
 
     protected readonly ANALYSIS_TYPE = ANALYSIS_TYPE;
 
-    @Input() isChartAnalysis: boolean = false;
-    @Input() isTableAnalysis: boolean = false;
     @Input() onToggleScore: Function = noop;
 }

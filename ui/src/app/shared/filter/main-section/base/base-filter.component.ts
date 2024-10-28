@@ -1,19 +1,16 @@
 import {CommonModule} from '@angular/common';
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatInputModule} from '@angular/material/input';
 import {MatSelectChange, MatSelectModule} from '@angular/material/select';
 
-import {Filter} from '@/app/shared/filter';
+import {FetcherState} from "@/app/shared/state/fetcherState";
+import {Filter, FilterService} from '@/app/shared/filter';
+import {State} from "@/app/shared/state/state";
+import {TimeRangeFetcher} from "@/app/shared/services/fetch/time-range.fetcher";
 
-import {
-    ANALYSIS_TYPE,
-    ANALYSIS_TYPE_LABELS,
-    AVAILABLE_INTERVAL,
-    EU28_MEMBER_CODES,
-    EU28_MEMBERS
-} from '@/app/shared/constants/app.const';
+import {ANALYSIS_TYPE, ANALYSIS_TYPE_LABELS, EU28_MEMBER_CODES, EU28_MEMBERS} from '@/app/shared/constants/app.const';
 
 @Component({
     selector: 'qoli-atlas-base-filter',
@@ -30,29 +27,38 @@ import {
 })
 export class BaseFilterComponent implements OnInit {
     constructor(
-        protected filter: Filter
+        private fetcherState: FetcherState,
+        protected filter: Filter,
+        private filterService: FilterService,
+        protected state: State,
+        private timeRangeFetcher: TimeRangeFetcher
     ) {}
-
-    @Input() isChartAnalysis: boolean = false;
-    @Input() isTableAnalysis: boolean = false;
-    protected isStatsAnalysis: boolean = false;
 
     protected readonly ALL_COUNTRIES_NAME = 'ALL';
     protected readonly ANALYSIS_TYPE_LABELS = ANALYSIS_TYPE_LABELS;
     protected readonly ANALYSIS_TYPES = Object.values(ANALYSIS_TYPE);
-    protected readonly AVAILABLE_INTERVAL = AVAILABLE_INTERVAL;
+    protected timeRange = [] as number[];
     protected readonly EU28_MEMBER_CODES = EU28_MEMBER_CODES;
 
     ngOnInit(): void {
-        this.isStatsAnalysis = this.isChartAnalysis || this.isTableAnalysis;
-
         setTimeout(() => {
-            if (!this.isStatsAnalysis) {
+            if (!this.state.isStatsAnalysis()) {
                 const startYear: number = this.filter.form.get('startYear')?.value;
                 this.filter.form.get('endYear')?.setValue(startYear);
                 this.filter.baseFilter.updatePeriodControls(this.filter.form);
             }
         });
+
+        this.fetcherState.timeRange$
+            .subscribe(timeRange => {
+                this.timeRange = timeRange;
+            });
+    }
+
+    onAnalysisTypeChanges(event: MatSelectChange): void {
+        this.timeRangeFetcher.fetch(this.filter);
+        this.filterService.onUpdatePeriods(this.timeRange[0]);
+        this.filter.form.get('analysisType')?.setValue(event.value);
     }
 
     onCountryChanges(event: MatSelectChange): void {
@@ -61,15 +67,11 @@ export class BaseFilterComponent implements OnInit {
     }
 
     onEndYearChanges(event: MatSelectChange): void {
-        this.filter.baseFilter.updatePeriodControls(this.filter.form);
+        this.filterService.onUpdatePeriods(event.value);
     }
 
     onStartYearChanges(event: MatSelectChange): void {
-        if (!this.isStatsAnalysis) {
-            this.filter.form.get('startYear')?.setValue(event.value);
-            this.filter.form.get('endYear')?.setValue(event.value);
-        }
-        this.filter.baseFilter.updatePeriodControls(this.filter.form);
+        this.filterService.onUpdatePeriods(event.value);
     }
 
     isCountryChecked(countryCode: string): boolean {

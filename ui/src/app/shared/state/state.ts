@@ -1,55 +1,58 @@
-import {Injectable} from '@angular/core';
+import {Injectable} from "@angular/core";
 
-import {BehaviorSubject, combineLatest, Observable} from 'rxjs';
+import {
+    ANALYSIS_TYPE,
+    DEFAULT_ANALYSIS_TYPE,
+    DEFAULT_STATS_ANALYSIS_TYPE,
+    STATS_ANALYSIS_TYPE
+} from "@/app/shared/constants/app.const";
+import {MENU_ITEMS_IDS} from "@/app/app.const";
 
-import {Filter} from '@/app/shared/filter';
-import {LifeIndexFetcher} from '@/app/shared/services/fetch/life-index.fetcher';
-import {LifeIndexMultipleResponses} from '@/app/views/atlas/constants/response.types';
+export interface IState {
+    analysisType: ANALYSIS_TYPE;
+
+    isAggregatedAnalysis(): boolean;
+    isIndividuallyAnalysis(): boolean;
+}
 
 @Injectable({
     providedIn: 'root'
 })
-export class State {
-    private _hasError$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
-    private _isLoading$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(true);
+export class State implements IState {
+    public analysisType: ANALYSIS_TYPE = DEFAULT_ANALYSIS_TYPE;
+    public statsAnalysisType: STATS_ANALYSIS_TYPE = DEFAULT_STATS_ANALYSIS_TYPE;
 
-    private _lifeIndex$: BehaviorSubject<LifeIndexMultipleResponses> = new BehaviorSubject<LifeIndexMultipleResponses>({} as LifeIndexMultipleResponses);
-
-    constructor(
-        private filter: Filter,
-        protected lifeIndexFetcher: LifeIndexFetcher
-    ) {
-        lifeIndexFetcher.subscribe(this.filter);
-
-        combineLatest([lifeIndexFetcher.error$])
-            .subscribe((values: Array<string | null>) => {
-                this._hasError$.next(values.some(item => item));
-            });
-
-        combineLatest([lifeIndexFetcher.isLoading$])
-            .subscribe((values: boolean[]) => {
-                this._isLoading$.next(values.some(item => item));
-            });
-
-        combineLatest([lifeIndexFetcher.data$])
-            .subscribe(values => {
-                this._lifeIndex$.next(values[0]);
-            });
+    isAggregatedAnalysis = (): boolean => {
+        return this.analysisType === ANALYSIS_TYPE.AGGREGATE;
     }
 
-    get lifeIndex$(): Observable<LifeIndexMultipleResponses> {
-        return this._lifeIndex$.asObservable();
+    isIndividuallyAnalysis(): boolean {
+        return this.analysisType === ANALYSIS_TYPE.INDIVIDUALLY;
     }
 
-    get isLoading(): boolean {
-        return this._isLoading$.getValue();
+    isChartAnalysis(): boolean {
+        return this.statsAnalysisType === STATS_ANALYSIS_TYPE.CHART;
     }
 
-    get error(): boolean {
-        return this._hasError$.getValue();
+    isTableAnalysis(): boolean {
+        return this.statsAnalysisType === STATS_ANALYSIS_TYPE.TABLE;
     }
 
-    public unsubscribe(): void {
-        this.lifeIndexFetcher.unsubscribe();
+    isStatsAnalysis(): boolean {
+        return this.isChartAnalysis() || this.isTableAnalysis();
+    }
+
+    setStatsAnalysisType(buttonId: string): void {
+        if (buttonId === MENU_ITEMS_IDS.STATS_CHART) {
+            this.statsAnalysisType = STATS_ANALYSIS_TYPE.CHART;
+        } else if (buttonId === MENU_ITEMS_IDS.STATS_TABLE) {
+            this.statsAnalysisType = STATS_ANALYSIS_TYPE.TABLE;
+        } else {
+            this.statsAnalysisType = DEFAULT_STATS_ANALYSIS_TYPE;
+        }
+    }
+
+    resetStatsAnalysisType(): void {
+        this.statsAnalysisType = DEFAULT_STATS_ANALYSIS_TYPE;
     }
 }

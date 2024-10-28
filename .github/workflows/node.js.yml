@@ -5,9 +5,9 @@ name: Node.js CI
 
 on:
   push:
-    branches: [ "release/2.4.0" ]
+    branches: [ "release/2.5.0" ]
   pull_request:
-    branches: [ "release/2.4.0" ]
+    branches: [ "release/2.5.0" ]
 
 jobs:
   ui-build:

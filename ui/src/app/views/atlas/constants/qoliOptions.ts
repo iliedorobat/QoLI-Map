@@ -1,4 +1,5 @@
 // downloaded from /stats/config?analysisType=aggregate
+// TODO: make a HTTP call and store the result to the state of the app (state.ts)
 export default {
     checked: true,
     filename: "qoli",
@@ -139,14 +140,14 @@ export default {
                     checked: true,
                     filename: "governance:genderEmpGap",
                     label: "Gender Employment Gap",
-                    negativeState: false,
+                    negativeState: true,
                     units: "%"
                 },
                 {
                     checked: true,
                     filename: "governance:genderPayGap",
                     label: "Gender Pay Gap",
-                    negativeState: false,
+                    negativeState: true,
                     units: "%"
                 },
                 {
@@ -298,36 +299,15 @@ export default {
                 },
                 {
                     checked: true,
-                    filename: "leisureInteractions:formalVoluntaryActivitiesRatio",
-                    label: "Formal Voluntary Ratio",
+                    filename: "leisureInteractions:frequencyContactRatio",
+                    label: "Frequency Contact Ratio",
                     negativeState: false,
                     units: "%"
                 },
                 {
                     checked: true,
-                    filename: "leisureInteractions:frequencyContactFamRatio",
-                    label: "Frequency Contact Ratio (Family)",
-                    negativeState: false,
-                    units: "%"
-                },
-                {
-                    checked: true,
-                    filename: "leisureInteractions:frequencyContactFrdRatio",
-                    label: "Frequency Contact Ratio (Friends)",
-                    negativeState: false,
-                    units: "%"
-                },
-                {
-                    checked: true,
-                    filename: "leisureInteractions:gettingTogetherFamRatio",
-                    label: "Getting Together Ratio (Family)",
-                    negativeState: false,
-                    units: "%"
-                },
-                {
-                    checked: true,
-                    filename: "leisureInteractions:gettingTogetherFrdRatio",
-                    label: "Getting Together Ratio (Friends)",
+                    filename: "leisureInteractions:gettingTogetherRatio",
+                    label: "Getting Together Ratio",
                     negativeState: false,
                     units: "%"
                 },
@@ -340,36 +320,22 @@ export default {
                 },
                 {
                     checked: true,
-                    filename: "leisureInteractions:informalVoluntaryActivitiesRatio",
-                    label: "Informal Voluntary Ratio",
+                    filename: "leisureInteractions:npRatio",
+                    label: "Non-Participation in Social Activities & Voluntaries Activities Ratio",
+                    negativeState: true,
+                    units: "%"
+                },
+                {
+                    checked: true,
+                    filename: "leisureInteractions:participationRatio",
+                    label: "Participation Ratio",
                     negativeState: false,
-                    units: "%"
-                },
-                {
-                    checked: true,
-                    filename: "leisureInteractions:socialActivitiesNpRatio",
-                    label: "Non-Participation in Social Activities Ratio",
-                    negativeState: true,
-                    units: "%"
-                },
-                {
-                    checked: true,
-                    filename: "leisureInteractions:voluntaryActivitiesNpRatio",
-                    label: "Non-Participation in Voluntary Activities Ratio",
-                    negativeState: true,
                     units: "%"
                 },
                 {
                     checked: true,
                     filename: "leisureInteractions:relationshipsSatisfactionRatio",
                     label: "Relationships Satisfaction Ratio",
-                    negativeState: false,
-                    units: "%"
-                },
-                {
-                    checked: true,
-                    filename: "leisureInteractions:socialActivitiesRatio",
-                    label: "Social Activities Ratio",
                     negativeState: false,
                     units: "%"
                 },
@@ -455,7 +421,7 @@ export default {
                     filename: "livingConditions:medianIncomePpsRatio",
                     label: "Median Income in PPS Ratio",
                     negativeState: false,
-                    units: "PPS"
+                    units: "%"
                 },
                 {
                     checked: true,
@@ -543,8 +509,8 @@ export default {
             aggregators: [
                 {
                     checked: true,
-                    filename: "mainActivity:avgRemainedWorkHours",
-                    label: "Average Remained Work Hours Ratio",
+                    filename: "mainActivity:avgRemainingWorkingHours",
+                    label: "Average Remaining Working Hours Ratio",
                     negativeState: false,
                     units: "hours"
                 },
