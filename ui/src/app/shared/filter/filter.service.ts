@@ -57,8 +57,8 @@ export class FilterService {
         this.timeRangeFetcher.fetch(this.filter);
     }
 
-    onUpdatePeriods(year: number): void {
-        if (!this.state.isStatsAnalysis()) {
+    onUpdatePeriods(year: number, condition: boolean = true): void {
+        if (condition) {
             this.filter.form.get('startYear')?.setValue(year);
             this.filter.form.get('endYear')?.setValue(year);
         }

@@ -43,20 +43,25 @@ export class StatsChartScreenComponent implements OnInit {
     protected chartOptions = this.chartService.generateChartOptions(this.chartType);
     protected className: string = this.prepareClassName();
     protected isHorizontal = false;
+    private scores: LifeIndexMultipleResponses | null = null;
 
     ngOnInit(): void {
         this.fetcherState.lifeIndex$
             .subscribe((scores: LifeIndexMultipleResponses) => {
-                this.chartType = this.filter.form.get('chartType')?.value
-                this.chartData = this.chartService.generateChartData(this.chartType, scores);
-                this.chartOptions = this.chartService.generateChartOptions(this.chartType);
-                this.isHorizontal = this.chartService.isHorizontal(this.chartType);
-                this.className = this.prepareClassName();
+                // Prevent rendering the chart when indicator changes until "Apply Filter" button is pressed
+                if (this.scores !== scores) {
+                    this.chartType = this.filter.form.get('chartType')?.value
+                    this.chartData = this.chartService.generateChartData(this.chartType, scores);
+                    this.chartOptions = this.chartService.generateChartOptions(this.chartType);
+                    this.isHorizontal = this.chartService.isHorizontal(this.chartType);
+                    this.className = this.prepareClassName();
+                    this.scores = scores;
 
-                // Workaround to update the indexAxis
-                if (this.chart?.options) {
-                    this.chart.options.indexAxis = this.isHorizontal ? 'y' : 'x';
-                    this.chart.render();
+                    // Workaround to update the indexAxis
+                    if (this.chart?.options) {
+                        this.chart.options.indexAxis = this.isHorizontal ? 'y' : 'x';
+                        this.chart.render();
+                    }
                 }
             });
     }

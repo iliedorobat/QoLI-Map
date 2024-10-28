@@ -10,9 +10,15 @@ import {MENU_ITEMS_IDS} from "@/app/app.const";
 
 export interface IState {
     analysisType: ANALYSIS_TYPE;
+    statsAnalysisType: STATS_ANALYSIS_TYPE;
 
     isAggregatedAnalysis(): boolean;
+    isChartAnalysis(): boolean;
     isIndividuallyAnalysis(): boolean;
+    isStatsAnalysis(): boolean;
+    isTableAnalysis(): boolean;
+    setStatsAnalysisType(buttonId: string): void;
+    resetStatsAnalysisType(): void;
 }
 
 @Injectable({

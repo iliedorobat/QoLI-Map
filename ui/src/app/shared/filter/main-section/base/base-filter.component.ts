@@ -67,11 +67,11 @@ export class BaseFilterComponent implements OnInit {
     }
 
     onEndYearChanges(event: MatSelectChange): void {
-        this.filterService.onUpdatePeriods(event.value);
+        this.filterService.onUpdatePeriods(event.value, !this.state.isStatsAnalysis());
     }
 
     onStartYearChanges(event: MatSelectChange): void {
-        this.filterService.onUpdatePeriods(event.value);
+        this.filterService.onUpdatePeriods(event.value, !this.state.isStatsAnalysis());
     }
 
     isCountryChecked(countryCode: string): boolean {
