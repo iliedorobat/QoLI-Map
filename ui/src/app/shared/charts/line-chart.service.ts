@@ -12,23 +12,12 @@ export class LineChartService {
         private chartUtils: ChartUtils,
     ) {}
 
-    sortByDesc(a: number, b: number) {
-        if (a < b) {
-            return -1;
-        } else if (a > b) {
-            return 1;
-        }
-        return 0;
-    }
-
     public generateChartDatasets = (scores: LifeIndexMultipleResponses): ChartDataset[] => {
         const datasets = [] as ChartDataset[];
+        const timeRange = this.chartUtils.extractTimeRange(scores);
 
         for (const [country, values] of Object.entries(scores)) {
-            const periods = Object.keys(values)
-                .map((year: string) => parseInt(year))
-                .sort(this.sortByDesc);
-            const tempData = periods.map((year: number) => values[year]);
+            const tempData = timeRange.map((year: number) => values[year]);
             const data = this.chartUtils.generateChartDataset(tempData, country);
             datasets.push(data);
         }

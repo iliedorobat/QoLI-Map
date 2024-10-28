@@ -2,7 +2,6 @@ import {Injectable} from '@angular/core';
 import {ChartDataset} from 'chart.js/dist/types';
 
 import {ChartUtils} from '@/app/shared/charts/chart.utils';
-import {Filter} from '@/app/shared/filter';
 import {LifeIndexFetcher} from '@/app/shared/services/fetch/life-index.fetcher';
 import {LifeIndexMultipleResponses} from '@/app/views/atlas/constants/response.types';
 
@@ -12,15 +11,14 @@ import {LifeIndexMultipleResponses} from '@/app/views/atlas/constants/response.t
 export class BarChartService {
     constructor(
         private chartUtils: ChartUtils,
-        private filter: Filter,
         private lifeIndexFetcher: LifeIndexFetcher
     ) {}
 
     public generateChartDatasets = (scores: LifeIndexMultipleResponses): ChartDataset[] => {
-        const {startYear, endYear} = this.filter.baseFilter;
         const datasets = [] as ChartDataset[];
+        const timeRange = this.chartUtils.extractTimeRange(scores);
 
-        for (let year = startYear; year <= endYear; year++) {
+        for (let year of timeRange) {
             const data = this.lifeIndexFetcher.reduce(scores, year);
             const dataset = this.chartUtils.generateChartDataset(Object.values(data)) as ChartDataset;
             dataset.label = year.toString();

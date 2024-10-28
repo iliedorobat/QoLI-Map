@@ -54,24 +54,18 @@ export class ChartService {
         return `${COUNTRIES[countryCode]} (${year})`;
     };
 
-    public generateChartLabels = (chartType: keyof ChartTypeRegistry): string[] => {
+    public generateChartLabels = (chartType: keyof ChartTypeRegistry, scores?: LifeIndexMultipleResponses): string[] => {
         if (chartType === 'bar') {
             return this.filter.baseFilter.countries;
         }
 
-        const {startYear, endYear} = this.filter.baseFilter;
-        const periods = [];
-
-        for (let year = startYear; year <= endYear; year++) {
-            periods.push(String(year));
-        }
-
-        return periods;
+        const timeRange = this.chartUtils.extractTimeRange(scores || {});
+        return timeRange.map(year => String(year));
     };
 
     public generateChartData = (chartType: keyof ChartTypeRegistry, scores?: LifeIndexMultipleResponses): ChartData => {
         return {
-            labels: this.generateChartLabels(chartType),
+            labels: this.generateChartLabels(chartType, scores),
             datasets: this.generateChartDatasets(chartType, scores)
         };
     };
