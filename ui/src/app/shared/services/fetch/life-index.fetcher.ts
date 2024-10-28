@@ -50,7 +50,7 @@ export class LifeIndexFetcher {
                 arr.push(dimension.filename);
             } else {
                 dimension.aggregators.forEach(indicator => {
-                    indicator.checked && arr.push(`${dimension.filename}:${indicator.filename}`);
+                    indicator.checked && arr.push(indicator.filename);
                 });
             }
 

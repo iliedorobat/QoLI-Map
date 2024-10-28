@@ -6,9 +6,6 @@ import {LifeIndexFetcher} from '@/app/shared/services/fetch/life-index.fetcher';
 import {StatsFilterService} from './stats-options/stats-filter.service';
 import {SummaryControlService} from '@/app/views/atlas/services/summary-control.service';
 
-// Suffix added by ngbAccordionItem
-const SECTION_SUFFIX = '-collapse';
-
 @Injectable({
     providedIn: 'root'
 })
@@ -36,10 +33,10 @@ export class FilterService {
     onSectionReset(event: Event): void {
         event.stopPropagation();
         const target = event.target as HTMLElement;
-        const value = get(target, ['offsetParent', 'attributes', 'aria-controls', 'value']);
+        const className = get(target, ['offsetParent', 'offsetParent', 'parentElement', 'className']);
 
-        switch (value) {
-            case 'sidebar-main-section' + SECTION_SUFFIX:
+        switch (true) {
+            case className.includes('sidebar-main-section'):
                 this.filter.aggregatedFilter.reset(this.filter.form);
                 this.filter.baseFilter.reset(this.filter.form);
                 this.filter.individuallyFilter.reset(this.filter.form);
