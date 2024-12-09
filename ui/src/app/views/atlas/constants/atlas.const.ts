@@ -14,50 +14,50 @@ const LAYERS = {
         BASE: {
             name: 'Open Street Map',
             enabled: true,
-            layer: tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', LAYER_OPTIONS)
+            layer: tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', LAYER_OPTIONS)
         },
         CYCLE: {
             name: 'Cycle',
             enabled: true,
-            layer: tileLayer('http://{s}.tile.opencyclemap.org/cycle/{z}/{x}/{y}.png', LAYER_OPTIONS)
+            layer: tileLayer('https://{s}.tile.opencyclemap.org/cycle/{z}/{x}/{y}.png', LAYER_OPTIONS)
         },
         LAND: {
             name: 'Land',
             enabled: true,
-            layer: tileLayer('http://{s}.tile3.opencyclemap.org/landscape/{z}/{x}/{y}.png', LAYER_OPTIONS)
+            layer: tileLayer('https://{s}.tile3.opencyclemap.org/landscape/{z}/{x}/{y}.png', LAYER_OPTIONS)
         },
         TRANSPORT: {
             name: 'Public Transport',
             enabled: true,
-            layer: tileLayer('http://{s}.tile2.opencyclemap.org/transport/{z}/{x}/{y}.png', LAYER_OPTIONS)
+            layer: tileLayer('https://{s}.tile2.opencyclemap.org/transport/{z}/{x}/{y}.png', LAYER_OPTIONS)
         }
     },
     CARTO: {
         BASE: {
             name: 'Black - White',
             enabled: false,
-            layer: tileLayer('http://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}.png', LAYER_OPTIONS)
+            layer: tileLayer('https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}.png', LAYER_OPTIONS)
         }
     },
     ESRI: {
         NAT_GEO: {
             name: 'National Geographic',
             enabled: false,
-            layer: tileLayer('http://server.arcgisonline.com/ArcGIS/rest/services/NatGeo_World_Map/MapServer/tile/{z}/{y}/{x}', LAYER_OPTIONS)
+            layer: tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/NatGeo_World_Map/MapServer/tile/{z}/{y}/{x}', LAYER_OPTIONS)
         }
     },
     MAP_BOX: {
         BRIGHT: {
             name: 'MapBox Bright',
             enabled: false,
-            layer: tileLayer('http://a.tiles.mapbox.com/v3/mapbox.world-bright/{z}/{x}/{y}.png', LAYER_OPTIONS)
+            layer: tileLayer('https://a.tiles.mapbox.com/v3/mapbox.world-bright/{z}/{x}/{y}.png', LAYER_OPTIONS)
         }
     },
     STAMEN: {
         TERRAIN: {
             name: 'Terrain',
             enabled: false,
-            layer: tileLayer('http://tile.stamen.com/terrain/{z}/{x}/{y}.png', LAYER_OPTIONS)
+            layer: tileLayer('https://tile.stamen.com/terrain/{z}/{x}/{y}.png', LAYER_OPTIONS)
         }
     },
     // TODO:
@@ -65,7 +65,7 @@ const LAYERS = {
         LANDSCAPE: {
             name: 'Landscape',
             enabled: false,
-            layer: tileLayer('http://{s}.tile.thunderforest.com/landscape/{z}/{x}/{y}.png?apikey={apikey}', LAYER_OPTIONS)
+            layer: tileLayer('https://{s}.tile.thunderforest.com/landscape/{z}/{x}/{y}.png?apikey={apikey}', LAYER_OPTIONS)
         }
     }
 };
