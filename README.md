@@ -1,4 +1,4 @@
-# [European Life Leaf](http://elife.webdata.ro/)
+# [European Life Index](http://elife.webdata.ro/)
 
 <img width="1726" alt="01" src="https://github.com/user-attachments/assets/e2c44656-6402-4ba0-8cfc-69a39a84d83f">
 

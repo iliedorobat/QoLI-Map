@@ -9,7 +9,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 # 2.4.0
 - Update the main URI path
 - Update the port number
-- Rebranding "European Life Index Leaf" to "European Life Leaf"
+- Rebranding "European Life Index Leaf" to "European Life Index"
 
 # 2.3.0
 - Added web server
