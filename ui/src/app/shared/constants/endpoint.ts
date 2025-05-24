@@ -1,6 +1,6 @@
 import {IS_PRODUCTION, USE_TOMCAT_SERVER} from "@/app/shared/constants/env.const";
 
-const DOMAIN = IS_PRODUCTION ? "webdata.ro" : "localhost";
+const DOMAIN = IS_PRODUCTION ? "life-index.eu" : "localhost";
 const PORT = IS_PRODUCTION
     ? USE_TOMCAT_SERVER ? "8080" : "8443"
     : "8080";
