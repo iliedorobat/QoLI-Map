@@ -4,7 +4,7 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ---
 
 # 2.5.1
-- Made the main menu responsive
+- The main menu and the sidebar have been made responsive
 - Tooltips with QoLI scores were hidden by default
 
 # 2.5.0
