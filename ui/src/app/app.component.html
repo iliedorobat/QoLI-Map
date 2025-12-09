@@ -8,6 +8,10 @@
 
     <mat-drawer-content class="map-container">
         <div id="header">
+            <button id="logo-button" type="button" class="btn">
+                {{ MENU_LOGO_ITEM.label }}
+            </button>
+
             <button
                 *ngFor="let item of MENU_ITEMS"
                 [id]="item.id"
@@ -18,16 +22,18 @@
                     'active': activeMenuItemId === item.id
                 }"
                 (click)="onMenuItemClick($event, item)"
-                [disabled]="item.id !== MENU_ITEMS_IDS.LOGO && fetcherState.isLoading"
+                [disabled]="fetcherState.isLoading"
             >
                 <div class="button-content">
-                    <i *ngIf="item.iconClasses" [ngClass]="item.iconClasses"></i>
-                    {{ item.label }}
+                    <i [ngClass]="item.iconClasses"></i>
+                    <span class="label">
+                        {{ item.label }}
+                    </span>
                 </div>
             </button>
             <button id="checkbox-button" (click)="onToggleScore()">
                 <mat-checkbox [checked]="showScore">
-                    Show Score
+                    Score
                 </mat-checkbox>
             </button>
         </div>

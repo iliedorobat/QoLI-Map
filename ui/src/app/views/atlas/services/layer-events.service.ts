@@ -18,9 +18,11 @@ export class LayerEventsService {
         private tooltipService: TooltipService
     ) {}
 
-    public addEvents(map: Map, layer: GeoJSON, geoLand: GeoFeature, response: LifeIndexResponse, summaryControl: ISummaryControl | undefined) {
+    public addEvents(map: Map, layer: GeoJSON, geoLand: GeoFeature, response: LifeIndexResponse, summaryControl: ISummaryControl | undefined, showScore: boolean) {
         // this.onBindPopup(layer, geoLand, response);
-        this.onBindTooltip(layer, geoLand, response);
+        if (showScore) {
+            this.onBindTooltip(layer, geoLand, response);
+        }
         this.onLayerMouseOver(layer, geoLand, response, summaryControl);
         this.onLayerMouseOut(layer, geoLand, response, summaryControl);
     }

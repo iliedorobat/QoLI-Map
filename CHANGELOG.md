@@ -3,6 +3,10 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 ---
 
+# 2.5.1
+- The main menu and the sidebar have been made responsive
+- Tooltips with QoLI scores were hidden by default
+
 # 2.5.0
 - Reduce the time range list for individually analysis so that only the data for the existing years are displayed
 

@@ -20,14 +20,29 @@
         button {
             display: flex;
             align-items: center;
+            justify-content: center;
             padding: 0;
             height: $atlas-header-height;
+            transition: all 0.2s linear 0s;
 
-            min-width: 150px;
+            min-width: 40px;
             color: #292929;
             background-color: inherit;
             border: inherit;
             border-radius: $size-xsmall;
+
+            @media only screen and (min-width: 640px) {
+                min-width: 80px;
+            }
+
+            @media only screen and (min-width: 840px) {
+                min-width: 120px;
+            }
+
+            &#checkbox-button {
+                min-width: unset;
+                padding-right: $size-medium;
+            }
 
             &#logo-button {
                 font-family: cursive;
@@ -51,35 +66,17 @@
             > .button-content {
                 display: flex;
                 align-items: center;
-                gap: $size-small;
+                gap: 12px;
 
                 > i {
-                    margin-right: 2px;
                     font-size: 14px;
                 }
-            }
-        }
 
-        // button effects: https://codepen.io/foxeisen/pen/bqZxLa
-        button {
-            transition: all 0.2s linear 0s;
+                > .label {
+                    display: none;
 
-            &:not(#checkbox-button):not(#logo-button) {
-                &:before {
-                    content: "\f054";
-                    font-family: FontAwesome;
-                    width: 30px;
-                    transform: scale(0,1);
-                    transform-origin: left center;
-                    transition: all 0.2s linear 0s;
-                }
-
-                &:hover {
-                    text-indent: 12px;
-
-                    &:before {
-                        transform: scale(1, 1);
-                        text-indent: 0;
+                    @media (min-width: 640px) {
+                        display: initial;
                     }
                 }
             }
