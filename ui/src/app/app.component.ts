@@ -14,7 +14,7 @@ import {StatsChartScreenComponent} from '@/app/views/stats/chart/stats-chart-scr
 import {State} from "@/app/shared/state/state";
 import {StatsTableScreenComponent} from '@/app/views/stats/table/stats-table-screen.component';
 
-import {DEFAULT_ACTIVE_MENU_ITEM_ID, MENU_ITEMS, MENU_ITEMS_IDS} from './app.const';
+import {DEFAULT_ACTIVE_MENU_ITEM_ID, MENU_ITEMS, MENU_ITEMS_IDS, MENU_LOGO_ITEM} from './app.const';
 
 @Component({
     selector: 'qoli-root',
@@ -27,6 +27,7 @@ export class AppComponent implements OnDestroy {
 
     protected readonly MENU_ITEMS: Array<MenuItem> = MENU_ITEMS;
     protected readonly MENU_ITEMS_IDS = MENU_ITEMS_IDS;
+    protected readonly MENU_LOGO_ITEM = MENU_LOGO_ITEM;
     protected activeMenuItemId: string = DEFAULT_ACTIVE_MENU_ITEM_ID;
     protected showScore: boolean = true;
 

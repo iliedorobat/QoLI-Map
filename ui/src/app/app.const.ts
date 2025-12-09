@@ -9,6 +9,12 @@ const MENU_ITEMS_IDS = {
     STATS_TABLE: 'stats-table-button',
 };
 
+const MENU_LOGO_ITEM = {
+    id: MENU_ITEMS_IDS.LOGO,
+    label: 'eLife',
+    order: 0
+};
+
 const MENU_ITEMS = [
     {
         id: MENU_ITEMS_IDS.ABOUT,
@@ -21,11 +27,6 @@ const MENU_ITEMS = [
         iconClasses: 'fa-solid fa-filter',
         label: 'Filter',
         order: 2
-    },
-    {
-        id: MENU_ITEMS_IDS.LOGO,
-        label: 'European Life Index',
-        order: 0
     },
     {
         id: MENU_ITEMS_IDS.MAP,
@@ -60,4 +61,5 @@ export {
     DEFAULT_ACTIVE_MENU_ITEM_ID,
     MENU_ITEMS,
     MENU_ITEMS_IDS,
+    MENU_LOGO_ITEM,
 };
