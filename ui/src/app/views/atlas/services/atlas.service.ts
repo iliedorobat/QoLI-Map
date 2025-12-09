@@ -83,13 +83,13 @@ export class AtlasService {
         this.eventsService.onToggleTooltip(layers, response, showScore);
     }
 
-    public prepareLayers(map: Map, baseLayers: Array<IAtlasLayer>, response: LifeIndexResponse, summaryControl: ISummaryControl | undefined): Array<IAtlasLayer> {
-        const countriesLayers = FEATURES.map(country => this.getFeatureLayer(map, country, response, summaryControl));
+    public prepareLayers(map: Map, baseLayers: Array<IAtlasLayer>, response: LifeIndexResponse, summaryControl: ISummaryControl | undefined, showScore: boolean): Array<IAtlasLayer> {
+        const countriesLayers = FEATURES.map(country => this.getFeatureLayer(map, country, response, summaryControl, showScore));
 
         return [...baseLayers, ...countriesLayers];
     }
 
-    private getFeatureLayer(map: Map, geoLand: GeoFeature, response: LifeIndexResponse, summaryControl: ISummaryControl | undefined): IAtlasLayer {
+    private getFeatureLayer(map: Map, geoLand: GeoFeature, response: LifeIndexResponse, summaryControl: ISummaryControl | undefined, showScore: boolean): IAtlasLayer {
         const countryCode = geoLand.id as string;
         const score = this.datasetService.getScore(geoLand, response);
         const geoJsonObject = geoLand.geometry;
@@ -104,7 +104,7 @@ export class AtlasService {
         };
 
         const layer = geoJSON(geoJsonObject, options);
-        this.eventsService.addEvents(map, layer, geoLand, response, summaryControl);
+        this.eventsService.addEvents(map, layer, geoLand, response, summaryControl, showScore);
 
         return {
             geoLand,

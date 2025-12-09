@@ -4,7 +4,7 @@ import {MatDialog} from '@angular/material/dialog';
 import {MatDrawer} from '@angular/material/sidenav';
 import {TranslateService} from '@ngx-translate/core';
 
-import {Subject} from 'rxjs';
+import {Observable, Subject} from 'rxjs';
 
 import {AboutScreenComponent} from '@/app/views/about/about-screen.component';
 import {FetcherState} from '@/app/shared/state/fetcherState';
@@ -22,14 +22,14 @@ import {DEFAULT_ACTIVE_MENU_ITEM_ID, MENU_ITEMS, MENU_ITEMS_IDS, MENU_LOGO_ITEM}
     styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnDestroy {
-    private _showScore$ = new Subject();
-    private showScore$$ = this._showScore$.asObservable();
+    private _showScore$: Subject<boolean> = new Subject();
+    private showScore$$: Observable<boolean> = this._showScore$.asObservable();
 
     protected readonly MENU_ITEMS: Array<MenuItem> = MENU_ITEMS;
     protected readonly MENU_ITEMS_IDS = MENU_ITEMS_IDS;
     protected readonly MENU_LOGO_ITEM = MENU_LOGO_ITEM;
     protected activeMenuItemId: string = DEFAULT_ACTIVE_MENU_ITEM_ID;
-    protected showScore: boolean = true;
+    protected showScore: boolean = false;
 
     constructor(
         protected fetcherState: FetcherState,
@@ -42,7 +42,7 @@ export class AppComponent implements OnDestroy {
         translate.use('en-US');
 
         this.showScore$$.subscribe(showScore => {
-            this.showScore = showScore as boolean;
+            this.showScore = showScore;
         });
     }
 

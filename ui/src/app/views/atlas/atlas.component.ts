@@ -50,7 +50,7 @@ export class AtlasComponent implements OnInit, OnChanges {
     };
     private summaryControl: ISummaryControl | undefined;
 
-    @Input() showScore = true;
+    @Input() showScore = false;
     @Output() openSidebar = new EventEmitter();
 
     get layers(): Array<Layer | GeoJSON> {
@@ -62,7 +62,7 @@ export class AtlasComponent implements OnInit, OnChanges {
             .subscribe((scores: LifeIndexMultipleResponses) => {
                 if (this.map) {
                     this.scores = this.lifeIndexFetcher.reduce(scores, this.filter.baseFilter.startYear);
-                    this.atlasLayers = this.atlasService.prepareLayers(this.map, BASE_LAYERS, this.scores, this.summaryControl);
+                    this.atlasLayers = this.atlasService.prepareLayers(this.map, BASE_LAYERS, this.scores, this.summaryControl, this.showScore);
                 }
             });
         this.summaryControlService.updateContent('land-summary');
