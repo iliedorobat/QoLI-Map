@@ -31,7 +31,7 @@ export class FilterService {
         this.filter.save();
         this.lifeIndexFetcher.subscribe(this.filter);
         this.summaryControlService.updateContent('land-summary');
-        onToggleScore && onToggleScore(true);
+        // onToggleScore && onToggleScore(true);
     }
 
     onSectionReset(event: Event): void {
