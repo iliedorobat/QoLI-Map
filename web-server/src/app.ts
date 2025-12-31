@@ -15,6 +15,6 @@ app.use(cors());
 
 app.use(router);
 
-app.use('/', Express.static(path.join(__filename, '../../../ui/dist/qoli-map')));
+app.use('/', Express.static(path.join(__filename, '../../../ui/dist')));
 
 export default app;
