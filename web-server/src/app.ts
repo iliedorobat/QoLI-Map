@@ -1,6 +1,6 @@
 import Express from 'express';
 import cors from 'cors';
-import router from '#src/routes/router.js';
+import router from '#src/routes/router.ts';
 import * as path from 'node:path';
 
 import { fileURLToPath } from 'url';
