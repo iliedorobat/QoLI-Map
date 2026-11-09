@@ -37,6 +37,7 @@ The European Life Leaf (eLife) is a data-driven platform designed to provide a c
    ```bash
    cd ui
    npm install
+   npm run build
    ```
 
 4. **Set up the web server**
@@ -47,8 +48,8 @@ The European Life Leaf (eLife) is a data-driven platform designed to provide a c
 
 5. **Start the development server**
    ```bash
-   # From the root directory
-   npm start
+   # From the root directory of web-server
+   npm run start:dev
    ```
 
 ## Technologies Used
