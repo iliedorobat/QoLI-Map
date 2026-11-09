@@ -13,7 +13,7 @@ const ICONS = {
 
 
 const MIN_YEAR = 2004;
-const MAX_YEAR = (new Date()).getFullYear() - 2;
+const MAX_YEAR = new Date().getFullYear() - (new Date().getMonth() <= 6 ? 2 : 1);
 const DEFAULT_YEAR = MAX_YEAR;
 
 const AVAILABLE_INTERVAL: number[] = (
